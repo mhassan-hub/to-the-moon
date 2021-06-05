@@ -13,7 +13,7 @@ export default class Game extends React.Component {
         autoCenter: Phaser.Scale.CENTER_BOTH,
       },
       type: Phaser.AUTO,
-      backgroundColor: "#616161",
+      backgroundColor: "#000000",
       pixelArt: true,
       physics: {
         default: "arcade",
