@@ -13,20 +13,19 @@ export default class Win extends Phaser.Scene {
 
   create() {
     let { width, height } = this.sys.game.canvas;
-    this.add.image(400, 300, "background1").setOrigin(0);
+    this.add.image(0, 0, "background1").setOrigin(0).setScale(3.5);
 
     // this.add.image(0, 0, 0, 0, "background1").setOrigin(0);
 
     this.add
       .text(
         width * 0.5,
-        height * 0.25,
+        height * 0.1,
         "Congratulations, you reached the MOON!",
         {
           fontSize: 36,
         }
       )
       .setOrigin(0.5);
-    console.log(width);
   }
 }
