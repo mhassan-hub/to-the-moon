@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
 import Phaser from "phaser";
 import Menu from "./scenes/Menu";
-import { render } from '@testing-library/react';
-
-
+import Win from "./scenes/Win";
+import { render } from "@testing-library/react";
 
 export default class Game extends React.Component {
   componentDidMount() {
@@ -14,12 +13,12 @@ export default class Game extends React.Component {
         autoCenter: Phaser.Scale.CENTER_BOTH,
       },
       type: Phaser.AUTO,
-      backgroundColor: '#616161',
+      backgroundColor: "#000000",
       pixelArt: true,
       physics: {
         default: "arcade",
       },
-      scene: [Menu],
+      scene: [Menu, Win],
     };
     this.game = new Phaser.Game(config);
   }
