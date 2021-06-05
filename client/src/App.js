@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src="https://i.pinimg.com/originals/f6/20/a1/f620a179ca1acfd15a0754701677fb58.jpg" className="background" alt="background"></img>
-        <img src="https://www.clipartmax.com/png/middle/6-63877_ship-anchor-free-a-cartoon-moon-rocket-cartoon-rocket-ship.png" className="App-logo" alt="rocketship" />
+        <img src="https://www.clipartmax.com/png/middle/6-63877_ship-anchor-free-a-cartoon-moon-rocket-cartoon-rocket-ship.png" className="App-logo" alt="rocketship"/>
         <h1>
           To The Moon!
         </h1>
