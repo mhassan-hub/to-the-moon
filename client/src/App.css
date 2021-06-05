@@ -1,10 +1,16 @@
 .App {
   text-align: center;
+  /* background-image: "https://i.pinimg.com/originals/f6/20/a1/f620a179ca1acfd15a0754701677fb58.jpg"; */
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.background{
+  size: 1em;
+  z-index: -1;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -22,6 +28,15 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  
+}
+.button {
+  margin:20px;
 }
 
 .App-link {
