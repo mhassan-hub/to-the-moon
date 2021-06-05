@@ -27,7 +27,7 @@ class LaserGroup extends Phaser.Physics.Arcade.Group {
 
     this.createMultiple({
       classType: Laser,
-      frameQuantity: 30,
+      frameQuantity: 5 ,
       active: false,
       visible: false,
       key: 'laser',
@@ -153,7 +153,7 @@ export default class Menu extends Phaser.Scene {
   }
 
   shootLaser() {
-    this.laserGroup.fireLaser(this.player.x, this.player.y - 20);
+    this.laserGroup.fireLaser(this.player.x-2, this.player.y-43);
   }
 
 
