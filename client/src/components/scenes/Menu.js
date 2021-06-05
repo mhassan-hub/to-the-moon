@@ -46,11 +46,8 @@ export default class Menu extends Phaser.Scene {
   constructor() {
     super("Menu");
 
-    // this.laserGroup;
   }
 
-  
- 
   preload() {
     // this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.image("asteroid", "assets/Asteroid.png")
