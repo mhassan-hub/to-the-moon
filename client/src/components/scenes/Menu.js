@@ -15,13 +15,14 @@ export default class Menu extends Phaser.Scene {
   //Preload all assets to load files from asset folder
   preload() {
     this.load.audio("audioSound", "assets/Demon.mp3");
+    this.load.audio("laserSound", "laser-sound.mp3");
     this.load.image("asteroid", "assets/Asteroid.png");
     this.load.image("ship", "assets/fighter.png");
     this.load.image("background", "assets/starfield.png");
     this.load.image("laser", "assets/laser.png");
     this.load.spritesheet("explosion", "assets/explosion.png", {
-      frameWidth: 16,
-      frameHeight: 16,
+      frameWidth: 32,
+      frameHeight: 32,
     });
   }
 
@@ -66,7 +67,8 @@ export default class Menu extends Phaser.Scene {
 
     //Overhead display text
     const textStyle = {
-      fontSize: 32
+      fontSize: 32,
+      color: '#FFFF00'
     }
     this.playerScoreLabel = this.add.text(5, 5, this.playerScore, textStyle)
     this.playerLifeLabel = this.add.text(995, 5, this.playerLives, textStyle)
@@ -84,12 +86,12 @@ export default class Menu extends Phaser.Scene {
     //Creates explosion animation when asteroids are destroyed.
     this.anims.create({
       key: "explode",
-      frames: this.anims.generateFrameNumbers("explosion"),
-      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("explosion", {start: 1, end: 6}),
+      frameRate: 15,
       hideOnComplete: true,
       setCircle: 300,
     });
-
+  
     //Function which dictates asteroid velocity after creation/re-enablement
     function setAsteroidCollision(asteroids) {
       asteroids.children.iterate(function (asteroid) {
@@ -105,6 +107,8 @@ export default class Menu extends Phaser.Scene {
         .image(this.player.x, this.player.y, "laser")
         .setScale(0.25);
       this.laser.setVelocityY(-900);
+      // this.laserSound = this.sound.add("laserSound", { volume: 0.1});
+      // this.laserSound.play()
       this.physics.add.collider(
         this.laser,
         this.asteroids,
