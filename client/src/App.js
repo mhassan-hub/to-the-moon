@@ -1,4 +1,5 @@
 import Game from "./components/game";
+import About from "./components/About";
 import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -20,7 +21,9 @@ function App() {
           <Route path="/game">
             <Game />
           </Route>
-
+          <Route path="/about">
+            <About />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
