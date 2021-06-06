@@ -2,7 +2,7 @@ import React from "react";
 import Phaser from "phaser";
 import Menu from "./scenes/Menu";
 import Win from "./scenes/Win";
-import Lose from "./scenes/Lose"
+import Lose from "./scenes/Lose";
 import { render } from "@testing-library/react";
 
 export default class Game extends React.Component {
@@ -25,6 +25,10 @@ export default class Game extends React.Component {
   }
 
   render() {
-    return <div id="game" />;
+    return (
+      <div className="display">
+        <div id="game"> </div>
+      </div>
+    );
   }
 }
