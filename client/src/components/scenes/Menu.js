@@ -152,7 +152,10 @@ export default class Menu extends Phaser.Scene {
 
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < -20000) {
-      this.scene.start("Win");
+      this.scene.start("Win", {
+        lives: this.playerLives,
+        score: this.playerScore,
+      });
       this.scene.stop("Menu");
     }
 
