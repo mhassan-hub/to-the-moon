@@ -151,6 +151,11 @@ export default class Menu extends Phaser.Scene {
       this.scene.start("Win");
       this.scene.stop("Menu");
     }
+
+    if (this.playerLives === 0) {
+      this.scene.start("Lose")
+      this.scene.stop("Menu")
+    }
     // timedEvent = this.time.delayedCall(
     //   5000,
     //   () => {
