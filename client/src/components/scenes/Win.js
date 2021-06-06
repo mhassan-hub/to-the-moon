@@ -5,6 +5,11 @@ export default class Win extends Phaser.Scene {
     super("Win");
   }
 
+  init(data) {
+    this.lives = data.lives;
+    this.score = data.score;
+  }
+
   preload() {
     // this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.image("ship", "assets/fighter.png");
@@ -21,7 +26,7 @@ export default class Win extends Phaser.Scene {
       .text(
         width * 0.5,
         height * 0.1,
-        "Congratulations, you reached the MOON!",
+        `Congratulations, you reached the MOON! with a score of ${this.score}, and ${this.lives} lives`,
         {
           fontSize: 36,
         }
