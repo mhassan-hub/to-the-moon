@@ -8,11 +8,25 @@
   pointer-events: none;
 }
 
+
+
+
 .background{
   size: 1em;
   z-index: -1;
 }
+.background-img{
+  height: 500px;
+  z-index: -1;
 
+}
+.display{
+  background-image: "https://www.vhv.rs/dpng/d/463-4635355_svg-black-and-white-arcade-clipart-arcade-game.png"
+}
+
+.text {
+  color: blue
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
