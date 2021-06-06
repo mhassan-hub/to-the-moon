@@ -13,7 +13,7 @@ export default class Menu extends Phaser.Scene {
   //Preload all assets to load files from asset folder
   preload() {
     this.load.audio("audioSound", "assets/Demon.mp3");
-    this.load.audio("laserSound", "laser-sound.mp3");
+    this.load.audio("laserSound", "assets/laser-sound.mp3");
     this.load.image("asteroid", "assets/Asteroid.png");
     this.load.image("ship", "assets/fighter.png");
     this.load.image("background", "assets/starfield.png");
@@ -72,7 +72,7 @@ export default class Menu extends Phaser.Scene {
     this.playerLifeLabel = this.add.text(995, 5, this.playerLives, textStyle);
 
     //Creates music file to play in background and plays it
-    this.music = this.sound.add("audioSound", { volume: 0.1, loop: true });
+    // this.music = this.sound.add("audioSound", { volume: 0.9, loop: true });
     // this.music.play();
 
     //keybindings
@@ -108,8 +108,8 @@ export default class Menu extends Phaser.Scene {
         .image(this.player.x, this.player.y, "laser")
         .setScale(0.25);
       this.laser.setVelocityY(-900);
-      // this.laserSound = this.sound.add("laserSound", { volume: 0.1});
-      // this.laserSound.play()
+      this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
+      this.laserSound.play();
       this.physics.add.collider(
         this.laser,
         this.asteroids,
