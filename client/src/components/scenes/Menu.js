@@ -5,11 +5,9 @@ export default class Menu extends Phaser.Scene {
     super("Menu");
   }
 
-  init(){
-
-    this.playerScore = 0
-    this.playerLives = 3
-
+  init() {
+    this.playerScore = 0;
+    this.playerLives = 3;
   }
 
   //Preload all assets to load files from asset folder
@@ -38,7 +36,7 @@ export default class Menu extends Phaser.Scene {
       .setOrigin(0);
 
     //sets player and player physics
-    this.player = this.physics.add.sprite(width/2, height, "ship");
+    this.player = this.physics.add.sprite(width / 2, height, "ship");
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
 
@@ -68,10 +66,10 @@ export default class Menu extends Phaser.Scene {
     //Overhead display text
     const textStyle = {
       fontSize: 32,
-      color: '#FFFF00'
-    }
-    this.playerScoreLabel = this.add.text(5, 5, this.playerScore, textStyle)
-    this.playerLifeLabel = this.add.text(995, 5, this.playerLives, textStyle)
+      color: "#FFFF00",
+    };
+    this.playerScoreLabel = this.add.text(5, 5, this.playerScore, textStyle);
+    this.playerLifeLabel = this.add.text(995, 5, this.playerLives, textStyle);
 
     //Creates music file to play in background and plays it
     this.music = this.sound.add("audioSound", { volume: 0.1, loop: true });
@@ -86,12 +84,15 @@ export default class Menu extends Phaser.Scene {
     //Creates explosion animation when asteroids are destroyed.
     this.anims.create({
       key: "explode",
-      frames: this.anims.generateFrameNumbers("explosion", {start: 1, end: 6}),
+      frames: this.anims.generateFrameNumbers("explosion", {
+        start: 1,
+        end: 6,
+      }),
       frameRate: 15,
       hideOnComplete: true,
       setCircle: 300,
     });
-  
+
     //Function which dictates asteroid velocity after creation/re-enablement
     function setAsteroidCollision(asteroids) {
       asteroids.children.iterate(function (asteroid) {
@@ -119,13 +120,13 @@ export default class Menu extends Phaser.Scene {
     }
 
     function decreaseLives() {
-      this.playerLives--
-      this.playerLifeLabel.text = this.playerLives
+      this.playerLives--;
+      this.playerLifeLabel.text = this.playerLives;
     }
 
     function increaseScore() {
-      this.playerScore += 100
-      this.playerScoreLabel.text = this.playerScore
+      this.playerScore += 100;
+      this.playerScoreLabel.text = this.playerScore;
     }
 
     //Function which handles game logic surrounding collision and destructions
@@ -142,7 +143,6 @@ export default class Menu extends Phaser.Scene {
       let xVel = Phaser.Math.Between(-100, 100);
       let yVel = Phaser.Math.Between(100, 150);
       asteroid.setVelocity(xVel, yVel);
-      
     }
   }
 
@@ -157,8 +157,11 @@ export default class Menu extends Phaser.Scene {
     }
 
     if (this.playerLives === 0) {
-      this.scene.start("Lose")
-      this.scene.stop("Menu")
+      this.scene.start("Lose", {
+        lives: this.playerLives,
+        score: this.playerScore,
+      });
+      this.scene.stop("Menu");
     }
     // timedEvent = this.time.delayedCall(
     //   5000,
