@@ -2,6 +2,7 @@ import React from "react";
 import Phaser from "phaser";
 import Menu from "./scenes/Menu";
 import Win from "./scenes/Win";
+import Lose from "./scenes/Lose"
 import { render } from "@testing-library/react";
 
 export default class Game extends React.Component {
@@ -18,7 +19,7 @@ export default class Game extends React.Component {
       physics: {
         default: "arcade",
       },
-      scene: [Menu, Win],
+      scene: [Menu, Win, Lose],
     };
     this.game = new Phaser.Game(config);
   }
