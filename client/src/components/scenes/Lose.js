@@ -5,6 +5,11 @@ export default class Win extends Phaser.Scene {
     super("Lose");
   }
 
+  init(data) {
+    this.lives = data.lives;
+    this.score = data.score;
+  }
+
   preload() {
     // this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.image("ship", "assets/fighter.png");
@@ -21,7 +26,7 @@ export default class Win extends Phaser.Scene {
       .text(
         width * 0.5,
         height * 0.1,
-        "Hahaha you died!",
+        `Hahaha you died! with a score of ${this.score}`,
         {
           fontSize: 36,
         }
