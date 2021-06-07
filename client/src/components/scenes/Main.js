@@ -102,10 +102,10 @@ export default class Main extends Phaser.Scene {
       },
     })
 
-    this.healthIcon = this.physics.add.sprite(200,300, "healthIcon")
+    // this.healthIcon = this.physics.add.sprite(200,300, "healthIcon")
 
-    this.invincibilityIcon = this.physics.add.sprite(500,800, "invincibilityIcon")
-    .setScale(5)
+    // this.invincibilityIcon = this.physics.add.sprite(500,800, "invincibilityIcon")
+    // .setScale(5)
 
     // this.doubleFireIcon = this.physics.add.sprite (200, 300, "doubleShoot")
 
@@ -357,7 +357,7 @@ export default class Main extends Phaser.Scene {
         .sprite(asteroid.x, asteroid.y, "explosion")
         .setScale(5);
       explosion.play("explode");
-      asteroid.disableBody(true, true);
+      asteroid.disableBody(true, true);    
       this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
       this.explosionSound.play();
       const checkPlayerInvinc = (collisionObject === this.player && this.invincibility)
