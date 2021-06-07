@@ -14,7 +14,7 @@ export default class Main extends Phaser.Scene {
 
   //Preload all assets to load files from asset folder
   preload() {
-    this.load.audio("audioSound", "assets/Demon.mp3");
+    this.load.audio("audioSound", "assets/bgm.mp3");
     this.load.audio("laserSound", "assets/laser-sound.mp3");
     this.load.audio("coinSound", "assets/coin.wav")
     this.load.audio("explosionSound", "assets/explosion.wav")
@@ -183,8 +183,10 @@ export default class Main extends Phaser.Scene {
     // this.music.play();
 
     //keybindings
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.createCursorKeys()
+
     this.input.keyboard.on("keydown-SPACE", shoot, this);
+    
 
     setAsteroidCollision(this.asteroids);
     setAsteroidCollision(this.bitcoins)
@@ -222,11 +224,10 @@ export default class Main extends Phaser.Scene {
     }
 
     //Function to shoot down asteroids and enemies.
-    function shoot() {
+    function shoot() {    
       this.laser = this.physics.add
         .image(this.player.x-2, this.player.y-40, "laser")
         .setScale(0.25)
-
       this.laser.setVelocityY(-900);
       this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
       this.laserSound.play();
@@ -271,6 +272,8 @@ export default class Main extends Phaser.Scene {
         this
         );
     }
+
+   
 
     // function doubleShoot() {
     //   this.laser1 = this.physics.add
@@ -332,7 +335,8 @@ export default class Main extends Phaser.Scene {
 
     function setInvincibility() {
       this.invincibility = true
-      this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1});
+      this.invincibleSound = this.sound.add
+      ("invincibleSound", { volume: 0.1});
       this.invincibleSound.play();
       setTimeout(()=>{
         this.invincibility = false
@@ -390,7 +394,6 @@ export default class Main extends Phaser.Scene {
   }
 
   update() {
-
     
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
