@@ -34,7 +34,7 @@ export default class Main extends Phaser.Scene {
     this.load.image("doubleShoot", "assets/doubleshot.png")
     this.load.image("healthIcon", "assets/heart.png")
     this.load.image("invincibilityIcon", "assets/star.png")
-    this.load.audio('invincibleSound', "assets/battle.wav")
+    this.load.audio('invincibleSound', "assets/invincible.mp3")
   }
 
   //After loading assets create() will generate asset instances in game
@@ -104,7 +104,7 @@ export default class Main extends Phaser.Scene {
 
     this.healthIcon = this.physics.add.sprite(200,300, "healthIcon")
 
-    this.invincibilityIcon = this.physics.add.sprite(500,800, "invincibilityIcon")
+    this.invincibilityIcon = this.physics.add.sprite(300,400, "invincibilityIcon")
     .setScale(5)
 
     // this.doubleFireIcon = this.physics.add.sprite (200, 300, "doubleShoot")
@@ -234,21 +234,21 @@ export default class Main extends Phaser.Scene {
         this.laser,
         this.asteroids,
         collisionDestroy,
-        scoreIncreseAsteroid,
+        scoreIncreaseAsteroid,
         this
       );
       this.physics.add.collider(
         this.laser,
         this.enemies,
         collisionDestroy,
-        scoreIncreseAsteroid,
+        scoreIncreaseAsteroid,
         this
       ); 
       this.physics.add.collider(
         this.laser,
         this.enemy,
         collisionDestroy,
-        scoreIncreseAsteroid,
+        scoreIncreaseAsteroid,
         this
       );     
       if(this.laser.y > 800) {
@@ -284,7 +284,7 @@ export default class Main extends Phaser.Scene {
     //     this.laser1,
     //     this.asteroids,
     //     collisionDestroy,
-    //     scoreIncreseAsteroid,
+    //     scoreIncreaseAsteroid,
     //     this
     //   )
 
@@ -299,7 +299,7 @@ export default class Main extends Phaser.Scene {
     //     this.laser2,
     //     this.asteroids,
     //     collisionDestroy,
-    //     scoreIncreseAsteroid,
+    //     scoreIncreaseAsteroid,
     //     this
     //   )
     // }
@@ -324,6 +324,10 @@ export default class Main extends Phaser.Scene {
       this.playerLives--;
       this.playerLifeLabel.text = this.playerLives;
       }
+      if(this.invincibility){
+        this.playerScore += 50
+        this.playerScoreLabel.text = this.playerScore
+      }
     }
 
     function setInvincibility() {
@@ -333,7 +337,7 @@ export default class Main extends Phaser.Scene {
       setTimeout(()=>{
         this.invincibility = false
         this.invincibleSound.stop()
-      }, 5000)
+      }, 8000)
     }
 
     function increaseLives() {
@@ -341,7 +345,7 @@ export default class Main extends Phaser.Scene {
       this.playerLifeLabel.text = this.playerLives;
     }
 
-    function scoreIncreseAsteroid() {
+    function scoreIncreaseAsteroid() {
       this.playerScore += 100;
       this.playerScoreLabel.text = this.playerScore;
     }
