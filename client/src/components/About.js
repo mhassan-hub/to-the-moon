@@ -1,8 +1,6 @@
-import Game from "./game";
-import "../App.css";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import Button from "./Button";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import "../App.css";
 
 export default function Home() {
   return (
@@ -16,6 +14,10 @@ export default function Home() {
         <li>Omar Irfan</li>
         <li>Mohamed Hassan</li>
       </ul>
+
+      <Link to="/">
+        <Button>Home</Button>
+      </Link>
     </div>
   );
 }

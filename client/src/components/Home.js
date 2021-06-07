@@ -1,8 +1,6 @@
-import Game from "./game";
-import "../App.css";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import Button from "./Button";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import "../App.css";
 
 export default function Home() {
   return (
@@ -22,9 +20,6 @@ export default function Home() {
           </Link>
           <Link to="/about">
             <Button>About Us</Button>
-          </Link>
-          <Link to="/home">
-            <Button>Home</Button>
           </Link>
         </span>
       </div>
