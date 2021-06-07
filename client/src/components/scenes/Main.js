@@ -241,14 +241,14 @@ export default class Main extends Phaser.Scene {
         this.laser,
         this.enemies,
         collisionDestroy,
-        increaseScore,
+        scoreIncreseAsteroid,
         this
       ); 
       this.physics.add.collider(
         this.laser,
         this.enemy,
         collisionDestroy,
-        increaseScore,
+        scoreIncreseAsteroid,
         this
       );     
       if(this.laser.y > 800) {
@@ -360,7 +360,8 @@ export default class Main extends Phaser.Scene {
       asteroid.disableBody(true, true);
       this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
       this.explosionSound.play();
-      if (collisionObject === this.player && !this.invincibility) {
+      const checkPlayerInvinc = (collisionObject === this.player && this.invincibility)
+      if (!checkPlayerInvinc || collisionObject === this.laser) {
       collisionObject.disableBody(true, true);
       collisionObject.enableBody(true, width / 2, height, true, true);}
       let x = Phaser.Math.Between(0, 580);
