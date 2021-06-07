@@ -1,8 +1,8 @@
 import Phaser from "phaser";
 
-export default class Menu extends Phaser.Scene {
+export default class Main extends Phaser.Scene {
   constructor() {
-    super("Menu");
+    super("Main");
   }
 
   init() {
@@ -18,6 +18,7 @@ export default class Menu extends Phaser.Scene {
     this.load.image("ship", "assets/fighter.png");
     this.load.image("background", "assets/starfield.png");
     this.load.image("laser", "assets/laser.png");
+    this.load.image("burger", "assets/SpaceBurger.png");
     this.load.spritesheet("explosion", "assets/explosion.png", {
       frameWidth: 32,
       frameHeight: 32,
@@ -150,13 +151,16 @@ export default class Menu extends Phaser.Scene {
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
 
+    if (this.background.tilePositionY === -2000) {
+      this.add.image(400, 300, "background");
+    }
     //After a certain distance go to the winning screen
-    if (this.background.tilePositionY < -20000) {
+    if (this.background.tilePositionY < -8000) {
       this.scene.start("Win", {
         lives: this.playerLives,
         score: this.playerScore,
       });
-      this.scene.stop("Menu");
+      this.scene.stop("Main");
     }
 
     if (this.playerLives === 0) {
@@ -164,13 +168,13 @@ export default class Menu extends Phaser.Scene {
         lives: this.playerLives,
         score: this.playerScore,
       });
-      this.scene.stop("Menu");
+      this.scene.stop("Main");
     }
     // timedEvent = this.time.delayedCall(
     //   5000,
     //   () => {
     //     this.scene.start("Win");
-    //     this.scene.stop("Menu");
+    //     this.scene.stop("Main");
     //   },
     //   this
     // );

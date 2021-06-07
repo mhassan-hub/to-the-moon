@@ -1,11 +1,8 @@
-import Game from "./components/game";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Game from "./components/Game";
+import Home from "./components/Home";
 import About from "./components/About";
 import "./App.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Button from "./components/Button";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import Home from "./components/Home";
 
 function App() {
   // useEffect(() => {
