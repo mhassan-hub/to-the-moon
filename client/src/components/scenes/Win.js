@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Button from "./helpers/button";
 
 export default class Win extends Phaser.Scene {
   constructor() {
@@ -20,8 +21,16 @@ export default class Win extends Phaser.Scene {
     let { width, height } = this.sys.game.canvas;
     this.add.image(0, 0, "background1").setOrigin(0).setScale(3.5);
 
-    // this.add.image(0, 0, 0, 0, "background1").setOrigin(0);
-
+    const button = new Button(
+      width / 2,
+      height / 2,
+      "Restart Game",
+      this,
+      () => {
+        this.scene.start("Main");
+        this.scene.stop("Win");
+      }
+    ).setScale(2);
     this.add
       .text(
         width * 0.5,
