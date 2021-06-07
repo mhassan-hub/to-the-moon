@@ -14,6 +14,9 @@ export default class Menu extends Phaser.Scene {
   preload() {
     this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.audio("laserSound", "assets/laser-sound.mp3");
+    this.load.image("enemy", "assets/alienspaceship.png");
+    this.load.image("enemyshooter", "assets/alienshooterspaceship.png")
+    this.load.image("enemylaser", "assets/enemylaser.png");
     this.load.image("asteroid", "assets/Asteroid.png");
     this.load.image("ship", "assets/fighter.png");
     this.load.image("background", "assets/starfield.png");
@@ -40,6 +43,26 @@ export default class Menu extends Phaser.Scene {
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
 
+ 
+    
+    this.enemy = this.physics.add.sprite(500 , 0, "enemyshooter");
+    this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
+    this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
+
+    this.enemies = this.physics.add.group({
+      key: "enemy",     
+      frameQuantity: 3,
+      immovable: true,
+      setXY: {
+        x: Math.floor(Math.random() * 800),
+        y: 50,
+        stepX: Phaser.Math.Between(10, 750),
+        stepY: Phaser.Math.Between(15, 300),
+      },
+    })
+
+   
+    
     //creates asteroid group and sets asteroid physics
     this.asteroids = this.physics.add.group({
       key: "asteroid",
@@ -54,6 +77,8 @@ export default class Menu extends Phaser.Scene {
       },
     });
 
+    
+
     //Creates asteroid physics collider between player and asteroids
     this.physics.add.overlap(
       this.player,
@@ -62,6 +87,25 @@ export default class Menu extends Phaser.Scene {
       decreaseLives,
       this
     );
+
+    //Creates physics collider between enemy and player
+    this.physics.add.overlap(
+      this.player,
+      this.enemies,
+      collisionDestroy,
+      decreaseLives,
+      this
+    );
+
+    //Creates physics collider between enemy and shooting enemy
+    this.physics.add.overlap(
+      this.player,
+      this.enemy,
+      collisionDestroy,
+      decreaseLives,
+      this
+    );
+
 
     //Overhead display text
     const textStyle = {
@@ -80,6 +124,8 @@ export default class Menu extends Phaser.Scene {
     this.input.keyboard.on("keydown-SPACE", shoot, this);
 
     setAsteroidCollision(this.asteroids);
+    setEnemyCollision(this.enemies)
+    
 
     //Creates explosion animation when asteroids are destroyed.
     this.anims.create({
@@ -102,7 +148,16 @@ export default class Menu extends Phaser.Scene {
       });
     }
 
-    //Function to shoot down asteroids.
+    //Function which dictates enemy spaceship velocity after creation
+      function setEnemyCollision(enemies) {
+      enemies.children.iterate(function (enemy) {
+        let xVel = Phaser.Math.Between(-100, 100);
+        let yVel = Phaser.Math.Between(100, 150);
+        enemies.setVelocity(xVel, yVel);
+      });
+    }
+
+    //Function to shoot down asteroids and enemies.
     function shoot() {
       this.laser = this.physics.add
         .image(this.player.x, this.player.y, "laser")
@@ -117,7 +172,43 @@ export default class Menu extends Phaser.Scene {
         increaseScore,
         this
       );
+      this.physics.add.collider(
+        this.laser,
+        this.enemies,
+        collisionDestroy,
+        increaseScore,
+        this
+      ); 
+      this.physics.add.collider(
+        this.laser,
+        this.enemy,
+        collisionDestroy,
+        increaseScore,
+        this
+      );     
+      if(this.laser.y > 800) {
+        this.laser.destroy()
+      }
     }
+     
+    function enemyShoot() {
+      this.enemyLaser = this.physics.add
+        .image(this.enemy.x, this.enemy.y, "enemylaser")
+        .setScale(0.25);
+      this.enemyLaser.setVelocityY(800);
+      this.enemyLaserSound = this.sound.add("laserSound", { volume: 0.1 });
+      this.enemyLaserSound.play();
+      this.physics.add.collider(
+        this.player,
+        this.enemyLaser,
+        collisionDestroy,
+        decreaseLives,
+        this
+        );
+    }
+
+    this.time.addEvent({ delay: 2000, callback: enemyShoot, callbackScope: this, loop: true })
+    
 
     function decreaseLives() {
       this.playerLives--;
@@ -144,9 +235,12 @@ export default class Menu extends Phaser.Scene {
       let yVel = Phaser.Math.Between(100, 150);
       asteroid.setVelocity(xVel, yVel);
     }
+
   }
 
   update() {
+
+    
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
 
@@ -189,6 +283,9 @@ export default class Menu extends Phaser.Scene {
     }
 
     checkAsteroidPos(this.asteroids);
+    checkEnemyPos(this.enemies)
+    enemyPos(this.enemy)
+   
 
     //Function which constantly updates asteroid positions to reset their position if off canvas
     function checkAsteroidPos(asteroids) {
@@ -204,6 +301,22 @@ export default class Menu extends Phaser.Scene {
       asteroid.y = 0;
       let random = Phaser.Math.Between(15, 599);
       asteroid.x = random;
+    }
+
+    //function which "revives" shooter enemy constantly 
+    function enemyPos(enemy){
+      if (enemy.y > 800 || enemy.x < 0 ) {
+        resetPos(enemy)
+      }
+    }
+
+    //Function which constantly updates enemy positions to reset their position if off canvas
+    function checkEnemyPos(enemies) {
+      enemies.children.iterate(function (enemy) {
+        if (enemy.y > 800) {
+          resetPos(enemy);
+        }
+      });
     }
   }
 }
