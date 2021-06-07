@@ -36,6 +36,8 @@ export default class Main extends Phaser.Scene {
       .tileSprite(0, 0, 0, 0, "background")
       .setOrigin(0);
 
+    this.burger = this.add.image(400, 0, "burger").setScale(0.1);
+    this.burger.visible = false;
     //sets player and player physics
     this.player = this.physics.add.sprite(width / 2, height, "ship");
     this.player.setCollideWorldBounds(true, 1, 1);
@@ -150,9 +152,12 @@ export default class Main extends Phaser.Scene {
   update() {
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
-
-    if (this.background.tilePositionY === -2000) {
-      this.add.image(400, 300, "background");
+    if (
+      this.background.tilePositionY > -2000 &&
+      this.background.tilePositionY < -1000
+    ) {
+      this.burger.visible = true;
+      this.burger.y += 3;
     }
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < -8000) {
