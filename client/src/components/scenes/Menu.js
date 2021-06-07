@@ -8,7 +8,8 @@ export default class Menu extends Phaser.Scene {
   init() {
     this.playerScore = 0;
     this.playerLives = 3;
-    this.doubleFire = false;
+    // this.doubleFire = false;
+    this.invincibility = false
   }
 
   //Preload all assets to load files from asset folder
@@ -28,6 +29,8 @@ export default class Menu extends Phaser.Scene {
     });
     this.load.image("doubleShoot", "assets/doubleshot.png")
     this.load.image("healthIcon", "assets/heart.png")
+    this.load.image("invincibilityIcon", "assets/star.png")
+    this.load.audio('invincibleSound', "assets/battle.wav")
   }
 
   //After loading assets create() will generate asset instances in game
@@ -74,6 +77,9 @@ export default class Menu extends Phaser.Scene {
 
     this.healthIcon = this.physics.add.sprite(200,300, "healthIcon")
 
+    this.invincibilityIcon = this.physics.add.sprite(500,800, "invincibilityIcon")
+    .setScale(5)
+
     // this.doubleFireIcon = this.physics.add.sprite (200, 300, "doubleShoot")
 
     this.physics.add.overlap(
@@ -97,6 +103,14 @@ export default class Menu extends Phaser.Scene {
       this.healthIcon,
       collisionObtain,
       increaseLives,
+      this
+    )
+
+    this.physics.add.overlap(
+      this.player,
+      this.invincibilityIcon,
+      collisionObtain,
+      setInvincibility,
       this
     )
 
@@ -213,8 +227,20 @@ export default class Menu extends Phaser.Scene {
     // }
 
     function decreaseLives() {
+      if(!this.invincibility){
       this.playerLives--;
       this.playerLifeLabel.text = this.playerLives;
+      }
+    }
+
+    function setInvincibility() {
+      this.invincibility = true
+      this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1});
+      this.invincibleSound.play();
+      setTimeout(()=>{
+        this.invincibility = false
+        this.invincibleSound.stop()
+      }, 5000)
     }
 
     function increaseLives() {
@@ -241,8 +267,9 @@ export default class Menu extends Phaser.Scene {
       asteroid.disableBody(true, true);
       this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
       this.explosionSound.play();
+      if (collisionObject === this.player && !this.invincibility) {
       collisionObject.disableBody(true, true);
-      collisionObject.enableBody(true, width / 2, height, true, true);
+      collisionObject.enableBody(true, width / 2, height, true, true);}
       let x = Phaser.Math.Between(0, 580);
       asteroid.enableBody(true, x, 0, true, true);
       let xVel = Phaser.Math.Between(-100, 100);
