@@ -22,14 +22,25 @@ export default class Win extends Phaser.Scene {
     this.add.image(0, 0, "background1").setOrigin(0).setScale(3.5);
 
     // Adding a restart button
-    const button = new Button(
-      width / 2,
+    const restartButton = new Button(
+      width * 0.75,
       height / 2,
       "Restart Game",
       this,
       () => {
         this.scene.start("Main");
         this.scene.stop("Win");
+      }
+    );
+
+    const homeButton = new Button(
+      width * 0.25,
+      height / 2,
+      "Back to home",
+      this,
+      () => {
+        this.scene.stop("Win");
+        window.location.replace("http://localhost:3000/");
       }
     );
 
