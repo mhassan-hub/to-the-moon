@@ -14,10 +14,13 @@ export default class Menu extends Phaser.Scene {
   preload() {
     this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.audio("laserSound", "assets/laser-sound.mp3");
+    this.load.audio("coinSound", "assets/coin.wav")
+    this.load.audio("explosionSound", "assets/explosion.wav")
     this.load.image("asteroid", "assets/Asteroid.png");
     this.load.image("ship", "assets/fighter.png");
     this.load.image("background", "assets/starfield.png");
     this.load.image("laser", "assets/laser.png");
+    this.load.image("bitcoin", "assets/btc.png")
     this.load.spritesheet("explosion", "assets/explosion.png", {
       frameWidth: 32,
       frameHeight: 32,
@@ -34,7 +37,6 @@ export default class Menu extends Phaser.Scene {
     this.background = this.add
       .tileSprite(0, 0, 0, 0, "background")
       .setOrigin(0);
-
     //sets player and player physics
     this.player = this.physics.add.sprite(width / 2, height, "ship");
     this.player.setCollideWorldBounds(true, 1, 1);
@@ -53,6 +55,27 @@ export default class Menu extends Phaser.Scene {
         stepY: Phaser.Math.Between(15, 300),
       },
     });
+
+     //creates asteroid group and sets asteroid physics
+     this.bitcoins = this.physics.add.group({
+      key: "bitcoin",
+      repeat: 5,
+      immovable: true,
+      setXY: {
+        x: Math.floor(Math.random() * 800),
+        y: 0,
+        stepX: Phaser.Math.Between(10, 750),
+        stepY: Phaser.Math.Between(15, 300),
+      },
+    })
+
+    this.physics.add.overlap(
+      this.player,
+      this.bitcoins,
+      collisionObtain,
+      scoreIncreseBitcoin,
+      this
+    );
 
     //Creates asteroid physics collider between player and asteroids
     this.physics.add.overlap(
@@ -80,6 +103,7 @@ export default class Menu extends Phaser.Scene {
     this.input.keyboard.on("keydown-SPACE", shoot, this);
 
     setAsteroidCollision(this.asteroids);
+    setAsteroidCollision(this.bitcoins)
 
     //Creates explosion animation when asteroids are destroyed.
     this.anims.create({
@@ -114,7 +138,7 @@ export default class Menu extends Phaser.Scene {
         this.laser,
         this.asteroids,
         collisionDestroy,
-        increaseScore,
+        scoreIncreseAsteroid,
         this
       );
     }
@@ -124,8 +148,13 @@ export default class Menu extends Phaser.Scene {
       this.playerLifeLabel.text = this.playerLives;
     }
 
-    function increaseScore() {
+    function scoreIncreseAsteroid() {
       this.playerScore += 100;
+      this.playerScoreLabel.text = this.playerScore;
+    }
+
+    function scoreIncreseBitcoin() {
+      this.playerScore += 10;
       this.playerScoreLabel.text = this.playerScore;
     }
 
@@ -136,6 +165,8 @@ export default class Menu extends Phaser.Scene {
         .setScale(5);
       explosion.play("explode");
       asteroid.disableBody(true, true);
+      this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
+      this.explosionSound.play();
       collisionObject.disableBody(true, true);
       collisionObject.enableBody(true, width / 2, height, true, true);
       let x = Phaser.Math.Between(0, 580);
@@ -144,6 +175,19 @@ export default class Menu extends Phaser.Scene {
       let yVel = Phaser.Math.Between(100, 150);
       asteroid.setVelocity(xVel, yVel);
     }
+
+    function collisionObtain(player, powerUp) {
+      powerUp.disableBody(true, true)
+      this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
+      this.coinSound.play();
+      let x = Phaser.Math.Between(0, 580);
+      powerUp.enableBody(true, x, 0, true, true);
+      let xVel = Phaser.Math.Between(100, 300);
+      let yVel = Phaser.Math.Between(150, 400);
+      powerUp.setVelocity(xVel, yVel);
+  }
+
+
   }
 
   update() {
@@ -189,6 +233,7 @@ export default class Menu extends Phaser.Scene {
     }
 
     checkAsteroidPos(this.asteroids);
+    checkAsteroidPos(this.bitcoins)
 
     //Function which constantly updates asteroid positions to reset their position if off canvas
     function checkAsteroidPos(asteroids) {
