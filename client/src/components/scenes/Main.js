@@ -8,12 +8,16 @@ export default class Main extends Phaser.Scene {
   init() {
     this.playerScore = 0;
     this.playerLives = 3;
+    // this.doubleFire = false;
+    this.invincibility = false;
   }
 
   //Preload all assets to load files from asset folder
   preload() {
     this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.audio("laserSound", "assets/laser-sound.mp3");
+    this.load.audio("coinSound", "assets/coin.wav");
+    this.load.audio("explosionSound", "assets/explosion.wav");
     this.load.image("enemy", "assets/alienspaceship.png");
     this.load.image("enemyshooter", "assets/alienshooterspaceship.png");
     this.load.image("enemylaser", "assets/enemylaser.png");
@@ -21,11 +25,16 @@ export default class Main extends Phaser.Scene {
     this.load.image("ship", "assets/fighter.png");
     this.load.image("background", "assets/starfield.png");
     this.load.image("laser", "assets/laser.png");
+    this.load.image("bitcoin", "assets/btc.png");
     this.load.image("burger", "assets/SpaceBurger.png");
     this.load.spritesheet("explosion", "assets/explosion.png", {
       frameWidth: 32,
       frameHeight: 32,
     });
+    this.load.image("doubleShoot", "assets/doubleshot.png");
+    this.load.image("healthIcon", "assets/heart.png");
+    this.load.image("invincibilityIcon", "assets/star.png");
+    this.load.audio("invincibleSound", "assets/battle.wav");
   }
 
   //After loading assets create() will generate asset instances in game
@@ -77,6 +86,59 @@ export default class Main extends Phaser.Scene {
       },
     });
 
+    //creates asteroid group and sets asteroid physics
+    this.bitcoins = this.physics.add.group({
+      key: "bitcoin",
+      repeat: 5,
+      immovable: true,
+      setXY: {
+        x: Math.floor(Math.random() * 800),
+        y: 0,
+        stepX: Phaser.Math.Between(10, 750),
+        stepY: Phaser.Math.Between(15, 300),
+      },
+    });
+
+    this.healthIcon = this.physics.add.sprite(200, 300, "healthIcon");
+
+    this.invincibilityIcon = this.physics.add
+      .sprite(500, 800, "invincibilityIcon")
+      .setScale(5);
+
+    // this.doubleFireIcon = this.physics.add.sprite (200, 300, "doubleShoot")
+
+    this.physics.add.overlap(
+      this.player,
+      this.bitcoins,
+      collisionObtain,
+      scoreIncreseBitcoin,
+      this
+    );
+
+    // this.physics.add.overlap(
+    //   this.player,
+    //   this.doubleFireIcon,
+    //   setDoubleFire,
+    //   null,
+    //   this
+    // )
+
+    this.physics.add.overlap(
+      this.player,
+      this.healthIcon,
+      collisionObtain,
+      increaseLives,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.invincibilityIcon,
+      collisionObtain,
+      setInvincibility,
+      this
+    );
+
     //Creates asteroid physics collider between player and asteroids
     this.physics.add.overlap(
       this.player,
@@ -121,6 +183,7 @@ export default class Main extends Phaser.Scene {
     this.input.keyboard.on("keydown-SPACE", shoot, this);
 
     setAsteroidCollision(this.asteroids);
+    setAsteroidCollision(this.bitcoins);
     setEnemyCollision(this.enemies);
 
     //Creates explosion animation when asteroids are destroyed.
@@ -156,8 +219,9 @@ export default class Main extends Phaser.Scene {
     //Function to shoot down asteroids and enemies.
     function shoot() {
       this.laser = this.physics.add
-        .image(this.player.x, this.player.y, "laser")
+        .image(this.player.x - 2, this.player.y - 40, "laser")
         .setScale(0.25);
+
       this.laser.setVelocityY(-900);
       this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
       this.laserSound.play();
@@ -165,21 +229,21 @@ export default class Main extends Phaser.Scene {
         this.laser,
         this.asteroids,
         collisionDestroy,
-        increaseScore,
+        scoreIncreseAsteroid,
         this
       );
       this.physics.add.collider(
         this.laser,
         this.enemies,
         collisionDestroy,
-        increaseScore,
+        scoreIncreseAsteroid,
         this
       );
       this.physics.add.collider(
         this.laser,
         this.enemy,
         collisionDestroy,
-        increaseScore,
+        scoreIncreseAsteroid,
         this
       );
       if (this.laser.y > 800) {
@@ -203,6 +267,50 @@ export default class Main extends Phaser.Scene {
       );
     }
 
+    // function doubleShoot() {
+    //   this.laser1 = this.physics.add
+    //     .image(this.player.x-20, this.player.y-40, "laser")
+    //     .setScale(0.25)
+
+    //   this.laser1.setVelocityY(-900);
+    //   this.laserSound1 = this.sound.add("laserSound", { volume: 0.1 });
+    //   this.laserSound1.play();
+    //   this.physics.add.collider(
+    //     this.laser1,
+    //     this.asteroids,
+    //     collisionDestroy,
+    //     scoreIncreseAsteroid,
+    //     this
+    //   )
+
+    //   this.laser2 = this.physics.add
+    //     .image(this.player.x+16, this.player.y-40, "laser")
+    //     .setScale(0.25)
+
+    //   this.laser2.setVelocityY(-900);
+    //   this.laserSound2 = this.sound.add("laserSound", { volume: 0.1 });
+    //   this.laserSound2.play();
+    //   this.physics.add.collider(
+    //     this.laser2,
+    //     this.asteroids,
+    //     collisionDestroy,
+    //     scoreIncreseAsteroid,
+    //     this
+    //   )
+    // }
+
+    // function shotSelector() {
+    //   if (this.doubleFire) {
+    //     doubleShoot()
+    //   }
+    //   else {
+    //     shoot()
+    //   }
+    // }
+
+    // function setDoubleFire() {
+    //   this.doubleFire = true
+    // }
     this.time.addEvent({
       delay: 2000,
       callback: enemyShoot,
@@ -211,12 +319,34 @@ export default class Main extends Phaser.Scene {
     });
 
     function decreaseLives() {
-      this.playerLives--;
+      if (!this.invincibility) {
+        this.playerLives--;
+        this.playerLifeLabel.text = this.playerLives;
+      }
+    }
+
+    function setInvincibility() {
+      this.invincibility = true;
+      this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
+      this.invincibleSound.play();
+      setTimeout(() => {
+        this.invincibility = false;
+        this.invincibleSound.stop();
+      }, 5000);
+    }
+
+    function increaseLives() {
+      this.playerLives++;
       this.playerLifeLabel.text = this.playerLives;
     }
 
-    function increaseScore() {
+    function scoreIncreseAsteroid() {
       this.playerScore += 100;
+      this.playerScoreLabel.text = this.playerScore;
+    }
+
+    function scoreIncreseBitcoin() {
+      this.playerScore += 10;
       this.playerScoreLabel.text = this.playerScore;
     }
 
@@ -227,19 +357,30 @@ export default class Main extends Phaser.Scene {
         .setScale(5);
       explosion.play("explode");
       asteroid.disableBody(true, true);
-      collisionObject.disableBody(true, true);
-      this.time.delayedCall(
-        500,
-        () => {
-          collisionObject.enableBody(true, width / 2, height, true, true);
-        },
-        this
-      );
+      this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
+      this.explosionSound.play();
+      const checkPlayerInvinc =
+        collisionObject === this.player && this.invincibility;
+      if (!checkPlayerInvinc || collisionObject === this.laser) {
+        collisionObject.disableBody(true, true);
+        collisionObject.enableBody(true, width / 2, height, true, true);
+      }
       let x = Phaser.Math.Between(0, 580);
       asteroid.enableBody(true, x, 0, true, true);
       let xVel = Phaser.Math.Between(-100, 100);
       let yVel = Phaser.Math.Between(100, 150);
       asteroid.setVelocity(xVel, yVel);
+    }
+
+    function collisionObtain(player, powerUp) {
+      powerUp.disableBody(true, true);
+      this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
+      this.coinSound.play();
+      let x = Phaser.Math.Between(0, 580);
+      powerUp.enableBody(true, x, 0, true, true);
+      let xVel = Phaser.Math.Between(100, 300);
+      let yVel = Phaser.Math.Between(150, 400);
+      powerUp.setVelocity(xVel, yVel);
     }
   }
 
@@ -292,6 +433,7 @@ export default class Main extends Phaser.Scene {
     }
 
     checkAsteroidPos(this.asteroids);
+    checkAsteroidPos(this.bitcoins);
     checkEnemyPos(this.enemies);
     enemyPos(this.enemy);
 
