@@ -8,6 +8,7 @@ export default class Menu extends Phaser.Scene {
   init() {
     this.playerScore = 0;
     this.playerLives = 3;
+    this.doubleFire = false;
   }
 
   //Preload all assets to load files from asset folder
@@ -25,6 +26,8 @@ export default class Menu extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32,
     });
+    this.load.image("doubleShoot", "assets/doubleshot.png")
+    this.load.image("healthIcon", "assets/heart.png")
   }
 
   //After loading assets create() will generate asset instances in game
@@ -69,6 +72,10 @@ export default class Menu extends Phaser.Scene {
       },
     })
 
+    this.healthIcon = this.physics.add.sprite(200,300, "healthIcon")
+
+    // this.doubleFireIcon = this.physics.add.sprite (200, 300, "doubleShoot")
+
     this.physics.add.overlap(
       this.player,
       this.bitcoins,
@@ -76,6 +83,22 @@ export default class Menu extends Phaser.Scene {
       scoreIncreseBitcoin,
       this
     );
+
+    // this.physics.add.overlap(
+    //   this.player,
+    //   this.doubleFireIcon,
+    //   setDoubleFire,
+    //   null,
+    //   this
+    // )
+
+    this.physics.add.overlap(
+      this.player,
+      this.healthIcon,
+      collisionObtain,
+      increaseLives,
+      this
+    )
 
     //Creates asteroid physics collider between player and asteroids
     this.physics.add.overlap(
@@ -129,8 +152,9 @@ export default class Menu extends Phaser.Scene {
     //Function to shoot down asteroids.
     function shoot() {
       this.laser = this.physics.add
-        .image(this.player.x, this.player.y, "laser")
-        .setScale(0.25);
+        .image(this.player.x-2, this.player.y-40, "laser")
+        .setScale(0.25)
+
       this.laser.setVelocityY(-900);
       this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
       this.laserSound.play();
@@ -143,8 +167,58 @@ export default class Menu extends Phaser.Scene {
       );
     }
 
+    // function doubleShoot() {
+    //   this.laser1 = this.physics.add
+    //     .image(this.player.x-20, this.player.y-40, "laser")
+    //     .setScale(0.25)
+
+    //   this.laser1.setVelocityY(-900);
+    //   this.laserSound1 = this.sound.add("laserSound", { volume: 0.1 });
+    //   this.laserSound1.play();
+    //   this.physics.add.collider(
+    //     this.laser1,
+    //     this.asteroids,
+    //     collisionDestroy,
+    //     scoreIncreseAsteroid,
+    //     this
+    //   )
+
+    //   this.laser2 = this.physics.add
+    //     .image(this.player.x+16, this.player.y-40, "laser")
+    //     .setScale(0.25)
+
+    //   this.laser2.setVelocityY(-900);
+    //   this.laserSound2 = this.sound.add("laserSound", { volume: 0.1 });
+    //   this.laserSound2.play();
+    //   this.physics.add.collider(
+    //     this.laser2,
+    //     this.asteroids,
+    //     collisionDestroy,
+    //     scoreIncreseAsteroid,
+    //     this
+    //   )
+    // }
+
+    // function shotSelector() {
+    //   if (this.doubleFire) {
+    //     doubleShoot()
+    //   }
+    //   else {
+    //     shoot()
+    //   }
+    // }
+
+    // function setDoubleFire() {
+    //   this.doubleFire = true
+    // }
+
     function decreaseLives() {
       this.playerLives--;
+      this.playerLifeLabel.text = this.playerLives;
+    }
+
+    function increaseLives() {
+      this.playerLives++;
       this.playerLifeLabel.text = this.playerLives;
     }
 
