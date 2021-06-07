@@ -8,7 +8,7 @@ export function setInvincibility() {
   }, 5000);
 }
 
-export function scoreIncreseBitcoin() {
+export function scoreIncreaseBitcoin() {
   this.playerScore += 10;
   this.playerScoreLabel.text = this.playerScore;
 }
