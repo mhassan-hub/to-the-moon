@@ -1,18 +1,14 @@
 import Phaser from "phaser";
+import preloadAssets from "./helpers/preloadAssets";
 import { collisionDestroy } from "./helpers/collision";
 import { checkAsteroidPos, enemyPos, checkEnemyPos } from "./helpers/position";
-import {
-  shoot,
-  enemyShoot,
-  increaseLives,
-  decreaseLives,
-} from "./helpers/shoot";
-import { setInvincibility, scoreIncreseBitcoin } from "./helpers/powerups";
-
+import { shoot, enemyShoot, increaseLives } from "./helpers/shoot";
+import { setInvincibility, scoreIncreaseBitcoin } from "./helpers/powerups";
 import {
   collisionObtain,
   setEnemyCollision,
   setAsteroidCollision,
+  playerCollisionAction,
 } from "./helpers/collision";
 
 export default class Main extends Phaser.Scene {
@@ -29,27 +25,7 @@ export default class Main extends Phaser.Scene {
 
   //Preload all assets to load files from asset folder
   preload() {
-    this.load.audio("audioSound", "assets/Demon.mp3");
-    this.load.audio("laserSound", "assets/laser-sound.mp3");
-    this.load.audio("coinSound", "assets/coin.wav");
-    this.load.audio("explosionSound", "assets/explosion.wav");
-    this.load.image("enemy", "assets/alienspaceship.png");
-    this.load.image("enemyshooter", "assets/alienshooterspaceship.png");
-    this.load.image("enemylaser", "assets/enemylaser.png");
-    this.load.image("asteroid", "assets/Asteroid.png");
-    this.load.image("ship", "assets/fighter.png");
-    this.load.image("background", "assets/starfield.png");
-    this.load.image("laser", "assets/laser.png");
-    this.load.image("bitcoin", "assets/btc.png");
-    this.load.image("burger", "assets/SpaceBurger.png");
-    this.load.spritesheet("explosion", "assets/explosion.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-    this.load.image("doubleShoot", "assets/doubleshot.png");
-    this.load.image("healthIcon", "assets/heart.png");
-    this.load.image("invincibilityIcon", "assets/star.png");
-    this.load.audio("invincibleSound", "assets/battle.wav");
+    preloadAssets(this);
   }
 
   //After loading assets create() will generate asset instances in game
@@ -120,13 +96,11 @@ export default class Main extends Phaser.Scene {
       .sprite(500, 800, "invincibilityIcon")
       .setScale(5);
 
-    // this.doubleFireIcon = this.physics.add.sprite (200, 300, "doubleShoot")
-
     this.physics.add.overlap(
       this.player,
       this.bitcoins,
       collisionObtain,
-      scoreIncreseBitcoin,
+      scoreIncreaseBitcoin,
       this
     );
 
@@ -151,7 +125,7 @@ export default class Main extends Phaser.Scene {
       this.player,
       this.asteroids,
       collisionDestroy,
-      decreaseLives,
+      playerCollisionAction,
       this
     );
 
@@ -160,7 +134,7 @@ export default class Main extends Phaser.Scene {
       this.player,
       this.enemies,
       collisionDestroy,
-      decreaseLives,
+      playerCollisionAction,
       this
     );
 
@@ -169,7 +143,7 @@ export default class Main extends Phaser.Scene {
       this.player,
       this.enemy,
       collisionDestroy,
-      decreaseLives,
+      playerCollisionAction,
       this
     );
 
@@ -187,6 +161,7 @@ export default class Main extends Phaser.Scene {
 
     //keybindings
     this.cursors = this.input.keyboard.createCursorKeys();
+
     this.input.keyboard.on("keydown-SPACE", shoot, this);
 
     setAsteroidCollision(this.asteroids);
