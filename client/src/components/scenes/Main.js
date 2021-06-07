@@ -1,4 +1,19 @@
 import Phaser from "phaser";
+import { collisionDestroy } from "./helpers/collision";
+import { checkAsteroidPos, enemyPos, checkEnemyPos } from "./helpers/position";
+import {
+  shoot,
+  enemyShoot,
+  increaseLives,
+  decreaseLives,
+} from "./helpers/shoot";
+import { setInvincibility, scoreIncreseBitcoin } from "./helpers/powerups";
+
+import {
+  collisionObtain,
+  setEnemyCollision,
+  setAsteroidCollision,
+} from "./helpers/collision";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -115,14 +130,6 @@ export default class Main extends Phaser.Scene {
       this
     );
 
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.doubleFireIcon,
-    //   setDoubleFire,
-    //   null,
-    //   this
-    // )
-
     this.physics.add.overlap(
       this.player,
       this.healthIcon,
@@ -198,190 +205,12 @@ export default class Main extends Phaser.Scene {
       setCircle: 300,
     });
 
-    //Function which dictates asteroid velocity after creation/re-enablement
-    function setAsteroidCollision(asteroids) {
-      asteroids.children.iterate(function (asteroid) {
-        let xVel = Phaser.Math.Between(-100, 100);
-        let yVel = Phaser.Math.Between(100, 150);
-        asteroids.setVelocity(xVel, yVel);
-      });
-    }
-
-    //Function which dictates enemy spaceship velocity after creation
-    function setEnemyCollision(enemies) {
-      enemies.children.iterate(function (enemy) {
-        let xVel = Phaser.Math.Between(-100, 100);
-        let yVel = Phaser.Math.Between(100, 150);
-        enemies.setVelocity(xVel, yVel);
-      });
-    }
-
-    //Function to shoot down asteroids and enemies.
-    function shoot() {
-      this.laser = this.physics.add
-        .image(this.player.x - 2, this.player.y - 40, "laser")
-        .setScale(0.25);
-
-      this.laser.setVelocityY(-900);
-      this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
-      this.laserSound.play();
-      this.physics.add.collider(
-        this.laser,
-        this.asteroids,
-        collisionDestroy,
-        scoreIncreseAsteroid,
-        this
-      );
-      this.physics.add.collider(
-        this.laser,
-        this.enemies,
-        collisionDestroy,
-        scoreIncreseAsteroid,
-        this
-      );
-      this.physics.add.collider(
-        this.laser,
-        this.enemy,
-        collisionDestroy,
-        scoreIncreseAsteroid,
-        this
-      );
-      if (this.laser.y > 800) {
-        this.laser.destroy();
-      }
-    }
-
-    function enemyShoot() {
-      this.enemyLaser = this.physics.add
-        .image(this.enemy.x, this.enemy.y, "enemylaser")
-        .setScale(0.25);
-      this.enemyLaser.setVelocityY(800);
-      this.enemyLaserSound = this.sound.add("laserSound", { volume: 0.1 });
-      this.enemyLaserSound.play();
-      this.physics.add.collider(
-        this.player,
-        this.enemyLaser,
-        collisionDestroy,
-        decreaseLives,
-        this
-      );
-    }
-
-    // function doubleShoot() {
-    //   this.laser1 = this.physics.add
-    //     .image(this.player.x-20, this.player.y-40, "laser")
-    //     .setScale(0.25)
-
-    //   this.laser1.setVelocityY(-900);
-    //   this.laserSound1 = this.sound.add("laserSound", { volume: 0.1 });
-    //   this.laserSound1.play();
-    //   this.physics.add.collider(
-    //     this.laser1,
-    //     this.asteroids,
-    //     collisionDestroy,
-    //     scoreIncreseAsteroid,
-    //     this
-    //   )
-
-    //   this.laser2 = this.physics.add
-    //     .image(this.player.x+16, this.player.y-40, "laser")
-    //     .setScale(0.25)
-
-    //   this.laser2.setVelocityY(-900);
-    //   this.laserSound2 = this.sound.add("laserSound", { volume: 0.1 });
-    //   this.laserSound2.play();
-    //   this.physics.add.collider(
-    //     this.laser2,
-    //     this.asteroids,
-    //     collisionDestroy,
-    //     scoreIncreseAsteroid,
-    //     this
-    //   )
-    // }
-
-    // function shotSelector() {
-    //   if (this.doubleFire) {
-    //     doubleShoot()
-    //   }
-    //   else {
-    //     shoot()
-    //   }
-    // }
-
-    // function setDoubleFire() {
-    //   this.doubleFire = true
-    // }
     this.time.addEvent({
       delay: 2000,
       callback: enemyShoot,
       callbackScope: this,
       loop: true,
     });
-
-    function decreaseLives() {
-      if (!this.invincibility) {
-        this.playerLives--;
-        this.playerLifeLabel.text = this.playerLives;
-      }
-    }
-
-    function setInvincibility() {
-      this.invincibility = true;
-      this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
-      this.invincibleSound.play();
-      setTimeout(() => {
-        this.invincibility = false;
-        this.invincibleSound.stop();
-      }, 5000);
-    }
-
-    function increaseLives() {
-      this.playerLives++;
-      this.playerLifeLabel.text = this.playerLives;
-    }
-
-    function scoreIncreseAsteroid() {
-      this.playerScore += 100;
-      this.playerScoreLabel.text = this.playerScore;
-    }
-
-    function scoreIncreseBitcoin() {
-      this.playerScore += 10;
-      this.playerScoreLabel.text = this.playerScore;
-    }
-
-    //Function which handles game logic surrounding collision and destructions
-    function collisionDestroy(collisionObject, asteroid) {
-      const explosion = this.add
-        .sprite(asteroid.x, asteroid.y, "explosion")
-        .setScale(5);
-      explosion.play("explode");
-      asteroid.disableBody(true, true);
-      this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
-      this.explosionSound.play();
-      const checkPlayerInvinc =
-        collisionObject === this.player && this.invincibility;
-      if (!checkPlayerInvinc || collisionObject === this.laser) {
-        collisionObject.disableBody(true, true);
-        collisionObject.enableBody(true, width / 2, height, true, true);
-      }
-      let x = Phaser.Math.Between(0, 580);
-      asteroid.enableBody(true, x, 0, true, true);
-      let xVel = Phaser.Math.Between(-100, 100);
-      let yVel = Phaser.Math.Between(100, 150);
-      asteroid.setVelocity(xVel, yVel);
-    }
-
-    function collisionObtain(player, powerUp) {
-      powerUp.disableBody(true, true);
-      this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
-      this.coinSound.play();
-      let x = Phaser.Math.Between(0, 580);
-      powerUp.enableBody(true, x, 0, true, true);
-      let xVel = Phaser.Math.Between(100, 300);
-      let yVel = Phaser.Math.Between(150, 400);
-      powerUp.setVelocity(xVel, yVel);
-    }
   }
 
   update() {
@@ -436,37 +265,5 @@ export default class Main extends Phaser.Scene {
     checkAsteroidPos(this.bitcoins);
     checkEnemyPos(this.enemies);
     enemyPos(this.enemy);
-
-    //Function which constantly updates asteroid positions to reset their position if off canvas
-    function checkAsteroidPos(asteroids) {
-      asteroids.children.iterate(function (asteroid) {
-        if (asteroid.y > 800) {
-          resetPos(asteroid);
-        }
-      });
-    }
-
-    //Function which resets asteroid positions if they are off canvas
-    function resetPos(asteroid) {
-      asteroid.y = 0;
-      let random = Phaser.Math.Between(15, 599);
-      asteroid.x = random;
-    }
-
-    //function which "revives" shooter enemy constantly
-    function enemyPos(enemy) {
-      if (enemy.y > 800 || enemy.x < 0) {
-        resetPos(enemy);
-      }
-    }
-
-    //Function which constantly updates enemy positions to reset their position if off canvas
-    function checkEnemyPos(enemies) {
-      enemies.children.iterate(function (enemy) {
-        if (enemy.y > 800) {
-          resetPos(enemy);
-        }
-      });
-    }
   }
 }
