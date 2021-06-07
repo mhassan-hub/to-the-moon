@@ -50,3 +50,14 @@ export function collisionObtain(player, powerUp) {
   let yVel = Phaser.Math.Between(150, 400);
   powerUp.setVelocity(xVel, yVel);
 }
+
+export function playerCollisionAction() {
+  if (!this.invincibility) {
+    this.playerLives--;
+    this.playerLifeLabel.text = this.playerLives;
+  }
+  if (this.invincibility) {
+    this.playerScore += 50;
+    this.playerScoreLabel.text = this.playerScore;
+  }
+}

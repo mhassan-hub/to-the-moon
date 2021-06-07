@@ -1,4 +1,4 @@
-import { collisionDestroy } from "./collision";
+import { collisionDestroy, playerCollisionAction } from "./collision";
 
 // let { width, height } = this.sys.game.canvas;
 
@@ -14,21 +14,21 @@ export function shoot() {
     this.laser,
     this.asteroids,
     collisionDestroy,
-    scoreIncreseAsteroid,
+    scoreIncreaseAsteroid,
     this
   );
   this.physics.add.collider(
     this.laser,
     this.enemies,
     collisionDestroy,
-    scoreIncreseAsteroid,
+    scoreIncreaseAsteroid,
     this
   );
   this.physics.add.collider(
     this.laser,
     this.enemy,
     collisionDestroy,
-    scoreIncreseAsteroid,
+    scoreIncreaseAsteroid,
     this
   );
   if (this.laser.y > 800) {
@@ -36,7 +36,7 @@ export function shoot() {
   }
 }
 
-export function scoreIncreseAsteroid() {
+export function scoreIncreaseAsteroid() {
   this.playerScore += 100;
   this.playerScoreLabel.text = this.playerScore;
 }
@@ -54,17 +54,11 @@ export function enemyShoot() {
     this.player,
     this.enemyLaser,
     collisionDestroy,
-    decreaseLives,
+    playerCollisionAction,
     this
   );
 }
 
-export function decreaseLives() {
-  if (!this.invincibility) {
-    this.playerLives--;
-    this.playerLifeLabel.text = this.playerLives;
-  }
-}
 export function increaseLives() {
   this.playerLives++;
   this.playerLifeLabel.text = this.playerLives;
