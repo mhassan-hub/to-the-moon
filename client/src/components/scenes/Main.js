@@ -47,7 +47,7 @@ export default class Main extends Phaser.Scene {
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
 
-    this.enemy = this.physics.add.sprite(500, 0, "enemyshooter");
+    this.enemy = this.physics.add.sprite(500, 0, "enemyshooter").setScale(0.35);
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
     this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
 
@@ -88,9 +88,7 @@ export default class Main extends Phaser.Scene {
         stepX: Phaser.Math.Between(10, 750),
         stepY: Phaser.Math.Between(15, 300),
       },
-    })
-
- 
+    });
 
     this.physics.add.overlap(
       this.player,
@@ -243,4 +241,3 @@ export default class Main extends Phaser.Scene {
     enemyPos(this.enemy);
   }
 }
-
