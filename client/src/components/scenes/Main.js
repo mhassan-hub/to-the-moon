@@ -158,7 +158,7 @@ export default class Main extends Phaser.Scene {
     //keybindings
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.input.keyboard.on("keydown-SPACE", shoot, this);
+    this.key = this.input.keyboard.on("keydown-SPACE", shoot, this);
 
     setAsteroidCollision(this.asteroids);
     setAsteroidCollision(this.bitcoins);
@@ -224,12 +224,16 @@ export default class Main extends Phaser.Scene {
     //keybinding listeners for player movement
     if (this.cursors.up.isDown) {
       this.player.y -= 10;
-      
-    }  if (this.cursors.down.isDown) {
+    }
+    if (this.cursors.down.isDown) {
       this.player.y += 10;
-    } if (this.cursors.left.isDown) {
+    }
+
+    if (this.cursors.left.isDown) {
       this.player.x -= 10;
-    } if (this.cursors.right.isDown) {
+    }
+
+    if (this.cursors.right.isDown) {
       this.player.x += 10;
     }
 
