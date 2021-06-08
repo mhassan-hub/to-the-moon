@@ -3,5 +3,16 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   movies = Movie.create([{ name: 'Star Wars'}, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+puts "-----Seeding-----"
+
+User.create!({
+  username: "omarirfan",
+  email: "a@a.com",
+  password: "s",
+  password_confirmation: "s"
+})
+
+puts "-----Seeding Complete-----"
