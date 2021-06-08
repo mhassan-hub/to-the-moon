@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Button from "./helpers/button";
 
 export default class Win extends Phaser.Scene {
   constructor() {
@@ -20,7 +21,28 @@ export default class Win extends Phaser.Scene {
     let { width, height } = this.sys.game.canvas;
     this.add.image(0, 0, "background1").setOrigin(0).setScale(3.5);
 
-    // this.add.image(0, 0, 0, 0, "background1").setOrigin(0);
+    // Adding a restart button
+    const restartButton = new Button(
+      width * 0.75,
+      height / 2,
+      "Restart Game",
+      this,
+      () => {
+        this.scene.start("Main");
+        this.scene.stop("Win");
+      }
+    );
+
+    const homeButton = new Button(
+      width * 0.25,
+      height / 2,
+      "Back to home",
+      this,
+      () => {
+        this.scene.stop("Win");
+        window.location.replace("http://localhost:3000/");
+      }
+    );
 
     this.add
       .text(
