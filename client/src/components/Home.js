@@ -9,6 +9,7 @@ export default function Home() {
   username: "",
   email: "",
   password: "",
+  passwordConfirmation: "",
   isLoggedIn: false
 })
 
@@ -66,16 +67,21 @@ const loginRequest = () => {
         />
         <button placeholder="submit" type="submit" onClick={() => loginRequest()}>
             Log In
-            <Button state={state} setState={setState}/>
+            <Button state={state} setState={setState}
+            username={state.username}/>
           </button>     
       </div>
       <div className="buttonContainer">
         <span>
           <Link to="/game">
-            <Button>Create Game</Button>
+            <Button />Create Game
+          </Link>
+          <Link to="/register">
+            <Button state={state} setState={setState}
+            username= {state.username}/>Register
           </Link>
           <Link to="/about">
-            <Button>About Us</Button>
+            <Button />About Us
           </Link>
         </span>
       </div>
