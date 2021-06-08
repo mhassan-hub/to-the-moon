@@ -6,13 +6,16 @@ export function collisionDestroy(collisionObject, asteroid) {
     .setScale(5);
   explosion.play("explode");
   asteroid.disableBody(true, true);
-  if (Phaser.Math.Between(1,90) === 1) {
-    this.healthIcon = this.physics.add.sprite(asteroid.x, asteroid.y, "healthIcon").setScale(1)
-    }
-    if (Phaser.Math.Between(101,190) === 101) {
-     
-    this.invincibilityIcon = this.physics.add.sprite(asteroid.x, asteroid.y, "invincibilityIcon").setScale(5)
-    }
+  if (Phaser.Math.Between(1, 90) === 1) {
+    this.healthIcon = this.physics.add
+      .sprite(asteroid.x, asteroid.y, "healthIcon")
+      .setScale(1);
+  }
+  if (Phaser.Math.Between(101, 190) === 101) {
+    this.invincibilityIcon = this.physics.add
+      .sprite(asteroid.x, asteroid.y, "invincibilityIcon")
+      .setScale(5);
+  }
   this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
   this.explosionSound.play();
   const checkPlayerInvinc =
@@ -61,10 +64,10 @@ export function collisionObtain(player, powerUp) {
 export function playerCollisionAction() {
   if (!this.invincibility) {
     this.playerLives--;
-    this.playerLifeLabel.text = this.playerLives;
+    this.playerLifeLabel.text = `Lives: ${this.playerLives}`;
   }
   if (this.invincibility) {
     this.playerScore += 50;
-    this.playerScoreLabel.text = this.playerScore;
+    this.playerScoreLabel.text = `Score:${this.playerScore}`;
   }
 }

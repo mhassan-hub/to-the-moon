@@ -80,12 +80,12 @@ export default class Main extends Phaser.Scene {
     //creates asteroid group and sets asteroid physics
     this.bitcoins = this.physics.add.group({
       key: "bitcoin",
-      repeat: 5,
+      // repeat: 0,
       immovable: true,
       setXY: {
-        x: Math.floor(Math.random() * 800),
+        x: Phaser.Math.Between(10, 850),
         y: 0,
-        stepX: Phaser.Math.Between(10, 750),
+        stepX: Phaser.Math.Between(10, 850),
         stepY: Phaser.Math.Between(15, 300),
       },
     });
@@ -143,11 +143,21 @@ export default class Main extends Phaser.Scene {
 
     //Overhead display text
     const textStyle = {
-      fontSize: 32,
+      fontSize: 24,
       color: "#FFFF00",
     };
-    this.playerScoreLabel = this.add.text(5, 5, this.playerScore, textStyle);
-    this.playerLifeLabel = this.add.text(995, 5, this.playerLives, textStyle);
+    this.playerScoreLabel = this.add.text(
+      5,
+      5,
+      `Score:${this.playerScore}`,
+      textStyle
+    );
+    this.playerLifeLabel = this.add.text(
+      5,
+      40,
+      `Lives: ${this.playerLives}`,
+      textStyle
+    );
 
     //Creates music file to play in background and plays it
     // this.music = this.sound.add("audioSound", { volume: 0.9, loop: true });
@@ -185,13 +195,7 @@ export default class Main extends Phaser.Scene {
   update() {
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
-    if (
-      this.background.tilePositionY > -2000 &&
-      this.background.tilePositionY < -1000
-    ) {
-      this.burger.visible = true;
-      this.burger.y += 3;
-    }
+
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < -8000) {
       this.scene.start("Win", {
