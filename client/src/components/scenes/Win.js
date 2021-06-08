@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Button from "./helpers/button";
 
 export default class Win extends Phaser.Scene {
   constructor() {
@@ -14,14 +15,36 @@ export default class Win extends Phaser.Scene {
     // this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.image("ship", "assets/fighter.png");
     this.load.image("background1", "assets/Moon.jpeg");
+    this.load.image("restartButton", "assets/button.png");
   }
 
   create() {
     let { width, height } = this.sys.game.canvas;
     this.add.image(0, 0, "background1").setOrigin(0).setScale(3.5);
 
-    // this.add.image(0, 0, 0, 0, "background1").setOrigin(0);
+    // restart button
+    const restartButton = new Button(
+      width * 0.75,
+      height / 2,
+      "Restart Game",
+      this,
+      () => {
+        this.scene.start("Main");
+        this.scene.stop("Win");
+      }
+    );
 
+    // back to home button
+    const homeButton = new Button(
+      width * 0.25,
+      height / 2,
+      "Back to home",
+      this,
+      () => {
+        this.scene.stop("Win");
+        window.location.replace("http://localhost:3000/");
+      }
+    );
     this.add
       .text(
         width * 0.5,
