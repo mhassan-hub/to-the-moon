@@ -334,15 +334,26 @@ export default class Main extends Phaser.Scene {
     }
 
     function setInvincibility() {
-      this.invincibility = true
+      if(!this.invincibility) {
       this.invincibleSound = this.sound.add
       ("invincibleSound", { volume: 0.1});
+      this.invincibility = true
       this.invincibleSound.play();
+    
+      const flash = this.tweens.add({
+        targets: this.player,
+        alpha: 0,
+        ease: 'Cubic.easeOut',  
+        duration: 40,
+        repeat: 100,
+        yoyo: true
+      })
+      
       setTimeout(()=>{
         this.invincibility = false
         this.invincibleSound.stop()
       }, 8000)
-    }
+    }}
 
     function increaseLives() {
       this.playerLives++;
