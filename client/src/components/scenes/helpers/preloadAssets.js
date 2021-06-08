@@ -19,5 +19,5 @@ export default function preloadAssets(scene) {
   scene.load.image("doubleShoot", "assets/doubleshot.png");
   scene.load.image("healthIcon", "assets/heart.png");
   scene.load.image("invincibilityIcon", "assets/star.png");
-  scene.load.audio("invincibleSound", "assets/battle.wav");
+  scene.load.audio("invincibleSound", "assets/invincible.mp3");
 }

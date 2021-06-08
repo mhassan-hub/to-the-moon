@@ -19,7 +19,6 @@ export default class Main extends Phaser.Scene {
   init() {
     this.playerScore = 0;
     this.playerLives = 3;
-    // this.doubleFire = false;
     this.invincibility = false;
   }
 
@@ -93,7 +92,7 @@ export default class Main extends Phaser.Scene {
     this.healthIcon = this.physics.add.sprite(200, 300, "healthIcon");
 
     this.invincibilityIcon = this.physics.add
-      .sprite(500, 800, "invincibilityIcon")
+      .sprite(100, 400, "invincibilityIcon")
       .setScale(5);
 
     this.physics.add.overlap(
