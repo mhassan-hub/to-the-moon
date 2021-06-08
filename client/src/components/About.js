@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 import "../App.css";
 
-export default function Home() {
+export default function About() {
   return (
     <div className="About">
       <h3>

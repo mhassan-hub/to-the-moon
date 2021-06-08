@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Game from "./components/Game";
 import Home from "./components/Home";
+import Register from "./components/Register"
 import About from "./components/About";
 import "./App.css";
 
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/">
             <Home />
