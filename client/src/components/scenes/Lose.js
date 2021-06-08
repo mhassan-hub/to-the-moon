@@ -25,6 +25,7 @@ export default class Win extends Phaser.Scene {
     const restartButton = new Button(
       width * 0.75,
       height / 2,
+      2.5,
       "Restart Game",
       this,
       () => {
@@ -36,6 +37,7 @@ export default class Win extends Phaser.Scene {
     const homeButton = new Button(
       width * 0.25,
       height / 2,
+      2.5,
       "Back to home",
       this,
       () => {
