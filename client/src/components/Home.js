@@ -43,19 +43,13 @@ const loginRequest = () => {
       />
       <h1>To The Moon!</h1>
       <h3>Leaderboard</h3>
+     {!state.isLoggedIn &&
       <div>
         <input 
         placeholder="username"
         type="text"
         name="username"
         value={state.username}
-        onChange={handleChange}
-        />
-          <input 
-        placeholder="email"
-        type="text"
-        name="email"
-        value={state.email}
         onChange={handleChange}
         />
           <input 
@@ -71,6 +65,7 @@ const loginRequest = () => {
             username={state.username}/>
           </button>     
       </div>
+}
       <div className="buttonContainer">
         <span>
           <Link to="/game">
