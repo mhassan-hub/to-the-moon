@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Button from "./Button";
 import "../App.css";
 import { enemyShoot } from "./scenes/helpers/shoot";
 import { useState } from 'react'
 import axios from 'axios'
+
 
 export default function Register(props) {
 
@@ -16,13 +17,13 @@ export default function Register(props) {
   console.log()
 
   // const [value , setValue] = useState("")
-
+  
+  const history = useHistory()
   const register = () => {
     axios.post("http://localhost:3000/users", {user: {username: state.username, email: state.email, password: state.password, password_confirmation: state.passwordConfirmation }})
     .then(response => {
-
-     
-      console.log(response.data);
+      history.push('/home')
+      console.log("email", state.email)
     })
     .catch(error => console.log('api errors:', error))
   }
