@@ -1,10 +1,10 @@
 export default class Button {
-  constructor(x, y, label, scene, callback) {
+  constructor(x, y, scale, label, scene, callback) {
     const button = scene.add
       .text(x, y, label)
       .setOrigin(0.5)
       .setPadding(10)
-      .setScale(2.5)
+      .setScale(scale)
       .setStyle({
         backgroundColor: "#111",
       })
