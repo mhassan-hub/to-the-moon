@@ -16,12 +16,13 @@ export default class Win extends Phaser.Scene {
     this.load.image("ship", "assets/fighter.png");
     this.load.image("background1", "assets/Moon.jpeg");
     this.load.image("restartButton", "assets/button.png");
+    this.load.image("burger", "assets/SpaceBurger.png");
   }
 
   create() {
     let { width, height } = this.sys.game.canvas;
     this.add.image(0, 0, "background1").setOrigin(0).setScale(3.5);
-
+    this.burger = this.add.image(800, 200, "burger").setScale(0.2);
     // restart button
     const restartButton = new Button(
       width * 0.75,
