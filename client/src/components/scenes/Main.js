@@ -46,7 +46,7 @@ export default class Main extends Phaser.Scene {
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
 
-    this.enemy = this.physics.add.sprite(500, 0, "enemyshooter").setScale(0.35);
+    this.enemy = this.physics.add.sprite(500, 0, "enemyshooter");
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
     this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
 

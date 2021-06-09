@@ -1,6 +1,8 @@
 import Phaser from "phaser";
+import { setInvincibility } from "./powerups";
 
 export function collisionDestroy(collisionObject, asteroid) {
+  const respawnTimer = 1000;
   const explosion = this.add
     .sprite(asteroid.x, asteroid.y, "explosion")
     .setScale(5);
@@ -18,11 +20,21 @@ export function collisionDestroy(collisionObject, asteroid) {
   }
   this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
   this.explosionSound.play();
+
   const checkPlayerInvinc =
     collisionObject === this.player && this.invincibility;
+
   if (!checkPlayerInvinc || collisionObject === this.laser) {
     collisionObject.disableBody(true, true);
-    collisionObject.enableBody(true, 800 / 2, 1000, true, true);
+    // collisionObject.setInvincibility(respawnTimer);
+    // respawn();
+    this.time.delayedCall(
+      respawnTimer,
+      () => {
+        collisionObject.enableBody(true, 800 / 2, 1000, true, true);
+      },
+      this
+    );
   }
   let x = Phaser.Math.Between(0, 580);
   asteroid.enableBody(true, x, 0, true, true);
@@ -70,4 +82,24 @@ export function playerCollisionAction() {
     this.playerScore += 50;
     this.playerScoreLabel.text = `Score:${this.playerScore}`;
   }
+}
+
+export function respawn() {
+  // this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
+  this.invincibility = true;
+  // this.invincibleSound.play();
+
+  const flash = this.tweens.add({
+    targets: this.player,
+    alpha: 0,
+    ease: "Cubic.easeOut",
+    duration: 20,
+    repeat: 25,
+    yoyo: true,
+  });
+
+  setTimeout(() => {
+    this.invincibility = false;
+    this.invincibleSound.stop();
+  }, 1000);
 }
