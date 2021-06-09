@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import Register from "./components/Register"
 import About from "./components/About";
 import "./App.css";
+import Leaderboard from "./components/Leaderboard"
 
 function App() {
 
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/leaderboard">
+            <Leaderboard />
           </Route>
           <Route path="/register">
             <Register />
