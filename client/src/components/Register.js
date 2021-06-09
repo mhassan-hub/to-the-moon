@@ -14,16 +14,13 @@ export default function Register(props) {
     password: "",
     passwordConfirmation: ""
   })
-  console.log()
-
-  // const [value , setValue] = useState("")
-  
+   
   const history = useHistory()
   const register = () => {
     axios.post("http://localhost:3000/users", {user: {username: state.username, email: state.email, password: state.password, password_confirmation: state.passwordConfirmation }})
     .then(response => {
-      history.push('/home')
-      console.log("email", state.email)
+      sessionStorage.setItem('userID', state.username)
+      history.push('/home')      
     })
     .catch(error => console.log('api errors:', error))
   }
@@ -31,12 +28,11 @@ export default function Register(props) {
   const handleChange = (event) => {
     const {name, value} = event.target
     setState((prev) => ({...prev, [name]: value}))
-    // setState({value: event.target.value})
+    
   };
 
   return (
-
-    
+     
     <div className="Register">
     <input 
     placeholder="username"
