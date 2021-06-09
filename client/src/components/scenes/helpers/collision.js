@@ -36,11 +36,17 @@ export function collisionDestroy(collisionObject, asteroid) {
       this
     );
   }
-  let x = Phaser.Math.Between(0, 580);
-  asteroid.enableBody(true, x, 0, true, true);
-  let xVel = Phaser.Math.Between(-100, 100);
-  let yVel = Phaser.Math.Between(100, 150);
-  asteroid.setVelocity(xVel, yVel);
+  this.time.delayedCall(
+    respawnTimer,
+    () => {
+      let x = Phaser.Math.Between(0, 580);
+      asteroid.enableBody(true, x, 0, true, true);
+      let xVel = Phaser.Math.Between(-100, 100);
+      let yVel = Phaser.Math.Between(100, 150);
+      asteroid.setVelocity(xVel, yVel);
+    },
+    this
+  );
 }
 
 //Function which dictates asteroid velocity after creation/re-enablement
@@ -66,6 +72,7 @@ export function collisionObtain(player, powerUp) {
   powerUp.disableBody(true, true);
   this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
   this.coinSound.play();
+
   let x = Phaser.Math.Between(0, 580);
   powerUp.enableBody(true, x, 0, true, true);
   let xVel = Phaser.Math.Between(100, 300);
