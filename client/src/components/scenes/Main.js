@@ -65,7 +65,7 @@ export default class Main extends Phaser.Scene {
     //creates asteroid group and sets asteroid physics
     this.asteroids = this.physics.add.group({
       key: "asteroid",
-      repeat: 2,
+      // repeat: 2,
       setCircle: 300,
       immovable: true,
       setXY: {
@@ -115,7 +115,7 @@ export default class Main extends Phaser.Scene {
 
     this.dogecoins = this.physics.add.group({
       key: "dogecoin",
-      repeat: 5,
+      // repeat: 5,
       immovable: true,
       setXY: {
         x: Phaser.Math.Between(10, 850),
@@ -219,7 +219,7 @@ export default class Main extends Phaser.Scene {
     );
 
     const pause = new Button(width - 30, 10, 0.8, "Pause", this, () => {
-      this.scene.start("Pause");
+      this.scene.launch("Pause");
       this.scene.pause();
     });
 
