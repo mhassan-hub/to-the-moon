@@ -13,6 +13,10 @@ export default function preloadAssets(scene) {
   scene.load.image("background", "assets/starfield.png");
   scene.load.image("laser", "assets/laser.png");
   scene.load.image("bitcoin", "assets/btc.png");
+  scene.load.image("ethereum", "assets/eth.png");
+  scene.load.image("litecoin", "assets/lite.png");
+  scene.load.image("dogecoin", "assets/doge.png");
+  scene.load.image("burger", "assets/SpaceBurger.png");
   scene.load.spritesheet("explosion", "assets/explosion.png", {
     frameWidth: 32,
     frameHeight: 32,
@@ -20,7 +24,7 @@ export default function preloadAssets(scene) {
   scene.load.image("doubleShoot", "assets/doubleshot.png");
   scene.load.image("healthIcon", "assets/heart.png");
   scene.load.image("invincibilityIcon", "assets/star.png");
-  scene.load.audio("invincibleSound", "assets/battle.wav");
+  scene.load.audio("invincibleSound", "assets/invincible.mp3");
   let width = scene.cameras.main.width;
   let height = scene.cameras.main.height;
   let progressBar = scene.add.graphics({ x: 105, y: 175 });
