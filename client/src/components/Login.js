@@ -23,12 +23,11 @@ export default function Login() {
       
       if (response.data.logged_in) {
         
-        sessionStorage.setItem('userID', response.data.user.username)
+        sessionStorage.setItem('userID', response.data.user.id)
         history.push("/")
       }
       
     })
-    .catch(error => console.log('api errors:', error))
 }
 
   const handleChange = (event) => {
