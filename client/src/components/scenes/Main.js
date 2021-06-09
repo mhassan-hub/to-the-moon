@@ -20,6 +20,7 @@ export default class Main extends Phaser.Scene {
     this.playerScore = 0;
     this.playerLives = 3;
     this.invincibility = false;
+    this.finishLine = -10000;
   }
 
   //Preload all assets to load files from asset folder
@@ -91,7 +92,7 @@ export default class Main extends Phaser.Scene {
 
     this.ethereum = this.physics.add.group({
       key: "ethereum",
-      repeat: 2,
+      repeat: 1,
       immovable: true,
       setXY: {
         x: Math.floor(Math.random() * 800),
@@ -103,7 +104,7 @@ export default class Main extends Phaser.Scene {
 
     this.litecoins = this.physics.add.group({
       key: "litecoin",
-      repeat: 3,
+      repeat: 1,
       immovable: true,
       setXY: {
         x: Math.floor(Math.random() * 800),
@@ -115,7 +116,7 @@ export default class Main extends Phaser.Scene {
 
     this.dogecoins = this.physics.add.group({
       key: "dogecoin",
-      // repeat: 5,
+      repeat: 1,
       immovable: true,
       setXY: {
         x: Phaser.Math.Between(10, 850),
@@ -258,12 +259,34 @@ export default class Main extends Phaser.Scene {
       setCircle: 300,
     });
 
+    // // if (this.enemy.body.enable === true) {
+    // this.time.addEvent({
+    //   delay: 2000,
+    //   callback: () => {
+    //     if (this.enemy.body.enable === true) {
+    //       enemyShoot();
+    //     }
+    //   },
+    //   callbackScope: this,
+    //   loop: true,
+    // });
+
     this.time.addEvent({
       delay: 2000,
       callback: enemyShoot,
       callbackScope: this,
       loop: true,
     });
+    // this.time.delayedCall(
+    //   5000,
+    //   () => {
+    //     // if (this.enemy.body.enable === true) {
+    //     enemyShoot();
+    //     // }
+    //   },
+    //   this
+    // );
+    // }
   }
 
   update() {
@@ -271,7 +294,7 @@ export default class Main extends Phaser.Scene {
     this.background.tilePositionY -= 3;
 
     //After a certain distance go to the winning screen
-    if (this.background.tilePositionY < -8000) {
+    if (this.background.tilePositionY < this.finishLine) {
       this.scene.start("Win", {
         lives: this.playerLives,
         score: this.playerScore,
@@ -313,12 +336,12 @@ export default class Main extends Phaser.Scene {
       this.player.x += 10;
     }
 
-    checkAsteroidPos(this.asteroids);
-    checkAsteroidPos(this.bitcoins);
-    checkAsteroidPos(this.litecoins);
-    checkAsteroidPos(this.dogecoins);
-    checkAsteroidPos(this.ethereum);
-    checkEnemyPos(this.enemies);
-    enemyPos(this.enemy);
+    checkAsteroidPos(this.asteroids, this);
+    checkAsteroidPos(this.bitcoins, this);
+    checkAsteroidPos(this.litecoins, this);
+    checkAsteroidPos(this.dogecoins, this);
+    checkAsteroidPos(this.ethereum, this);
+    checkEnemyPos(this.enemies, this);
+    enemyPos(this.enemy, this);
   }
 }
