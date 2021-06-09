@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import React, {Component, useEffect, useState} from "react";
-import axios from "axios";
+import React from "react";
 import Button from "./Button";
-import forceUpdate from 'react'
 import "../App.css";
 
 export default function Home() {
@@ -28,13 +26,15 @@ export default function Home() {
           <Link to="/game">
             <Button>Create Game</Button>
           </Link>
+          {sessionStorage.length === 0 &&
           <Link to="/login">
             <Button>Log in</Button>
-          </Link>
+          </Link>}
           <Link to="/register">
             <Button>Register</Button>            
-          </Link>          
-            <Button onClick={killSession}>Log Out</Button>
+          </Link>
+           {sessionStorage.length > 0 &&         
+            <Button onClick={killSession}>Log Out</Button>}
           <Link to="/about">
             <Button>About Us</Button>
           </Link>
