@@ -3,6 +3,7 @@ import Phaser from "phaser";
 import Main from "./scenes/Main";
 import Win from "./scenes/Win";
 import Lose from "./scenes/Lose";
+import Pause from "./scenes/Pause";
 
 export default class Game extends React.Component {
   componentDidMount() {
@@ -18,7 +19,7 @@ export default class Game extends React.Component {
       physics: {
         default: "arcade",
       },
-      scene: [Main, Win, Lose],
+      scene: [Main, Win, Lose, Pause],
     };
     this.game = new Phaser.Game(config);
   }
