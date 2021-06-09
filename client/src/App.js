@@ -1,15 +1,27 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 import Game from "./components/Game";
 import Home from "./components/Home";
 import About from "./components/About";
 import "./App.css";
 
 function App() {
-  // useEffect(() => {
-  //   axios.get("http://localhost:3000/users").then((result) => {
-  //     console.log(result);
-  //   });
-  // }, []);
+
+
+
+  // handleLogin = (data) => {
+  //   this.setState({
+  //     isLoggedIn: true,
+  //     user: data.user
+  //   })
+  // }
+  // handleLogout = () => {
+  //   this.setState({
+  //   isLoggedIn: false,
+  //   user: {}
+  //   })
+  // }
 
   return (
     <div className="App">
