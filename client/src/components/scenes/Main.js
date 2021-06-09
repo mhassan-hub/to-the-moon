@@ -10,7 +10,7 @@ import {
   setAsteroidCollision,
   playerCollisionAction,
 } from "./helpers/collision";
-
+import Button from "./helpers/button";
 export default class Main extends Phaser.Scene {
   constructor() {
     super("Main");
@@ -80,7 +80,7 @@ export default class Main extends Phaser.Scene {
     //creates asteroid group and sets asteroid physics
     this.bitcoins = this.physics.add.group({
       key: "bitcoin",
-      // repeat: 0,
+      repeat: 2,
       immovable: true,
       setXY: {
         x: Phaser.Math.Between(10, 850),
@@ -141,7 +141,7 @@ export default class Main extends Phaser.Scene {
       this
     );
 
-    //Overhead display text
+    //Overhead score and lives text
     const textStyle = {
       fontSize: 24,
       color: "#FFFF00",
@@ -159,6 +159,18 @@ export default class Main extends Phaser.Scene {
       textStyle
     );
 
+    const pause = new Button(width - 30, 10, 0.8, "Pause", this, () => {
+      this.scene.start("Pause");
+      this.scene.pause();
+    });
+
+    this.events.on("pause", function () {
+      console.log("Scene A paused");
+    });
+
+    this.events.on("resume", function () {
+      console.log("Scene A resumed");
+    });
     //Creates music file to play in background and plays it
     // this.music = this.sound.add("audioSound", { volume: 0.9, loop: true });
     // this.music.play();
