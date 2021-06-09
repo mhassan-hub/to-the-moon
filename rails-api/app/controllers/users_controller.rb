@@ -45,7 +45,7 @@ def show
     def submit_score
         @user = User.find(params[:id])
 
-        # if params[:high_score] > @user.high_score
+        if params[:high_score] > @user.high_score
         puts params[:high_score]
         @user.update(high_score: params[:high_score], email: @user.email, password: @user.password_digest,  username: @user.username)
         render json: {
