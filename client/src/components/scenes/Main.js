@@ -76,9 +76,45 @@ export default class Main extends Phaser.Scene {
       },
     });
 
-    //creates asteroid group and sets asteroid physics
+    //creates bitcoins group and sets asteroid physics
     this.bitcoins = this.physics.add.group({
       key: "bitcoin",
+      repeat: 1,
+      immovable: true,
+      setXY: {
+        x: Math.floor(Math.random() * 800),
+        y: 0,
+        stepX: Phaser.Math.Between(10, 750),
+        stepY: Phaser.Math.Between(15, 300),
+      },
+    })
+
+    this.ethereum = this.physics.add.group({
+      key: "ethereum",
+      repeat: 2,
+      immovable: true,
+      setXY: {
+        x: Math.floor(Math.random() * 800),
+        y: 0,
+        stepX: Phaser.Math.Between(10, 750),
+        stepY: Phaser.Math.Between(15, 300),
+      },
+    })
+
+    this.litecoins = this.physics.add.group({
+      key: "litecoin",
+      repeat: 3,
+      immovable: true,
+      setXY: {
+        x: Math.floor(Math.random() * 800),
+        y: 0,
+        stepX: Phaser.Math.Between(10, 750),
+        stepY: Phaser.Math.Between(15, 300),
+      },
+    })
+
+    this.dogecoins = this.physics.add.group({
+      key: "dogecoin",
       repeat: 5,
       immovable: true,
       setXY: {
@@ -87,17 +123,38 @@ export default class Main extends Phaser.Scene {
         stepX: Phaser.Math.Between(10, 750),
         stepY: Phaser.Math.Between(15, 300),
       },
-    });
+    })
+    
 
-    this.healthIcon = this.physics.add.sprite(200, 300, "healthIcon");
-
-    this.invincibilityIcon = this.physics.add
-      .sprite(100, 400, "invincibilityIcon")
-      .setScale(5);
+ 
 
     this.physics.add.overlap(
       this.player,
       this.bitcoins,
+      collisionObtain,
+      scoreIncreaseBitcoin,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.ethereum,
+      collisionObtain,
+      scoreIncreaseBitcoin,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.litecoins,
+      collisionObtain,
+      scoreIncreaseBitcoin,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.dogecoins,
       collisionObtain,
       scoreIncreaseBitcoin,
       this
@@ -165,6 +222,9 @@ export default class Main extends Phaser.Scene {
 
     setAsteroidCollision(this.asteroids);
     setAsteroidCollision(this.bitcoins);
+    setAsteroidCollision(this.ethereum)
+    setAsteroidCollision(this.litecoins)
+    setAsteroidCollision(this.dogecoins)
     setEnemyCollision(this.enemies);
 
     //Creates explosion animation when asteroids are destroyed.
@@ -242,7 +302,11 @@ export default class Main extends Phaser.Scene {
 
     checkAsteroidPos(this.asteroids);
     checkAsteroidPos(this.bitcoins);
+    checkAsteroidPos(this.litecoins);
+    checkAsteroidPos(this.dogecoins);
+    checkAsteroidPos(this.ethereum);
     checkEnemyPos(this.enemies);
     enemyPos(this.enemy);
   }
 }
+

@@ -40,7 +40,7 @@ export default class Win extends Phaser.Scene {
       this,
       () => {
         this.scene.stop("Win");
-        window.location.replace("http://localhost:3000/");
+        window.location.replace("/");
       }
     );
 

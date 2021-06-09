@@ -6,6 +6,13 @@ export function collisionDestroy(collisionObject, asteroid) {
     .setScale(5);
   explosion.play("explode");
   asteroid.disableBody(true, true);
+  if (Phaser.Math.Between(1,90) === 1) {
+    this.healthIcon = this.physics.add.sprite(asteroid.x, asteroid.y, "healthIcon").setScale(1)
+    }
+    if (Phaser.Math.Between(101,190) === 101) {
+     
+    this.invincibilityIcon = this.physics.add.sprite(asteroid.x, asteroid.y, "invincibilityIcon").setScale(5)
+    }
   this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
   this.explosionSound.play();
   const checkPlayerInvinc =
@@ -38,8 +45,8 @@ export function setEnemyCollision(enemies) {
     enemies.setVelocity(xVel, yVel);
   });
 }
-//Function which handles game logic surrounding collision and destructions
 
+//Function which handles game logic surrounding collision and destructions
 export function collisionObtain(player, powerUp) {
   powerUp.disableBody(true, true);
   this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
