@@ -1,7 +1,6 @@
 import { Link, useHistory } from "react-router-dom";
 import Button from "./Button";
 import "../App.css";
-import { enemyShoot } from "./scenes/helpers/shoot";
 import { useState } from 'react'
 import axios from 'axios'
 
@@ -11,20 +10,26 @@ export default function Login() {
     email: "",
     password: "",
     passwordConfirmation: "",
-    userId: undefined
+    userId: undefined,
+    error: ""
   })
 
   const history = useHistory()
-
+ 
   const loginRequest = () => {
     
     axios.post("http://localhost:3000/login", {user: {username: state.username, password: state.password}})
     .then(response => {
       
       if (response.data.logged_in) {
-        
+        console.log(response.data)
+      
         sessionStorage.setItem('userID', response.data.user.username)
         history.push("/")
+      } else {
+        console.log(response.data.errors[0])
+        setState({ error: true, username: "", password: ""})
+       
       }
       
     })
@@ -37,6 +42,7 @@ export default function Login() {
   };
 
   return (
+    
     <div className="Login">
     <input 
     placeholder="username"
@@ -58,7 +64,9 @@ export default function Login() {
       <Link to="/">
         <Button>Home</Button>
       </Link>
+      {state.error && <span>Username or Password Error</span>}
     </div>
+    
   );
 }
 
