@@ -1,37 +1,16 @@
 import { Link } from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {Component, useEffect, useState} from "react";
 import axios from "axios";
 import Button from "./Button";
+import forceUpdate from 'react'
 import "../App.css";
 
 export default function Home() {
-  const [state, setState] = useState({
-  username: "",
-  email: "",
-  password: "",
-  isLoggedIn: false
-})
 
-const loginRequest = () => {
-    // e.preventDefault();
-    axios.post("http://localhost:3000/login", {user: {username: state.username, password: state.password}})
-    .then(response => {
-
-      if (response.data.logged_in) {
-        setState(prev => ({...prev, isLoggedIn: true}))
-      }
-      console.log(response.data);
-    })
-    .catch(error => console.log('api errors:', error))
-}
-
-      
-  console.log(state.isLoggedIn);
-
-  const handleChange = (event) => {
-    const {name, value} = event.target
-    setState((prev) => ({...prev, [name]: value}))
-  };
+  const killSession = () => {
+    sessionStorage.clear()
+    window.location.reload() 
+  }
 
   return (
     <header className="App-header">
@@ -42,38 +21,20 @@ const loginRequest = () => {
       />
       <h1>To The Moon!</h1>
       <h3>Leaderboard</h3>
-      <div>
-        <input 
-        placeholder="username"
-        type="text"
-        name="username"
-        value={state.username}
-        onChange={handleChange}
-        />
-          <input 
-        placeholder="email"
-        type="text"
-        name="email"
-        value={state.email}
-        onChange={handleChange}
-        />
-          <input 
-        placeholder="password"
-        type="password"
-        name="password"
-        value={state.password}
-        onChange={handleChange}
-        />
-        <button placeholder="submit" type="submit" onClick={() => loginRequest()}>
-            Log In
-            <Button state={state} setState={setState}/>
-          </button>     
-      </div>
+       {sessionStorage.length > 0 &&
+       `Welcome ${sessionStorage.userID}`}
       <div className="buttonContainer">
         <span>
           <Link to="/game">
             <Button>Create Game</Button>
           </Link>
+          <Link to="/login">
+            <Button>Log in</Button>
+          </Link>
+          <Link to="/register">
+            <Button>Register</Button>            
+          </Link>          
+            <Button onClick={killSession}>Log Out</Button>
           <Link to="/about">
             <Button>About Us</Button>
           </Link>
