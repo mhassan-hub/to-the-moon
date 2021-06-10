@@ -10,7 +10,7 @@ import {
   setAsteroidCollision,
   playerCollisionAction,
 } from "./helpers/collision";
-const rp = require('request-promise');
+// const rp = require('request-promise');
 
 export default class Main extends Phaser.Scene {
   constructor() {
