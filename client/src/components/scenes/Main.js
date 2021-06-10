@@ -3,13 +3,14 @@ import preloadAssets from "./helpers/preloadAssets";
 import { collisionDestroy } from "./helpers/collision";
 import { checkAsteroidPos, enemyPos, checkEnemyPos } from "./helpers/position";
 import { shoot, enemyShoot, increaseLives } from "./helpers/shoot";
-import { setInvincibility, scoreIncreaseBitcoin } from "./helpers/powerups";
+import { requestOptions, setInvincibility, scoreIncreaseBitcoin, scoreIncreaseDogecoin, scoreIncreaseLitecoin, scoreIncreaseEthereum } from "./helpers/powerups";
 import {
   collisionObtain,
   setEnemyCollision,
   setAsteroidCollision,
   playerCollisionAction,
 } from "./helpers/collision";
+const rp = require('request-promise');
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -140,7 +141,7 @@ export default class Main extends Phaser.Scene {
       this.player,
       this.ethereum,
       collisionObtain,
-      scoreIncreaseBitcoin,
+      scoreIncreaseEthereum,
       this
     );
 
@@ -148,7 +149,7 @@ export default class Main extends Phaser.Scene {
       this.player,
       this.litecoins,
       collisionObtain,
-      scoreIncreaseBitcoin,
+      scoreIncreaseLitecoin,
       this
     );
 
@@ -156,7 +157,7 @@ export default class Main extends Phaser.Scene {
       this.player,
       this.dogecoins,
       collisionObtain,
-      scoreIncreaseBitcoin,
+      scoreIncreaseDogecoin,
       this
     );
 
@@ -233,6 +234,17 @@ export default class Main extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("explosion", {
         start: 1,
         end: 6,
+      }),
+      frameRate: 15,
+      hideOnComplete: true,
+      setCircle: 300,
+    });
+
+    this.anims.create({
+      key: "sparks",
+      frames: this.anims.generateFrameNumbers("sparkle", {
+        start: 5,
+        end: 8,
       }),
       frameRate: 15,
       hideOnComplete: true,

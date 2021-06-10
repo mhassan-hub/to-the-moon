@@ -48,7 +48,10 @@ export function setEnemyCollision(enemies) {
 
 //Function which handles game logic surrounding collision and destructions
 export function collisionObtain(player, powerUp) {
-  powerUp.disableBody(true, true);
+  const sparkle = this.add
+  .sprite(player.x, player.y, "sparkle")
+  .setScale(1);
+sparkle.play("sparks");
   this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
   this.coinSound.play();
   let x = Phaser.Math.Between(0, 580);
