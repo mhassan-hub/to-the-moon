@@ -15,7 +15,7 @@ import {
 export default function addPhysics(scene) {
   scene.physics.add.overlap(
     scene.player,
-    scene.bitcoins,
+    scene.bitcoin,
     collisionObtain,
     scoreIncreaseBitcoin,
     scene
@@ -31,7 +31,7 @@ export default function addPhysics(scene) {
 
   scene.physics.add.overlap(
     scene.player,
-    scene.litecoins,
+    scene.litecoin,
     collisionObtain,
     scoreIncreaseLitecoin,
     scene
@@ -39,7 +39,7 @@ export default function addPhysics(scene) {
 
   scene.physics.add.overlap(
     scene.player,
-    scene.dogecoins,
+    scene.dogecoin,
     collisionObtain,
     scoreIncreaseDogecoin,
     scene
@@ -56,6 +56,14 @@ export default function addPhysics(scene) {
   scene.physics.add.overlap(
     scene.player,
     scene.invincibilityIcon,
+    collisionObtain,
+    setInvincibility,
+    scene
+  );
+
+  scene.physics.add.overlap(
+    scene.player,
+    scene.maximumFlurryIcon,
     collisionObtain,
     setInvincibility,
     scene

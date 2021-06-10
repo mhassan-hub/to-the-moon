@@ -1,0 +1,17 @@
+import Phaser from "phaser";
+
+export function createGroup(name, coinKey, scene) {
+  name = scene.physics.add.group({
+    key: coinKey,
+    frameQuantity: 1,
+    immovable: true,
+    setXY: {
+      x: Math.floor(Math.random() * 800),
+      y: 0,
+      stepX: Phaser.Math.Between(10, 750),
+      stepY: Phaser.Math.Between(15, 300),
+    },
+  });
+  name.setVelocityX(Phaser.Math.Between(-100, 100));
+  name.setVelocityY(Phaser.Math.Between(100, 150));
+}

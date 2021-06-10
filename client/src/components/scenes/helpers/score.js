@@ -9,19 +9,40 @@ export function scoreIncreaseBitcoin() {
   // }).catch((err) => {
   //   console.log('API call error:', err.message);
   // });
-  this.playerScore += 1000;
-  this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  // if(this.playerChoice === )
+  if (this.playerChoice === "bitcoinShip") {
+    this.playerScore += 2000;
+    this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  } else {
+    this.playerScore += 1000;
+    this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  }
 }
 
 export function scoreIncreaseLitecoin() {
-  this.playerScore += 300;
-  this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  if (this.playerChoice === "liteCoinShip") {
+    this.playerScore += 400;
+    this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  } else {
+    this.playerScore += 200;
+    this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  }
 }
 export function scoreIncreaseDogecoin() {
-  this.playerScore += 50;
-  this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  if (this.playerChoice === "dogeShip") {
+    this.playerScore += 200;
+    this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  } else {
+    this.playerScore += 100;
+    this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  }
 }
 export function scoreIncreaseEthereum() {
-  this.playerScore += 700;
-  this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  if (this.playerChoice === "ethereumShip") {
+    this.playerScore += 1000;
+    this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  } else {
+    this.playerScore += 500;
+    this.playerScoreLabel.text = `Score: ${this.playerScore}`;
+  }
 }

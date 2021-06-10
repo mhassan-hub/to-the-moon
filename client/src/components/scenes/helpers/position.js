@@ -22,6 +22,21 @@ export function resetPos(asteroid) {
   asteroid.x = random;
 }
 
+export function checkCoinPos(coins, scene) {
+  coins.children.iterate(function (coin) {
+    if (coin.y > 800) {
+      scene.time.addEvent({
+        delay: 2000,
+        callback: () => {
+          coin.destroy();
+        },
+        callbackScope: scene,
+        loop: true,
+      });
+    }
+  });
+}
+
 //function which "revives" shooter enemy constantly
 export function enemyPos(enemy, scene) {
   if (enemy.y > 800 || enemy.x < 0) {
