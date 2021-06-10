@@ -19,61 +19,65 @@ export default class Lobby extends Phaser.Scene {
 
   create() {
     this.add.image(0, 0, "background");
-    console.log(1024, 768);
+    let { width, height } = this.sys.game.canvas;
 
     this.bitcoin = this.physics.add
-      .image(1024 / 4 - 150, 768 / 2, "bitcoinShip")
+      .image(width / 4 - 150, height / 2, "bitcoinShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.bitcoin.setScale(2.5);
-
+        this.ship = this.bitcoin;
         this.playerChoice = "bitcoinShip";
-        readyButton(this.playerChoice, this);
       });
 
     this.liteCoin = this.physics.add
-      .image(1024 / 2 - 150, 768 / 2, "liteCoinShip")
+      .image(width / 2 - 150, height / 2, "liteCoinShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.liteCoin.setScale(2.5);
+        this.ship = this.liteCoin;
         this.playerChoice = "liteCoinShip";
-        readyButton(this.playerChoice, this);
       });
 
     this.ethereum = this.physics.add
-      .image((1024 / 4) * 3 - 150, 768 / 2, "ethereumShip")
+      .image((width / 4) * 3 - 150, height / 2, "ethereumShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.ethereum.setScale(2.5);
+        // this.ethereum.setScale(2.5);
+        this.ship = this.ethereum;
         this.playerChoice = "ethereumShip";
-        readyButton(this.playerChoice, this);
       });
 
     this.doge = this.physics.add
-      .image(1024 - 150, 768 / 2, "dogeShip")
+      .image(width - 150, height / 2, "dogeShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.doge.setScale(2.5);
+        // this.doge.setScale(2.5);
+        this.ship = this.doge;
         this.playerChoice = "dogeShip";
-        readyButton(this.playerChoice, this);
+        // readyButton(this.playerChoice, this);
       });
 
     this.add
-      .text(1024 * 0.5, 768 * 0.1, `Pick your ship and ready up!`, {
+      .text(width * 0.5, height * 0.1, `Pick your ship and ready up!`, {
         fontSize: 36,
       })
       .setOrigin(0.5);
   }
   update() {
+    this.bitcoin.setScale(1.2);
+    this.liteCoin.setScale(1.2);
+    this.ethereum.setScale(1.2);
+    this.doge.setScale(1.2);
+
     if (this.playerChoice) {
+      this.ship.setScale(2.5);
       readyButton(this.playerChoice, this);
     }
   }
