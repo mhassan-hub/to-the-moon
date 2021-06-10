@@ -1,5 +1,5 @@
 import { collisionDestroy, playerCollisionAction } from "./collision";
-
+import { scoreIncreaseAsteroid } from "./score";
 // let { width, height } = this.sys.game.canvas;
 
 export function shoot() {
@@ -36,11 +36,6 @@ export function shoot() {
       this.laser.destroy();
     }
   }
-}
-
-export function scoreIncreaseAsteroid() {
-  this.playerScore += 100;
-  this.playerScoreLabel.text = `Score:${this.playerScore}`;
 }
 
 //Function to shoot down asteroids and enemies.
