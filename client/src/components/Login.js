@@ -22,9 +22,8 @@ export default function Login() {
     .then(response => {
       
       if (response.data.logged_in) {
-        console.log(response.data)
-      
-        sessionStorage.setItem('userID', response.data.user.username)
+        
+        sessionStorage.setItem('userID', response.data.user.id)
         history.push("/")
       } else {
         console.log(response.data.errors[0])
@@ -33,7 +32,6 @@ export default function Login() {
       }
       
     })
-    .catch(error => console.log('api errors:', error))
 }
 
   const handleChange = (event) => {

@@ -1,10 +1,16 @@
 import Phaser from "phaser";
 
 //Function which constantly updates asteroid positions to reset their position if off canvas
-export function checkAsteroidPos(asteroids) {
+export function checkAsteroidPos(asteroids, scene) {
   asteroids.children.iterate(function (asteroid) {
     if (asteroid.y > 800) {
-      resetPos(asteroid);
+      // resetPos(asteroid);
+      scene.time.addEvent({
+        delay: 2000,
+        callback: resetPos(asteroid),
+        callbackScope: scene,
+        loop: true,
+      });
     }
   });
 }
@@ -17,17 +23,29 @@ export function resetPos(asteroid) {
 }
 
 //function which "revives" shooter enemy constantly
-export function enemyPos(enemy) {
+export function enemyPos(enemy, scene) {
   if (enemy.y > 800 || enemy.x < 0) {
-    resetPos(enemy);
+    // resetPos(enemy);
+    scene.time.addEvent({
+      delay: 2000,
+      callback: resetPos(enemy),
+      callbackScope: scene,
+      loop: true,
+    });
   }
 }
 
 //Function which constantly updates enemy positions to reset their position if off canvas
-export function checkEnemyPos(enemies) {
+export function checkEnemyPos(enemies, scene) {
   enemies.children.iterate(function (enemy) {
     if (enemy.y > 800) {
-      resetPos(enemy);
+      // resetPos(enemy);
+      scene.time.addEvent({
+        delay: 2000,
+        callback: resetPos(enemy),
+        callbackScope: scene,
+        loop: true,
+      });
     }
   });
 }

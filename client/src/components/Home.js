@@ -38,6 +38,9 @@ export default function Home() {
           <Link to="/about">
             <Button>About Us</Button>
           </Link>
+          <Link to="/leaderboard">
+            <Button>Leaderboard</Button>
+          </Link>
         </span>
       </div>
     </header>
