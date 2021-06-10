@@ -35,6 +35,12 @@ export default class Main extends Phaser.Scene {
       .tileSprite(0, 0, 0, 0, "background")
       .setOrigin(0);
 
+    this.progressBar2 = this.add.graphics({ x: 700, y: 280 });
+    this.progressBox2 = this.add.graphics({ x: 700, y: 280 });
+    this.progressBox2.fillStyle(0x222222, 0.8);
+    this.progressBox2.fillRect(245, 270, 40, -310);
+    this.add.image(965, 235, "moon").setScale(0.1);
+
     //sets player and player physics
 
     this.player = this.physics.add.sprite(
@@ -200,6 +206,20 @@ export default class Main extends Phaser.Scene {
   update() {
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
+
+    this.progress =
+      Math.round((-this.background.tilePositionY / 10000) * 100) / 100;
+
+    this.progressBar2.fillStyle(0xffffff, 1);
+    this.progressBar2.fillRect(250, 265, 30, -300 * this.progress);
+
+    if (
+      this.background.tilePositionY > -2000 &&
+      this.background.tilePositionY < -1000
+    ) {
+      this.burger.visible = true;
+      this.burger.y += 3;
+    }
 
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
