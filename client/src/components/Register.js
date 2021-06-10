@@ -1,7 +1,6 @@
 import { Link, useHistory } from "react-router-dom";
 import Button from "./Button";
 import "../App.css";
-import { enemyShoot } from "./scenes/helpers/shoot";
 import { useState } from 'react'
 import axios from 'axios'
 
@@ -12,15 +11,22 @@ export default function Register(props) {
     username: "",
     email: "",
     password: "",
-    passwordConfirmation: ""
+    passwordConfirmation: "",
+    error: ""
   })
    
   const history = useHistory()
   const register = () => {
     axios.post("http://localhost:3000/users", {user: {username: state.username, email: state.email, password: state.password, password_confirmation: state.passwordConfirmation }})
     .then(response => {
+      
+      console.log(response.data)
+      if(response.data.status === 500) {
+        setState({ error: true, username: "", email: "", password: "", password_confirmation: ""})
+      } else {
       sessionStorage.setItem('userID', state.username)
-      history.push('/home')      
+      history.push('/home')
+      }    
     })
     .catch(error => console.log('api errors:', error))
   }
@@ -62,10 +68,12 @@ export default function Register(props) {
     value={state.passwordConfirmation}
     onChange={handleChange}
     />
-    <button placeholder="submit" type="submit" onClick={() => register()}>
-        Register
-        <Button />
-      </button>     
+    <Button onClick={() => register()}>Register</Button>
+  
+    <Link to="/">
+      <Button>Home</Button>
+    </Link>    
+    {state.error && <span>Input Error</span>} 
   </div>
   );
 }
