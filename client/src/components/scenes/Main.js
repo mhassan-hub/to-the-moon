@@ -43,7 +43,6 @@ export default class Main extends Phaser.Scene {
       .tileSprite(0, 0, 0, 0, "background")
       .setOrigin(0);
 
-<<<<<<< HEAD
     this.progressBar2 = this.add.graphics({x: 700, y: 280})
     this.progressBox2 = this.add.graphics({x: 700,y: 280})
     this.progressBox2.fillStyle(0x222222, 0.8);
@@ -56,10 +55,8 @@ export default class Main extends Phaser.Scene {
 
     this.burger = this.add.image(400, 0, "burger").setScale(0.1);
     this.burger.visible = false;
-=======
     // this.burger = this.add.image(400, 0, "burger").setScale(0.1);
     // this.burger.visible = false;
->>>>>>> main
     //sets player and player physics
 
     this.player = this.physics.add.sprite(
@@ -306,11 +303,10 @@ export default class Main extends Phaser.Scene {
   update() {
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
-<<<<<<< HEAD
  
     
     
-    this.progress = Math.round(((-this.background.tilePositionY/8000) * 100))/100
+    this.progress = Math.round(((-this.background.tilePositionY/10000) * 100))/100
       
     this.progressBar2.fillStyle(0xffffff, 1);
     this.progressBar2.fillRect(250, 265, 30, -300 * this.progress)
@@ -322,9 +318,7 @@ export default class Main extends Phaser.Scene {
       this.burger.visible = true;
       this.burger.y += 3;
     }
-=======
 
->>>>>>> main
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
       this.scene.start("Win", {
