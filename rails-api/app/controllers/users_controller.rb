@@ -51,7 +51,7 @@ def show
         render json: {
             status: 200
         }
-        # end
+        end
     end
 
     def show_scores
