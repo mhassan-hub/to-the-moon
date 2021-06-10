@@ -6,8 +6,6 @@ export default class Lobby extends Phaser.Scene {
     super("Lobby");
   }
 
-  // init(data) {}
-
   preload() {
     // this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.image("background", "assets/starfield.png");
@@ -21,17 +19,20 @@ export default class Lobby extends Phaser.Scene {
     this.add.image(0, 0, "background");
     let { width, height } = this.sys.game.canvas;
 
-    this.bitcoin = this.physics.add
+    // Create the initial ships for player selection
+
+    this.bitcoin = this.add
       .image(width / 4 - 150, height / 2, "bitcoinShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
+        // save the user selection to a ship variable and a key variable
         this.ship = this.bitcoin;
         this.playerChoice = "bitcoinShip";
       });
 
-    this.liteCoin = this.physics.add
+    this.liteCoin = this.add
       .image(width / 2 - 150, height / 2, "liteCoinShip")
       .setScale(1.2)
       .setOrigin(0.5)
@@ -41,27 +42,24 @@ export default class Lobby extends Phaser.Scene {
         this.playerChoice = "liteCoinShip";
       });
 
-    this.ethereum = this.physics.add
+    this.ethereum = this.add
       .image((width / 4) * 3 - 150, height / 2, "ethereumShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        // this.ethereum.setScale(2.5);
         this.ship = this.ethereum;
         this.playerChoice = "ethereumShip";
       });
 
-    this.doge = this.physics.add
+    this.doge = this.add
       .image(width - 150, height / 2, "dogeShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        // this.doge.setScale(2.5);
         this.ship = this.doge;
         this.playerChoice = "dogeShip";
-        // readyButton(this.playerChoice, this);
       });
 
     this.add
@@ -71,11 +69,13 @@ export default class Lobby extends Phaser.Scene {
       .setOrigin(0.5);
   }
   update() {
+    // reassign scale if another ship has been selected
     this.bitcoin.setScale(1.2);
     this.liteCoin.setScale(1.2);
     this.ethereum.setScale(1.2);
     this.doge.setScale(1.2);
 
+    // if the player made a choice show the ready up button and scale the ship bigger
     if (this.playerChoice) {
       this.ship.setScale(2.5);
       readyButton(this.playerChoice, this);

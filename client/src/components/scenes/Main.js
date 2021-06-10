@@ -27,7 +27,6 @@ export default class Main extends Phaser.Scene {
   //Preload all assets to load files from asset folder
   preload() {
     preloadAssets(this);
-    this.load.image("bitcoinShip", "assets/bitcoin_fighter.png");
   }
 
   //After loading assets create() will generate asset instances in game
