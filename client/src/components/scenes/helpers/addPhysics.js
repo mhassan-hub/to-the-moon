@@ -4,11 +4,13 @@ import {
   collisionDestroy,
   playerCollisionAction,
 } from "./collision";
+import { setInvincibility, increaseLives } from "./powerups";
 import {
   scoreIncreaseBitcoin,
-  setInvincibility,
-  increaseLives,
-} from "./powerups";
+  scoreIncreaseDogecoin,
+  scoreIncreaseEthereum,
+  scoreIncreaseLitecoin,
+} from "./score";
 
 export default function addPhysics(scene) {
   scene.physics.add.overlap(
@@ -23,7 +25,7 @@ export default function addPhysics(scene) {
     scene.player,
     scene.ethereum,
     collisionObtain,
-    scoreIncreaseBitcoin,
+    scoreIncreaseEthereum,
     scene
   );
 
@@ -31,7 +33,7 @@ export default function addPhysics(scene) {
     scene.player,
     scene.litecoins,
     collisionObtain,
-    scoreIncreaseBitcoin,
+    scoreIncreaseLitecoin,
     scene
   );
 
@@ -39,7 +41,7 @@ export default function addPhysics(scene) {
     scene.player,
     scene.dogecoins,
     collisionObtain,
-    scoreIncreaseBitcoin,
+    scoreIncreaseDogecoin,
     scene
   );
 
