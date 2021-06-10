@@ -8,15 +8,18 @@ export function collisionDestroy(collisionObject, asteroid) {
     .setScale(5);
   explosion.play("explode");
   asteroid.disableBody(true, true);
-  if (Phaser.Math.Between(1, 100) === 1) {
+  if (Phaser.Math.Between(1, 2) === 1) {
     this.healthIcon = this.physics.add
       .sprite(asteroid.x, asteroid.y, "healthIcon")
       .setScale(1);
+     
+  
   }
-  if (Phaser.Math.Between(101, 200) === 101) {
+  if (Phaser.Math.Between(101, 102) === 101) {
     this.invincibilityIcon = this.physics.add
       .sprite(asteroid.x, asteroid.y, "invincibilityIcon")
       .setScale(5);
+    
   }
   this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
   this.explosionSound.play();
@@ -92,6 +95,10 @@ export function playerCollisionAction() {
     this.playerScore += 50;
     this.playerScoreLabel.text = `Score:${this.playerScore}`;
   }
+}
+
+export function collectPower() {
+  console.log("pick up")
 }
 
 export function respawn() {

@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import preloadAssets from "./helpers/preloadAssets";
-import { collisionDestroy } from "./helpers/collision";
+import { collectPower, collisionDestroy } from "./helpers/collision";
 import { checkAsteroidPos, enemyPos, checkEnemyPos } from "./helpers/position";
 import { shoot, enemyShoot, increaseLives } from "./helpers/shoot";
 import { requestOptions, setInvincibility, scoreIncreaseBitcoin, scoreIncreaseDogecoin, scoreIncreaseLitecoin, scoreIncreaseEthereum } from "./helpers/powerups";
@@ -71,9 +71,11 @@ export default class Main extends Phaser.Scene {
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
     this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
 
+  
+
     this.enemies = this.physics.add.group({
       key: "enemy",
-      frameQuantity: 3,
+      frameQuantity: 1,  
       immovable: true,
       setXY: {
         x: Math.floor(Math.random() * 800),
@@ -82,6 +84,25 @@ export default class Main extends Phaser.Scene {
         stepY: Phaser.Math.Between(15, 300),
       },
     });
+
+    this.time.addEvent({
+      delay: 5000,
+      callback: createNew,
+      callbackScope: this,
+      loop: false,
+    });
+    console.log(this.enemies)
+   
+    function createNew() {
+      this.enemies.createMultiple({key: "enemy", repeat: 3,setXY: {
+        x: Math.floor(Math.random() * 800),
+        y: 0,
+        // stepX: Phaser.Math.Between(10, 750),
+        // stepY: Phaser.Math.Between(15, 300),
+      },})
+      this.enemies.setVelocityX(Phaser.Math.Between(-100, 100));
+    this.enemies.setVelocityY(Phaser.Math.Between(100, 150));
+    }
 
     //creates asteroid group and sets asteroid physics
     this.asteroids = this.physics.add.group({
@@ -181,7 +202,7 @@ export default class Main extends Phaser.Scene {
     this.physics.add.overlap(
       this.player,
       this.healthIcon,
-      collisionObtain,
+      collectPower,
       increaseLives,
       this
     );
@@ -189,7 +210,7 @@ export default class Main extends Phaser.Scene {
     this.physics.add.overlap(
       this.player,
       this.invincibilityIcon,
-      collisionObtain,
+      collectPower,
       setInvincibility,
       this
     );
@@ -296,17 +317,23 @@ export default class Main extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+
+   
+
   }
 
   
 
   update() {
+
+   
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
  
     
     
     this.progress = Math.round(((-this.background.tilePositionY/10000) * 100))/100
+
       
     this.progressBar2.fillStyle(0xffffff, 1);
     this.progressBar2.fillRect(250, 265, 30, -300 * this.progress)
@@ -370,4 +397,8 @@ export default class Main extends Phaser.Scene {
     checkEnemyPos(this.enemies, this);
     enemyPos(this.enemy, this);
   }
+
+  
 }
+
+
