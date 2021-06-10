@@ -16,34 +16,40 @@ export default class Main extends Phaser.Scene {
     super("Main");
   }
 
-  init() {
+  init(data) {
     this.playerScore = 0;
     this.playerLives = 3;
     this.invincibility = false;
     this.finishLine = -10000;
+    this.playerChoise = data.player;
   }
 
   //Preload all assets to load files from asset folder
   preload() {
     preloadAssets(this);
+    this.load.image("bitcoinShip", "assets/bitcoin_fighter.png");
   }
 
   //After loading assets create() will generate asset instances in game
   create() {
     //width and height from canvas for easy manipulations
     let { width, height } = this.sys.game.canvas;
-
+    console.log(this.playerChoise);
     //sets background image
     this.add.image(400, 300, "background");
     this.background = this.add
       .tileSprite(0, 0, 0, 0, "background")
       .setOrigin(0);
 
-    this.burger = this.add.image(400, 0, "burger").setScale(0.1);
-    this.burger.visible = false;
+    // this.burger = this.add.image(400, 0, "burger").setScale(0.1);
+    // this.burger.visible = false;
     //sets player and player physics
 
-    this.player = this.physics.add.sprite(width / 2, height, "ship");
+    this.player = this.physics.add.sprite(
+      width / 2,
+      height,
+      `${this.playerChoise}`
+    );
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
 
@@ -259,34 +265,12 @@ export default class Main extends Phaser.Scene {
       setCircle: 300,
     });
 
-    // // if (this.enemy.body.enable === true) {
-    // this.time.addEvent({
-    //   delay: 2000,
-    //   callback: () => {
-    //     if (this.enemy.body.enable === true) {
-    //       enemyShoot();
-    //     }
-    //   },
-    //   callbackScope: this,
-    //   loop: true,
-    // });
-
     this.time.addEvent({
       delay: 2000,
       callback: enemyShoot,
       callbackScope: this,
       loop: true,
     });
-    // this.time.delayedCall(
-    //   5000,
-    //   () => {
-    //     // if (this.enemy.body.enable === true) {
-    //     enemyShoot();
-    //     // }
-    //   },
-    //   this
-    // );
-    // }
   }
 
   update() {
