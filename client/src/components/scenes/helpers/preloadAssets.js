@@ -9,8 +9,13 @@ export default function preloadAssets(scene) {
   scene.load.image("enemyshooter", "assets/elon.png");
   scene.load.image("enemylaser", "assets/enemylaser.png");
   scene.load.image("asteroid", "assets/Asteroid.png");
-  scene.load.image("ship", "assets/fighter.png");
+  // scene.load.image("ship", "assets/fighter.png");
   scene.load.image("background", "assets/starfield.png");
+  scene.load.image("background", "assets/starfield.png");
+  scene.load.image("bitcoinShip", "assets/bitcoin_fighter.png");
+  scene.load.image("liteCoinShip", "assets/lite_fighter.png");
+  scene.load.image("ethereumShip", "assets/ethereum_fighter.png");
+  scene.load.image("dogeShip", "assets/doge_fighter.png");
   scene.load.image("laser", "assets/laser.png");
   scene.load.image("bitcoin", "assets/btc.png");
   scene.load.image("ethereum", "assets/eth.png");
