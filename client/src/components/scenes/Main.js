@@ -34,7 +34,7 @@ export default class Main extends Phaser.Scene {
   create() {
     //width and height from canvas for easy manipulations
     let { width, height } = this.sys.game.canvas;
-    console.log(this.playerChoise);
+
     //sets background image
     this.add.image(400, 300, "background");
     this.background = this.add
