@@ -1,16 +1,10 @@
 import Phaser from "phaser";
 import preloadAssets from "./helpers/preloadAssets";
-import { collisionDestroy } from "./helpers/collision";
 import { checkAsteroidPos, enemyPos, checkEnemyPos } from "./helpers/position";
-import { shoot, enemyShoot, increaseLives } from "./helpers/shoot";
-import { setInvincibility, scoreIncreaseBitcoin } from "./helpers/powerups";
-import {
-  collisionObtain,
-  setEnemyCollision,
-  setAsteroidCollision,
-  playerCollisionAction,
-} from "./helpers/collision";
+import { shoot, enemyShoot } from "./helpers/shoot";
+import { setEnemyCollision, setAsteroidCollision } from "./helpers/collision";
 import Button from "./helpers/button";
+import addPhysics from "./helpers/addPhysics";
 export default class Main extends Phaser.Scene {
   constructor() {
     super("Main");
@@ -40,8 +34,6 @@ export default class Main extends Phaser.Scene {
       .tileSprite(0, 0, 0, 0, "background")
       .setOrigin(0);
 
-    // this.burger = this.add.image(400, 0, "burger").setScale(0.1);
-    // this.burger.visible = false;
     //sets player and player physics
 
     this.player = this.physics.add.sprite(
@@ -131,80 +123,8 @@ export default class Main extends Phaser.Scene {
       },
     });
 
-    this.physics.add.overlap(
-      this.player,
-      this.bitcoins,
-      collisionObtain,
-      scoreIncreaseBitcoin,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.ethereum,
-      collisionObtain,
-      scoreIncreaseBitcoin,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.litecoins,
-      collisionObtain,
-      scoreIncreaseBitcoin,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.dogecoins,
-      collisionObtain,
-      scoreIncreaseBitcoin,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.healthIcon,
-      collisionObtain,
-      increaseLives,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.invincibilityIcon,
-      collisionObtain,
-      setInvincibility,
-      this
-    );
-
-    //Creates asteroid physics collider between player and asteroids
-    this.physics.add.overlap(
-      this.player,
-      this.asteroids,
-      collisionDestroy,
-      playerCollisionAction,
-      this
-    );
-
-    //Creates physics collider between enemy and player
-    this.physics.add.overlap(
-      this.player,
-      this.enemies,
-      collisionDestroy,
-      playerCollisionAction,
-      this
-    );
-
-    //Creates physics collider between enemy and shooting enemy
-    this.physics.add.overlap(
-      this.player,
-      this.enemy,
-      collisionDestroy,
-      playerCollisionAction,
-      this
-    );
+    // add physics overlaps
+    addPhysics(this);
 
     //Overhead score and lives text
     const textStyle = {
@@ -229,13 +149,6 @@ export default class Main extends Phaser.Scene {
       this.scene.pause();
     });
 
-    this.events.on("pause", function () {
-      console.log("Scene A paused");
-    });
-
-    this.events.on("resume", function () {
-      console.log("Scene A resumed");
-    });
     //Creates music file to play in background and plays it
     // this.music = this.sound.add("audioSound", { volume: 0.9, loop: true });
     // this.music.play();
@@ -292,14 +205,6 @@ export default class Main extends Phaser.Scene {
       });
       this.scene.stop("Main");
     }
-    // timedEvent = this.time.delayedCall(
-    //   5000,
-    //   () => {
-    //     this.scene.start("Win");
-    //     this.scene.stop("Main");
-    //   },
-    //   this
-    // );
 
     /** @type {Phaser.Phyics.Arcade.StaticBody} */
 
