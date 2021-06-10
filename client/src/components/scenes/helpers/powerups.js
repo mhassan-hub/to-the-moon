@@ -24,3 +24,8 @@ export function scoreIncreaseBitcoin() {
   this.playerScore += 10;
   this.playerScoreLabel.text = `Score:${this.playerScore}`;
 }
+
+export function increaseLives() {
+  this.playerLives++;
+  this.playerLifeLabel.text = `Lives: ${this.playerLives}`;
+}
