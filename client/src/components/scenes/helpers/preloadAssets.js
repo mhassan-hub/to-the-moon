@@ -22,6 +22,7 @@ export default function preloadAssets(scene) {
   scene.load.image("litecoin", "assets/lite.png");
   scene.load.image("dogecoin", "assets/doge.png");
   scene.load.image("burger", "assets/SpaceBurger.png");
+  scene.load.image('moon', "assets/moon.png")
   scene.load.spritesheet("explosion", "assets/explosion.png", {
     frameWidth: 32,
     frameHeight: 32,
