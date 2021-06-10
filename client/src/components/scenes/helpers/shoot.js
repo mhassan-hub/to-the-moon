@@ -38,7 +38,7 @@ export function shoot() {
 
 export function scoreIncreaseAsteroid() {
   this.playerScore += 100;
-  this.playerScoreLabel.text = this.playerScore;
+  this.playerScoreLabel.text = `Score:${this.playerScore}`;
 }
 
 //Function to shoot down asteroids and enemies.
@@ -61,5 +61,5 @@ export function enemyShoot() {
 
 export function increaseLives() {
   this.playerLives++;
-  this.playerLifeLabel.text = this.playerLives;
+  this.playerLifeLabel.text = `Lives: ${this.playerLives}`;
 }
