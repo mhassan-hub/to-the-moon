@@ -1,3 +1,18 @@
+// const rp = require('request-promise');
+// export const requestOptions = {
+//   method: 'GET',
+//   uri: process.env.URL,
+//   qs: {
+//     'start': '1',
+//     'limit': '5000',
+//     'convert': 'USD'
+//   },
+//   headers: {
+//     'X-CMC_PRO_API_KEY': process.env.X_CMC_PRO_API_KEY
+//   },
+//   json: true,
+//   gzip: true
+// };
 export function setInvincibility() {
   if (!this.invincibility) {
     this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
@@ -18,11 +33,6 @@ export function setInvincibility() {
       this.invincibleSound.stop();
     }, 8000);
   }
-}
-
-export function scoreIncreaseBitcoin() {
-  this.playerScore += 10;
-  this.playerScoreLabel.text = `Score:${this.playerScore}`;
 }
 
 export function increaseLives() {
