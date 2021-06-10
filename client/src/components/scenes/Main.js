@@ -25,18 +25,29 @@ export default class Main extends Phaser.Scene {
   //Preload all assets to load files from asset folder
   preload() {
     preloadAssets(this);
+   
   }
 
   //After loading assets create() will generate asset instances in game
   create() {
     //width and height from canvas for easy manipulations
     let { width, height } = this.sys.game.canvas;
-
+ 
     //sets background image
     this.add.image(400, 300, "background");
     this.background = this.add
       .tileSprite(0, 0, 0, 0, "background")
       .setOrigin(0);
+
+    this.progressBar2 = this.add.graphics({x: 700, y: 280})
+    this.progressBox2 = this.add.graphics({x: 700,y: 280})
+    this.progressBox2.fillStyle(0x222222, 0.8);
+    this.progressBox2.fillRect(245, 270, 40, -310);
+    this.add.image(965,235, "moon").setScale(0.10)
+    
+   
+ 
+
 
     this.burger = this.add.image(400, 0, "burger").setScale(0.1);
     this.burger.visible = false;
@@ -247,9 +258,19 @@ export default class Main extends Phaser.Scene {
     });
   }
 
+  
+
   update() {
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
+ 
+    
+    
+    this.progress = Math.round(((-this.background.tilePositionY/8000) * 100))/100
+      
+    this.progressBar2.fillStyle(0xffffff, 1);
+    this.progressBar2.fillRect(250, 265, 30, -300 * this.progress)
+
     if (
       this.background.tilePositionY > -2000 &&
       this.background.tilePositionY < -1000
