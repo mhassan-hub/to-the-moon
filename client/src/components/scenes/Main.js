@@ -15,7 +15,8 @@ export default class Main extends Phaser.Scene {
     this.playerScore = 0;
     this.playerLives = 3;
     this.invincibility = false;
-    this.finishLine = -10000;
+    this.continiuosShot = false;
+    this.finishLine = -5000;
     this.playerChoise = data.player;
   }
 
@@ -28,7 +29,6 @@ export default class Main extends Phaser.Scene {
   create() {
     //width and height from canvas for easy manipulations
     let { width, height } = this.sys.game.canvas;
-
     //sets background image
     this.add.image(400, 300, "background");
     this.background = this.add
@@ -55,10 +55,18 @@ export default class Main extends Phaser.Scene {
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
     this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
 
+    this.enemy.body.enable = false;
+    this.enemy.visible = false;
+
+    // this.enemy = this.physics.add.sprite(500, 0, "enemyshooter");
+    // this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
+    // this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
+
     this.enemies = this.physics.add.group({
       key: "enemy",
       frameQuantity: 3,
       immovable: true,
+      // repeat: Math.ceil(2 * (this.progress + 1)),
       setXY: {
         x: Math.floor(Math.random() * 800),
         y: 50,
@@ -67,6 +75,30 @@ export default class Main extends Phaser.Scene {
       },
     });
 
+    this.time.addEvent({
+      delay: -this.finishLine / 2,
+      callback: () => {
+        this.enemies.createMultiple({
+          key: "enemy",
+          repeat: 3,
+          setXY: {
+            x: Math.floor(Math.random() * 800),
+            y: 0,
+            stepX: Phaser.Math.Between(10, 750),
+            stepY: Phaser.Math.Between(15, 30),
+          },
+        });
+        this.enemies.setVelocityX(Phaser.Math.Between(-100, 100));
+        this.enemies.setVelocityY(Phaser.Math.Between(100, 150));
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
+    // function createNew() {
+
+    // }
+    // console.log(this.progress);
     //creates asteroid group and sets asteroid physics
     this.asteroids = this.physics.add.group({
       key: "asteroid",
@@ -195,31 +227,39 @@ export default class Main extends Phaser.Scene {
       setCircle: 300,
     });
 
-    this.time.addEvent({
-      delay: 2000,
-      callback: enemyShoot,
-      callbackScope: this,
-      loop: true,
-    });
+    if (this.enemy.body.enable === true) {
+      this.time.addEvent({
+        delay: 2000,
+        callback: enemyShoot,
+        callbackScope: this,
+        loop: true,
+      });
+    }
   }
 
   update() {
     //scrolling background image for infinite loop
+
     this.background.tilePositionY -= 3;
-
     this.progress =
-      Math.round((-this.background.tilePositionY / 10000) * 100) / 100;
+      Math.round((this.background.tilePositionY / this.finishLine) * 100) / 100;
 
-    this.progressBar2.fillStyle(0xffffff, 1);
+    this.progressBar2.fillStyle(0x16cc41, 1);
     this.progressBar2.fillRect(250, 265, 30, -300 * this.progress);
 
-    if (
-      this.background.tilePositionY > -2000 &&
-      this.background.tilePositionY < -1000
-    ) {
-      this.burger.visible = true;
-      this.burger.y += 3;
+    if (this.continiuosShot) {
+      this.time.addEvent({
+        delay: 100,
+        callback: shoot,
+        callbackScope: this,
+        loop: false,
+      });
     }
+    // if (this.background.tilePositionY < this.finishLine / 2) {
+    //   this.enemy.visible = true;
+    //   this.enemy.body.enable = true;
+    //   // this.burger.y += 3;
+    // }
 
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
@@ -238,6 +278,8 @@ export default class Main extends Phaser.Scene {
       this.scene.stop("Main");
     }
 
+    // this.enemies.quantity = Math.ceil(2 * (this.progress + 1));
+    // console.log(this.enemies.frameQuantity);
     /** @type {Phaser.Phyics.Arcade.StaticBody} */
 
     //keybinding listeners for player movement
@@ -262,6 +304,8 @@ export default class Main extends Phaser.Scene {
     checkAsteroidPos(this.dogecoins, this);
     checkAsteroidPos(this.ethereum, this);
     checkEnemyPos(this.enemies, this);
-    enemyPos(this.enemy, this);
+    if (this.enemy.body.enable === true) {
+      enemyPos(this.enemy, this);
+    }
   }
 }
