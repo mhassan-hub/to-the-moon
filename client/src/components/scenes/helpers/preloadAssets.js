@@ -26,6 +26,10 @@ export default function preloadAssets(scene) {
     frameWidth: 32,
     frameHeight: 32,
   });
+  scene.load.spritesheet("sparkle", "assets/sparkle.png", {
+    frameWidth: 32,
+    frameHeight: 32,
+  });
   scene.load.image("doubleShoot", "assets/doubleshot.png");
   scene.load.image("healthIcon", "assets/heart.png");
   scene.load.image("invincibilityIcon", "assets/star.png");

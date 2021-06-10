@@ -3,6 +3,7 @@ import preloadAssets from "./helpers/preloadAssets";
 import { checkAsteroidPos, enemyPos, checkEnemyPos } from "./helpers/position";
 import { shoot, enemyShoot } from "./helpers/shoot";
 import { setEnemyCollision, setAsteroidCollision } from "./helpers/collision";
+// const rp = require('request-promise');
 import Button from "./helpers/button";
 import addPhysics from "./helpers/addPhysics";
 export default class Main extends Phaser.Scene {
@@ -171,6 +172,17 @@ export default class Main extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("explosion", {
         start: 1,
         end: 6,
+      }),
+      frameRate: 15,
+      hideOnComplete: true,
+      setCircle: 300,
+    });
+
+    this.anims.create({
+      key: "sparks",
+      frames: this.anims.generateFrameNumbers("sparkle", {
+        start: 5,
+        end: 8,
       }),
       frameRate: 15,
       hideOnComplete: true,
