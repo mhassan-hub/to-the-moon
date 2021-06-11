@@ -13,13 +13,14 @@
 //   json: true,
 //   gzip: true
 // };
+import Phaser from "phaser";
 export function setInvincibility() {
   if (!this.invincibility) {
     this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
     this.invincibility = true;
     this.invincibleSound.play();
 
-    const flash = this.tweens.add({
+    this.tweens.add({
       targets: this.player,
       alpha: 0,
       ease: "Cubic.easeOut",
@@ -35,28 +36,42 @@ export function setInvincibility() {
   }
 }
 
-export function scoreIncreaseBitcoin() {
-  // rp(requestOptions).then(response => {
-  //   console.log('API call response:', response);
-  // }).catch((err) => {
-  //   console.log('API call error:', err.message);
-  // });
-  this.playerScore += 1000;
-  this.playerScoreLabel.text = this.playerScore;
+export function maximumFlurry() {
+  if (!this.continiuosShot) {
+
+    this.continiuosShot = true;
+
+    setTimeout(() => {
+      this.continiuosShot = false;
+    }, 8000);
+  }
 }
 
-export function scoreIncreaseLitecoin() {
-  this.playerScore += 300;
-  this.playerScoreLabel.text = this.playerScore;
-}
-export function scoreIncreaseDogecoin() {
-  this.playerScore += 50;
-  this.playerScoreLabel.text = this.playerScore;
-}
-export function scoreIncreaseEthereum() {
-  this.playerScore += 700;
-  this.playerScoreLabel.text = this.playerScore;
+export function increaseLives() {
+  this.playerLives++;
+  this.playerLifeLabel.text = `Lives: ${this.playerLives}`;
 }
 
-
-
+export function spawnCoins(coin, coinKey, probability, scene) {
+  scene.time.addEvent({
+    delay: 1000,
+    callback: () => {
+      if (Phaser.Math.Between(1, probability) === 1) {
+        coin.createMultiple({
+          key: coinKey,
+          repeat: 1,
+          setXY: {
+            x: Math.floor(Math.random() * 800),
+            y: 0,
+            stepX: Phaser.Math.Between(10, 750),
+            stepY: Phaser.Math.Between(15, 30),
+          },
+        });
+        coin.setVelocityX(Phaser.Math.Between(-100, 100));
+        coin.setVelocityY(Phaser.Math.Between(100, 150));
+      }
+    },
+    callBackScope: scene,
+    loop: true,
+  });
+}

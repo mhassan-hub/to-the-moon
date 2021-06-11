@@ -17,6 +17,9 @@ export default class Game extends React.Component {
       type: Phaser.AUTO,
       backgroundColor: "#000000",
       pixelArt: true,
+      fps: {
+        target: 30,
+        },
       physics: {
         default: "arcade",
       },
