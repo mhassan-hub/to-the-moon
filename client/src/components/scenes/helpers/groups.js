@@ -1,6 +1,9 @@
 import Phaser from "phaser";
+import {scoreIncreaseDogecoin} from "./score";
+import {collisionObtain} from "./collision";
 
 export function createGroup(name, coinKey, scene) {
+  console.log(`here doing ${name}`);
   name = scene.physics.add.group({
     key: coinKey,
     frameQuantity: 1,
@@ -14,4 +17,11 @@ export function createGroup(name, coinKey, scene) {
   });
   name.setVelocityX(Phaser.Math.Between(-100, 100));
   name.setVelocityY(Phaser.Math.Between(100, 150));
+  scene.physics.add.overlap(
+    scene.player,
+    scene.dogecoin,
+    collisionObtain,
+    scoreIncreaseDogecoin,
+    scene
+  );
 }
