@@ -11,6 +11,7 @@ export function scoreIncreaseBitcoin() {
   // });
   // if(this.playerChoice === )
   if (this.playerChoice === "bitcoinShip") {
+    console.log(this.playerChoice);
     this.playerScore += 2000;
     this.playerScoreLabel.text = `Score: ${this.playerScore}`;
   } else {
@@ -20,6 +21,7 @@ export function scoreIncreaseBitcoin() {
 }
 
 export function scoreIncreaseLitecoin() {
+  console.log(this.playerChoice);
   if (this.playerChoice === "liteCoinShip") {
     this.playerScore += 400;
     this.playerScoreLabel.text = `Score: ${this.playerScore}`;

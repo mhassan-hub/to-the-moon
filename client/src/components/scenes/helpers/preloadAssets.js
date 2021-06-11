@@ -2,7 +2,6 @@ import Main from "../Main";
 
 export default function preloadAssets(scene) {
   scene.load.audio("audioSound", "assets/bgm.mp3");
-  scene.load.audio("moon", "assets/moon.png");
   scene.load.audio("laserSound", "assets/laser-sound.mp3");
   scene.load.audio("coinSound", "assets/coin.wav");
   scene.load.audio("explosionSound", "assets/explosion.wav");
@@ -23,7 +22,8 @@ export default function preloadAssets(scene) {
   scene.load.image("litecoin", "assets/lite.png");
   scene.load.image("dogecoin", "assets/doge.png");
   scene.load.image("burger", "assets/SpaceBurger.png");
-  scene.load.image("moon", "assets/moon.png");
+  scene.load.image("finishLineMoon", "assets/finishMoon.png");
+  scene.load.image("progressMoon", "assets/progressMoon.png");
   scene.load.spritesheet("explosion", "assets/explosion.png", {
     frameWidth: 32,
     frameHeight: 32,

@@ -23,6 +23,7 @@ export function resetPos(asteroid) {
 }
 
 export function checkCoinPos(coins, scene) {
+
   coins.children.iterate(function (coin) {
     if (coin.y > 800) {
       scene.time.addEvent({

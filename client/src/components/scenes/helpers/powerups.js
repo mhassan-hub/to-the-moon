@@ -38,13 +38,11 @@ export function setInvincibility() {
 
 export function maximumFlurry() {
   if (!this.continiuosShot) {
-    this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
+
     this.continiuosShot = true;
-    this.invincibleSound.play();
 
     setTimeout(() => {
       this.continiuosShot = false;
-      this.invincibleSound.stop();
     }, 8000);
   }
 }
