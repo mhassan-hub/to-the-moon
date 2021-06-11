@@ -1,18 +1,18 @@
 import Phaser from "phaser";
 import preloadAssets from "./helpers/preloadAssets";
-import { collisionDestroy } from "./helpers/collision";
-import { checkAsteroidPos, enemyPos, checkEnemyPos } from "./helpers/position";
-import { shoot, enemyShoot, increaseLives } from "./helpers/shoot";
-import { requestOptions, setInvincibility, scoreIncreaseBitcoin, scoreIncreaseDogecoin, scoreIncreaseLitecoin, scoreIncreaseEthereum } from "./helpers/powerups";
 import {
-  collisionObtain,
-  setEnemyCollision,
-  setAsteroidCollision,
-  playerCollisionAction,
-} from "./helpers/collision";
+  checkAsteroidPos,
+  enemyPos,
+  checkEnemyPos,
+  checkCoinPos,
+} from "./helpers/position";
+import { spawnCoins } from "./helpers/powerups";
+import { shoot, enemyShoot } from "./helpers/shoot";
+import { setEnemyCollision, setAsteroidCollision } from "./helpers/collision";
 // const rp = require('request-promise');
-
 import Button from "./helpers/button";
+import addPhysics from "./helpers/addPhysics";
+// import { createGroup } from "./helpers/groups";
 export default class Main extends Phaser.Scene {
   constructor() {
     super("Main");
@@ -22,7 +22,12 @@ export default class Main extends Phaser.Scene {
     this.playerScore = 0;
     this.playerLives = 3;
     this.invincibility = false;
+<<<<<<< HEAD
     this.finishLine = -10000;
+=======
+    this.continiuosShot = false;
+    this.finishLine = -5000;
+>>>>>>> 1bf4e784035769858fe4f0b0cad03aae19bd36f2
     this.playerChoice = data.player;
   }
 
@@ -35,15 +40,24 @@ export default class Main extends Phaser.Scene {
   create() {
     //width and height from canvas for easy manipulations
     let { width, height } = this.sys.game.canvas;
-
     //sets background image
     this.add.image(400, 300, "background");
     this.background = this.add
-      .tileSprite(0, 0, 0, 0, "background")
-      .setOrigin(0);
+    .tileSprite(0, 0, 0, 0, "background")
+    .setOrigin(0);
+    
 
-    // this.burger = this.add.image(400, 0, "burger").setScale(0.1);
-    // this.burger.visible = false;
+    this.finishLineMoon = this.add.image(width/2, -750, "finishLineMoon")
+    .setOrigin(0.5)
+    .setScale(1.5);
+    this.finishLineMoon.visible = false;
+
+    this.progressBar2 = this.add.graphics({ x: 700, y: 280 });
+    this.progressBox2 = this.add.graphics({ x: 700, y: 280 });
+    this.progressBox2.fillStyle(0x222222, 0.8);
+    this.progressBox2.fillRect(245, 270, 40, -310);
+    this.add.image(965, 235, "progressMoon").setScale(0.1);
+
     //sets player and player physics
 
     this.player = this.physics.add.sprite(
@@ -57,11 +71,26 @@ export default class Main extends Phaser.Scene {
     this.enemy = this.physics.add.sprite(500, 0, "enemyshooter");
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
     this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
+    this.enemy.body.enable = false;
+    this.enemy.visible = false;
+    this.halfwayPoint = (-(this.finishLine/(3*30))/4)*1000
+    this.time.addEvent({
+      delay: this.halfwayPoint,
+      callback: () => {
+        this.enemy.body.enable = true;
+        this.enemy.visible = true;
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
+  
 
     this.enemies = this.physics.add.group({
       key: "enemy",
-      frameQuantity: 3,
+      frameQuantity: 1,  
       immovable: true,
+      // repeat: Math.ceil(2 * (this.progress + 1)),
       setXY: {
         x: Math.floor(Math.random() * 800),
         y: 50,
@@ -70,9 +99,30 @@ export default class Main extends Phaser.Scene {
       },
     });
 
+    this.time.addEvent({
+      delay: -this.finishLine / 2,
+      callback: () => {
+        this.enemies.createMultiple({
+          key: "enemy",
+          repeat: 3,
+          setXY: {
+            x: Math.floor(Math.random() * 800),
+            y: 0,
+            stepX: Phaser.Math.Between(10, 750),
+            stepY: Phaser.Math.Between(15, 30),
+          },
+        });
+        this.enemies.setVelocityX(Phaser.Math.Between(-100, 100));
+        this.enemies.setVelocityY(Phaser.Math.Between(100, 150));
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
     //creates asteroid group and sets asteroid physics
     this.asteroids = this.physics.add.group({
       key: "asteroid",
+      frameQuantity: 2,
       // repeat: 2,
       setCircle: 300,
       immovable: true,
@@ -84,10 +134,10 @@ export default class Main extends Phaser.Scene {
       },
     });
 
-    //creates bitcoins group and sets asteroid physics
-    this.bitcoins = this.physics.add.group({
+    //creates bitcoin group and sets asteroid physics
+    this.bitcoin = this.physics.add.group({
       key: "bitcoin",
-      repeat: 1,
+      frameQuantity: 1,
       immovable: true,
       setXY: {
         x: Math.floor(Math.random() * 800),
@@ -99,7 +149,7 @@ export default class Main extends Phaser.Scene {
 
     this.ethereum = this.physics.add.group({
       key: "ethereum",
-      repeat: 1,
+      frameQuantity: 1,
       immovable: true,
       setXY: {
         x: Math.floor(Math.random() * 800),
@@ -109,9 +159,9 @@ export default class Main extends Phaser.Scene {
       },
     });
 
-    this.litecoins = this.physics.add.group({
+    this.litecoin = this.physics.add.group({
       key: "litecoin",
-      repeat: 1,
+      frameQuantity: 1,
       immovable: true,
       setXY: {
         x: Math.floor(Math.random() * 800),
@@ -121,92 +171,34 @@ export default class Main extends Phaser.Scene {
       },
     });
 
-    this.dogecoins = this.physics.add.group({
+    this.dogecoin = this.physics.add.group({
       key: "dogecoin",
-      repeat: 1,
+      frameQuantity: 1,
       immovable: true,
       setXY: {
-        x: Phaser.Math.Between(10, 850),
+        x: Math.floor(Math.random() * 800),
         y: 0,
-        stepX: Phaser.Math.Between(10, 850),
+        stepX: Phaser.Math.Between(10, 750),
         stepY: Phaser.Math.Between(15, 300),
       },
     });
 
-    this.physics.add.overlap(
-      this.player,
-      this.bitcoins,
-      collisionObtain,
-      scoreIncreaseBitcoin,
-      this
-    );
+    if (this.bitcoin) {
+      console.log("bitcoin spawn");
+      spawnCoins(this.bitcoin, "bitcoin", 20, this);
+    }
+    if (this.ethereum) {
+      spawnCoins(this.ethereum, "ethereum", 10, this);
+    }
+    if (this.litecoin) {
+      spawnCoins(this.litecoin, "litecoin", 4, this);
+    }
+    if (this.dogecoin) {
+      spawnCoins(this.dogecoin, "dogecoin", 2, this);
+    }
 
-    this.physics.add.overlap(
-      this.player,
-      this.ethereum,
-      collisionObtain,
-      scoreIncreaseEthereum,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.litecoins,
-      collisionObtain,
-      scoreIncreaseLitecoin,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.dogecoins,
-      collisionObtain,
-      scoreIncreaseDogecoin,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.healthIcon,
-      collisionObtain,
-      increaseLives,
-      this
-    );
-
-    this.physics.add.overlap(
-      this.player,
-      this.invincibilityIcon,
-      collisionObtain,
-      setInvincibility,
-      this
-    );
-
-    //Creates asteroid physics collider between player and asteroids
-    this.physics.add.overlap(
-      this.player,
-      this.asteroids,
-      collisionDestroy,
-      playerCollisionAction,
-      this
-    );
-
-    //Creates physics collider between enemy and player
-    this.physics.add.overlap(
-      this.player,
-      this.enemies,
-      collisionDestroy,
-      playerCollisionAction,
-      this
-    );
-
-    //Creates physics collider between enemy and shooting enemy
-    this.physics.add.overlap(
-      this.player,
-      this.enemy,
-      collisionDestroy,
-      playerCollisionAction,
-      this
-    );
+    // add physics overlaps
+    addPhysics(this);
 
     //Overhead score and lives text
     const textStyle = {
@@ -231,13 +223,6 @@ export default class Main extends Phaser.Scene {
       this.scene.pause();
     });
 
-    this.events.on("pause", function () {
-      console.log("Scene A paused");
-    });
-
-    this.events.on("resume", function () {
-      console.log("Scene A resumed");
-    });
     //Creates music file to play in background and plays it
     // this.music = this.sound.add("audioSound", { volume: 0.9, loop: true });
     // this.music.play();
@@ -248,10 +233,19 @@ export default class Main extends Phaser.Scene {
     this.key = this.input.keyboard.on("keydown-SPACE", shoot, this);
 
     setAsteroidCollision(this.asteroids);
-    setAsteroidCollision(this.bitcoins);
-    setAsteroidCollision(this.ethereum);
-    setAsteroidCollision(this.litecoins);
-    setAsteroidCollision(this.dogecoins);
+    if (this.bitcoin) {
+      setAsteroidCollision(this.bitcoin);
+    }
+    console.log(this.ethereum);
+    if (this.ethereum) {
+      setAsteroidCollision(this.ethereum);
+    }
+    if (this.litecoin) {
+      setAsteroidCollision(this.litecoin);
+    }
+    if (this.dogecoin) {
+      setAsteroidCollision(this.dogecoin);
+    }
     setEnemyCollision(this.enemies);
 
     //Creates explosion animation when asteroids are destroyed.
@@ -278,7 +272,7 @@ export default class Main extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 2000,
+      delay: 1000,
       callback: enemyShoot,
       callbackScope: this,
       loop: true,
@@ -286,8 +280,30 @@ export default class Main extends Phaser.Scene {
   }
 
   update() {
+
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
+    this.progress =
+      Math.round((this.background.tilePositionY / this.finishLine) * 100) / 100;
+
+    this.progressBar2.fillStyle(0x16cc41, 1);
+    this.progressBar2.fillRect(250, 265, 30, -300 * this.progress);
+
+    if (this.continiuosShot) {
+      this.time.addEvent({
+        delay: 100,
+        callback: shoot,
+        callbackScope: this,
+        loop: false,
+      });
+    }
+
+    if (
+      this.background.tilePositionY < (this.finishLine*0.80)
+    ) {
+      this.finishLineMoon.visible = true;
+      this.finishLineMoon.y += 3;
+    }
 
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
@@ -305,14 +321,6 @@ export default class Main extends Phaser.Scene {
       });
       this.scene.stop("Main");
     }
-    // timedEvent = this.time.delayedCall(
-    //   5000,
-    //   () => {
-    //     this.scene.start("Win");
-    //     this.scene.stop("Main");
-    //   },
-    //   this
-    // );
 
     /** @type {Phaser.Phyics.Arcade.StaticBody} */
 
@@ -333,11 +341,21 @@ export default class Main extends Phaser.Scene {
     }
 
     checkAsteroidPos(this.asteroids, this);
-    checkAsteroidPos(this.bitcoins, this);
-    checkAsteroidPos(this.litecoins, this);
-    checkAsteroidPos(this.dogecoins, this);
-    checkAsteroidPos(this.ethereum, this);
+    if (this.bitcoin) {
+      checkCoinPos(this.bitcoin, this);
+    }
+    if (this.litecoin) {
+      checkCoinPos(this.litecoin, this);
+    }
+    if (this.dogecoin) {
+      checkCoinPos(this.dogecoin, this);
+    }
+    if (this.ethereum) {
+      checkCoinPos(this.ethereum, this);
+    }
     checkEnemyPos(this.enemies, this);
-    enemyPos(this.enemy, this);
-  }
+    if (this.enemy.body.enable === true) {
+      enemyPos(this.enemy, this);
+    }
+  } 
 }

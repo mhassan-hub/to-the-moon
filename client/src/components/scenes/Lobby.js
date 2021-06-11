@@ -16,49 +16,53 @@ export default class Lobby extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(0, 0, "background");
+    this.add.image(400, 300, "background");
+    this.background = this.add
+      .tileSprite(0, 0, 0, 0, "background")
+      .setOrigin(0);
+
     let { width, height } = this.sys.game.canvas;
 
     // Create the initial ships for player selection
 
-    this.bitcoin = this.add
+    this.bitcoinShip = this.add
       .image(width / 4 - 150, height / 2, "bitcoinShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
         // save the user selection to a ship variable and a key variable
-        this.ship = this.bitcoin;
+        this.ship = this.bitcoinShip;
         this.playerChoice = "bitcoinShip";
       });
 
-    this.liteCoin = this.add
+    this.liteCoinShip = this.add
       .image(width / 2 - 150, height / 2, "liteCoinShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.ship = this.liteCoin;
+        this.ship = this.liteCoinShip;
         this.playerChoice = "liteCoinShip";
       });
 
-    this.ethereum = this.add
+    this.ethereumShip = this.add
       .image((width / 4) * 3 - 150, height / 2, "ethereumShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.ship = this.ethereum;
+        this.ship = this.ethereumShip;
         this.playerChoice = "ethereumShip";
       });
 
-    this.doge = this.add
+    this.dogeShip = this.add
       .image(width - 150, height / 2, "dogeShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.ship = this.doge;
+        this.ship = this.dogeShip;
         this.playerChoice = "dogeShip";
       });
 
@@ -69,11 +73,12 @@ export default class Lobby extends Phaser.Scene {
       .setOrigin(0.5);
   }
   update() {
+    this.background.tilePositionY -= 3;
     // reassign scale if another ship has been selected
-    this.bitcoin.setScale(1.2);
-    this.liteCoin.setScale(1.2);
-    this.ethereum.setScale(1.2);
-    this.doge.setScale(1.2);
+    this.bitcoinShip.setScale(1.2);
+    this.liteCoinShip.setScale(1.2);
+    this.ethereumShip.setScale(1.2);
+    this.dogeShip.setScale(1.2);
 
     // if the player made a choice show the ready up button and scale the ship bigger
     if (this.playerChoice) {
