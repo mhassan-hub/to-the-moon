@@ -23,7 +23,7 @@ export default class Main extends Phaser.Scene {
     this.playerLives = 3;
     this.invincibility = false;
     this.finishLine = -10000;
-    this.playerChoise = data.player;
+    this.playerChoice = data.player;
   }
 
   //Preload all assets to load files from asset folder
@@ -49,7 +49,7 @@ export default class Main extends Phaser.Scene {
     this.player = this.physics.add.sprite(
       width / 2,
       height,
-      `${this.playerChoise}`
+      `${this.playerChoice}`
     );
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
