@@ -1,16 +1,33 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import { useState, useEffect } from "react";
 import Button from "./Button";
 import "../App.css";
+import socketIOClient, { io } from "socket.io-client";
+const ENDPOINT = "http://127.0.0.1:8080";
 
 export default function Home() {
+
+  const [response, setResponse] = useState("");
 
   const killSession = () => {
     sessionStorage.clear()
     window.location.reload() 
   }
 
+  
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    let data = "Grigor"
+
+    socket.emit('hello', "hello is sent")
+    return () => socket.disconnect();
+  }, []);
+
+
+
   return (
+     
     <header className="App-header">
       <img
         src="https://www.clipartmax.com/png/middle/6-63877_ship-anchor-free-a-cartoon-moon-rocket-cartoon-rocket-ship.png"
