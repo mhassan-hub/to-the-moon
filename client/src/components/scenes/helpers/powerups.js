@@ -25,8 +25,10 @@ export function maximumFlurry() {
   if (!this.continiuosShot) {
 
     this.continiuosShot = true;
+    this.player.setTint(0x20ba1e)
 
     setTimeout(() => {
+      this.player.clearTint()
       this.continiuosShot = false;
     }, 8000);
   }
@@ -36,20 +38,23 @@ export function disableShot() {
   if (!this.disableShot) {
 
     this.disableShot = true;
+    this.player.setTint(0xff0000)
 
     setTimeout(() => {
       this.disableShot = false;
+      this.player.clearTint()
     }, 10000);
   }
 }
 
 export function disableMovement() {
   if (!this.disableMovement) {
-    console.log("the function runs")
+    this.player.setTint(0xff0000)
     this.disableMovement = true;
 
     setTimeout(() => {
       this.disableMovement = false;
+      this.player.clearTint()
     }, 10000);
   }
 }

@@ -5,7 +5,8 @@ export default function preloadAssets(scene) {
   scene.load.audio("laserSound", "assets/laser-sound.mp3");
   scene.load.audio("coinSound", "assets/coin.wav");
   scene.load.audio("explosionSound", "assets/explosion.wav");
-  scene.load.audio("powerUpSound", "assets/PowerUp.wav")
+  scene.load.audio("powerUpSound", "assets/PowerUp.wav");
+  scene.load.audio("debuff", "assets/debuff.mp3")
   scene.load.image("disableMovementIcon", "assets/wallstreetbetsicondark.png")
   scene.load.image("enemy", "assets/alienspaceship.png");
   scene.load.image("enemyshooter", "assets/elon.png");

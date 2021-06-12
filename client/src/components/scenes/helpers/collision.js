@@ -59,7 +59,7 @@ export function collisionDestroy(collisionObject, asteroid) {
     this.physics.add.overlap(
       this.player,
       this.disableShotIcon,
-      collisionObtainPowerUp,
+      collisionObtainDebuff,
       disableShot,
       this
     );
@@ -74,7 +74,7 @@ export function collisionDestroy(collisionObject, asteroid) {
       this.physics.add.overlap(
         this.player,
         this.disableMovementIcon,
-        collisionObtainPowerUp,
+        collisionObtainDebuff,
         disableMovement,
         this
       );
@@ -151,8 +151,8 @@ export function collisionObtainPowerUp(player, powerUp) {
 export function collisionObtainDebuff(player, powerUp) {
   const sparkle = this.add.sprite(player.x, player.y, "sparkle").setScale(1);
   sparkle.play("itemSparks");
-  this.powerUpSound = this.sound.add("powerUpSound", { volume: 0.1 });
-  this.powerUpSound.play();
+  this.debuff = this.sound.add("debuff", { volume: 0.1 });
+  this.debuff.play();
 
   powerUp.disableBody(true, true);
 }
