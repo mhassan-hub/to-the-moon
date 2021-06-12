@@ -3,8 +3,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Button from "./Button";
 import "../App.css";
-import socketIOClient, { io } from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:8080";
+// import socketIOClient, { io } from "socket.io-client";
+// const ENDPOINT = "http://127.0.0.1:8080";
 
 export default function Home() {
 
@@ -16,13 +16,13 @@ export default function Home() {
   }
 
   
-  useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
-    let data = "Grigor"
+  // useEffect(() => {
+  //   const socket = socketIOClient(ENDPOINT);
+  //   let data = "Grigor"
 
-    socket.emit('hello', "hello is sent")
-    return () => socket.disconnect();
-  }, []);
+  //   socket.emit('hello', "hello is sent")
+  //   return () => socket.disconnect();
+  // }, []);
 
 
 

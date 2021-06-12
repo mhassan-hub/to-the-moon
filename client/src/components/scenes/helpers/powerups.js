@@ -1,18 +1,3 @@
-// const rp = require('request-promise');
-// export const requestOptions = {
-//   method: 'GET',
-//   uri: process.env.URL,
-//   qs: {
-//     'start': '1',
-//     'limit': '5000',
-//     'convert': 'USD'
-//   },
-//   headers: {
-//     'X-CMC_PRO_API_KEY': process.env.X_CMC_PRO_API_KEY
-//   },
-//   json: true,
-//   gzip: true
-// };
 import Phaser from "phaser";
 export function setInvincibility() {
   if (!this.invincibility) {
@@ -46,6 +31,29 @@ export function maximumFlurry() {
     }, 8000);
   }
 }
+
+export function disableShot() {
+  if (!this.disableShot) {
+
+    this.disableShot = true;
+
+    setTimeout(() => {
+      this.disableShot = false;
+    }, 10000);
+  }
+}
+
+export function disableMovement() {
+  if (!this.disableMovement) {
+    console.log("the function runs")
+    this.disableMovement = true;
+
+    setTimeout(() => {
+      this.disableMovement = false;
+    }, 10000);
+  }
+}
+
 
 export function increaseLives() {
   this.playerLives++;

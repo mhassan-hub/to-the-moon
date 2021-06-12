@@ -1,10 +1,11 @@
 import Phaser from "phaser";
 import {
-  collisionObtain,
+  collisionObtainPowerUp,
+  collisionObtainCoin,
   collisionDestroy,
   playerCollisionAction,
 } from "./collision";
-import { setInvincibility, increaseLives } from "./powerups";
+import { setInvincibility, increaseLives, maximumFlurry, disableShot } from "./powerups";
 import {
   scoreIncreaseBitcoin,
   scoreIncreaseDogecoin,
@@ -16,7 +17,7 @@ export default function addPhysics(scene) {
   scene.physics.add.overlap(
     scene.player,
     scene.bitcoin,
-    collisionObtain,
+    collisionObtainCoin,
     scoreIncreaseBitcoin,
     scene
   );
@@ -24,7 +25,7 @@ export default function addPhysics(scene) {
   scene.physics.add.overlap(
     scene.player,
     scene.ethereum,
-    collisionObtain,
+    collisionObtainCoin,
     scoreIncreaseEthereum,
     scene
   );
@@ -32,7 +33,7 @@ export default function addPhysics(scene) {
   scene.physics.add.overlap(
     scene.player,
     scene.litecoin,
-    collisionObtain,
+    collisionObtainCoin,
     scoreIncreaseLitecoin,
     scene
   );
@@ -40,34 +41,42 @@ export default function addPhysics(scene) {
   scene.physics.add.overlap(
     scene.player,
     scene.dogecoin,
-    collisionObtain,
+    collisionObtainCoin,
     scoreIncreaseDogecoin,
     scene
   );
 
-  scene.physics.add.overlap(
-    scene.player,
-    scene.healthIcon,
-    collisionObtain,
-    increaseLives,
-    scene
-  );
+  // scene.physics.add.overlap(
+  //   scene.player,
+  //   scene.healthIcon,
+  //   collisionObtainPowerUp,
+  //   increaseLives,
+  //   scene
+  // );
 
-  scene.physics.add.overlap(
-    scene.player,
-    scene.invincibilityIcon,
-    collisionObtain,
-    setInvincibility,
-    scene
-  );
+  // scene.physics.add.overlap(
+  //   scene.player,
+  //   scene.invincibilityIcon,
+  //   collisionObtainPowerUp,
+  //   setInvincibility,
+  //   scene
+  // );
 
-  scene.physics.add.overlap(
-    scene.player,
-    scene.maximumFlurryIcon,
-    collisionObtain,
-    setInvincibility,
-    scene
-  );
+  // scene.physics.add.overlap(
+  //   scene.player,
+  //   scene.maximumFlurryIcon,
+  //   collisionObtainPowerUp,
+  //   maximumFlurry,
+  //   scene
+  // );
+
+  // scene.physics.add.overlap(
+  //   scene.player,
+  //   scene.disableShotIcon,
+  //   collisionObtainPowerUp,
+  //   disableShot,
+  //   scene
+  // );
 
   //Creates asteroid physics collider between player and asteroids
   scene.physics.add.overlap(

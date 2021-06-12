@@ -9,9 +9,9 @@ import {
 import { spawnCoins } from "./helpers/powerups";
 import { shoot, enemyShoot } from "./helpers/shoot";
 import { setEnemyCollision, setAsteroidCollision } from "./helpers/collision";
-// const rp = require('request-promise');
 import Button from "./helpers/button";
 import addPhysics from "./helpers/addPhysics";
+import { fighterGenerator } from "./helpers/fighters";
 // import { createGroup } from "./helpers/groups";
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -22,12 +22,10 @@ export default class Main extends Phaser.Scene {
     this.playerScore = 0;
     this.playerLives = 3;
     this.invincibility = false;
-<<<<<<< HEAD
-    this.finishLine = -10000;
-=======
     this.continiuosShot = false;
-    this.finishLine = -5000;
->>>>>>> 1bf4e784035769858fe4f0b0cad03aae19bd36f2
+    this.disableShot = false
+    this.disableMovement = false
+    this.finishLine = -10000;
     this.playerChoice = data.player;
   }
 
@@ -45,8 +43,7 @@ export default class Main extends Phaser.Scene {
     this.background = this.add
     .tileSprite(0, 0, 0, 0, "background")
     .setOrigin(0);
-    
-
+  
     this.finishLineMoon = this.add.image(width/2, -750, "finishLineMoon")
     .setOrigin(0.5)
     .setScale(1.5);
@@ -61,21 +58,23 @@ export default class Main extends Phaser.Scene {
     //sets player and player physics
 
     this.player = this.physics.add.sprite(
-      width / 2,
+      width/2,
       height,
       `${this.playerChoice}`
     );
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
 
+    fighterGenerator(this.AIBitcoin, this, 'bitcoinShip', width)
+
     this.enemy = this.physics.add.sprite(500, 0, "enemyshooter");
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
     this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
     this.enemy.body.enable = false;
     this.enemy.visible = false;
-    this.halfwayPoint = (-(this.finishLine/(3*30))/4)*1000
+    // this.halfwayPoint = (-(this.finishLine/(3*30))/4)*1000
     this.time.addEvent({
-      delay: this.halfwayPoint,
+      delay: 30000,
       callback: () => {
         this.enemy.body.enable = true;
         this.enemy.visible = true;
@@ -271,6 +270,17 @@ export default class Main extends Phaser.Scene {
       setCircle: 300,
     });
 
+    this.anims.create({
+      key: "itemSparks",
+      frames: this.anims.generateFrameNumbers("sparkle", {
+        start: 17,
+        end: 20,
+      }),
+      frameRate: 15,
+      hideOnComplete: true,
+      setCircle: 300,
+    });
+
     this.time.addEvent({
       delay: 1000,
       callback: enemyShoot,
@@ -280,7 +290,7 @@ export default class Main extends Phaser.Scene {
   }
 
   update() {
-
+    
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
     this.progress =
@@ -299,7 +309,7 @@ export default class Main extends Phaser.Scene {
     }
 
     if (
-      this.background.tilePositionY < (this.finishLine*0.80)
+      this.background.tilePositionY < (this.finishLine*0.87)
     ) {
       this.finishLineMoon.visible = true;
       this.finishLineMoon.y += 3;
@@ -325,20 +335,21 @@ export default class Main extends Phaser.Scene {
     /** @type {Phaser.Phyics.Arcade.StaticBody} */
 
     //keybinding listeners for player movement
-    if (this.cursors.up.isDown) {
+    if (this.cursors.up.isDown && !this.disableMovement) {
       this.player.y -= 10;
     }
-    if (this.cursors.down.isDown) {
+    if (this.cursors.down.isDown && !this.disableMovement) {
       this.player.y += 10;
     }
 
-    if (this.cursors.left.isDown) {
+    if (this.cursors.left.isDown && !this.disableMovement) {
       this.player.x -= 10;
     }
 
-    if (this.cursors.right.isDown) {
+    if (this.cursors.right.isDown && !this.disableMovement) {
       this.player.x += 10;
     }
+  
 
     checkAsteroidPos(this.asteroids, this);
     if (this.bitcoin) {

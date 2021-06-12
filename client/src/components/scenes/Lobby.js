@@ -83,7 +83,7 @@ export default class Lobby extends Phaser.Scene {
     // if the player made a choice show the ready up button and scale the ship bigger
     if (this.playerChoice) {
       this.ship.setScale(2.5);
-      readyButton(this.playerChoice, this);
+      readyButton(this.playerChoice, this, this.ships);
     }
   }
 }
