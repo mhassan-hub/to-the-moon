@@ -14,17 +14,21 @@ import Button from "./helpers/button";
 import addPhysics from "./helpers/addPhysics";
 // import { createGroup } from "./helpers/groups";
 export default class Main extends Phaser.Scene {
-  constructor() {
+  constructor(props) {
     super("Main");
+    this.props = props
   }
 
   init(data) {
+    console.log(data)
+    
     this.playerScore = 0;
     this.playerLives = 3;
     this.invincibility = false;
     this.continiuosShot = false;
     this.finishLine = -5000;
     this.playerChoice = data.player;
+    this.playerTwoChoice = data.playertwo
   }
 
   //Preload all assets to load files from asset folder
@@ -35,6 +39,9 @@ export default class Main extends Phaser.Scene {
   //After loading assets create() will generate asset instances in game
   create() {
     //width and height from canvas for easy manipulations
+
+    console.log(this.props.socket)
+
     let { width, height } = this.sys.game.canvas;
     //sets background image
     this.add.image(400, 300, "background");
@@ -63,6 +70,14 @@ export default class Main extends Phaser.Scene {
     );
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
+
+    const playerTwo = this.physics.add.sprite(
+      width,
+      height,
+      `${this.playerTwoChoice}`
+    );
+    playerTwo.setCollideWorldBounds(true, 1, 1);
+    playerTwo.setDrag(200, 200);
 
     this.enemy = this.physics.add.sprite(500, 0, "enemyshooter");
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
@@ -273,6 +288,23 @@ export default class Main extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+
+    this.props.socket.on("enemyMovement", function(data) {
+      switch (data) {
+        case "up":
+         playerTwo.y -= 10
+         break
+        case "down":
+         playerTwo.y += 10
+         break
+        case "left":
+         playerTwo.x -= 10
+         break
+        case "right":
+         playerTwo.x += 10
+         break
+      }
+    })
   }
 
   update() {
@@ -323,17 +355,21 @@ export default class Main extends Phaser.Scene {
     //keybinding listeners for player movement
     if (this.cursors.up.isDown) {
       this.player.y -= 10;
+      this.props.socket.emit("playerMovement", "up")
     }
     if (this.cursors.down.isDown) {
       this.player.y += 10;
+      this.props.socket.emit("playerMovement", "down")
     }
 
     if (this.cursors.left.isDown) {
       this.player.x -= 10;
+      this.props.socket.emit("playerMovement", "left")
     }
 
     if (this.cursors.right.isDown) {
       this.player.x += 10;
+      this.props.socket.emit("playerMovement", "right")
     }
 
     checkAsteroidPos(this.asteroids, this);

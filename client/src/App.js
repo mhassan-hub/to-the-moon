@@ -86,7 +86,6 @@ useEffect(()=> {
  
     <div>
 
-       
           <Switch>
 
           <Route exact path="/leaderboard">

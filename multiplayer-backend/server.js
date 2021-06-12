@@ -111,6 +111,18 @@ io.on('connection', function(socket){
     // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
   
   })
+
+  socket.on("gamelaunch", function(data) {
+    socket.broadcast.emit("startrealgame", data)
+    // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
+  
+  })
+
+  socket.on("playerMovement", function(data) {
+    socket.broadcast.emit("enemyMovement", data)
+    // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
+  
+  })
 })
 
 
