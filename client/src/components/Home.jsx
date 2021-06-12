@@ -1,14 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, Route, useHistory, withRouter  } from "react-router-dom";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import Button from "./Button";
 import "../App.css";
 import socketIOClient, { io } from "socket.io-client";
+import Game from "./Game"
 const ENDPOINT = "http://127.0.0.1:8080";
 
-export default function Home() {
+function Home ({readyCheck, ready, startGame}) {
 
   const [response, setResponse] = useState("");
+  const [url, setUrl] = useState("");
+
 
   const killSession = () => {
     sessionStorage.clear()
@@ -16,15 +19,11 @@ export default function Home() {
   }
 
   
-  useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
-    let data = "Grigor"
+  // function joinGame(gameID)  {
+  //    socket.emit("join", gameID)
+  // } 
 
-    socket.emit('hello', "hello is sent")
-    return () => socket.disconnect();
-  }, []);
-
-
+  
 
   return (
      
@@ -40,9 +39,14 @@ export default function Home() {
        `Welcome ${sessionStorage.userID}`}
       <div className="buttonContainer">
         <span>
-          <Link to="/game">
-            <Button>Create Game</Button>
+          <Link to={`/game`}>
+            {/* <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} /> */}
+            <Button >Join Game</Button>
           </Link>
+          {/* {ready && <Link to={`/game`}> */}
+           {ready && <Button onClick={() => startGame()}>Create Game</Button>}
+          {/* </Link>} */}
+          <Button onClick={() => readyCheck()}>Ready</Button>         
           {sessionStorage.length === 0 &&
           <Link to="/login">
             <Button>Log in</Button>
@@ -63,3 +67,5 @@ export default function Home() {
     </header>
   );
 }
+
+export default withRouter(Home)

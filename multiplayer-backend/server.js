@@ -47,18 +47,69 @@ const app = require("express")();
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: ["http://localhost:3002", "https://dev.example.com"],
+    origin: ["http://localhost:3002", "http://localhost:3003"],
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
-    credentials: true
+    credentials: true,
+    forceNew: true 
+    
   }
 });
 
+const players = {
+
+};
+
+const ready = []
+
+
+
 io.on('connection', function(socket){
   console.log("New client has connected with id:",socket.id);
+  const gameID = socket.id
+  players[socket.id] = {
+    socketID: socket.id
+  }
+  console.log(players, players.length)
+  socket.emit("gameID", gameID)
+  socket.on("newplayer", function(data) {
+    
+  })
   socket.on('hello',function(data){ // Listen for new-player event on this client 
     console.log("New player has state:",data);
-    socket.emit('create-player',data);
+    socket.broadcast.emit('hello',data);
+  })
+  
+  socket.on("disconnect", function(data) {
+    console.log("socket  disconnected", socket.id)
+    
+  })
+
+  socket.on("ready", function(data) {
+    ready.push(socket.id)
+    socket.broadcast.emit("ready", "player is ready")
+    console.log("ready back end")
+    if (ready.length === 2) {
+      socket.emit("start game", "game is ready to start")
+    }
+  })
+  socket.on("initiallaunch", function(data) {
+    console.log("here is the data", data)
+    socket.broadcast.emit("launch", data)
+    socket.emit("launch", data)
+    // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
+  
+  })
+  socket.on("playerchoice", function(data) {
+    socket.broadcast.emit("playerchoicepicked", data)
+    // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
+  
+  })
+
+  socket.on("shipchoice", function(data) {
+    socket.broadcast.emit("shipchoicepicked", data)
+    // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
+  
   })
 })
 

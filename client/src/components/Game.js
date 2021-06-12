@@ -5,9 +5,19 @@ import Win from "./scenes/Win";
 import Lose from "./scenes/Lose";
 import Pause from "./scenes/Pause";
 import Lobby from "./scenes/Lobby";
+// import {useParams, useHistory} from "react-router-dom";
 
 export default class Game extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
   componentDidMount() {
+    // const {id} = useParams();
+    // const history = useHistory()
+    // if(id) {
+    //   history.push(`/game/${id}`)
+    // }
     const config = {
       scale: {
         parent: document.getElementById("game"),
@@ -23,11 +33,10 @@ export default class Game extends React.Component {
       physics: {
         default: "arcade",
       },
-      scene: [Lobby, Main, Win, Lose, Pause],
+      scene: [new Lobby(this.props), Main, Win, Lose, Pause],
     };
     this.game = new Phaser.Game(config);
   }
-
   render() {
     return (
       <div className="display">
