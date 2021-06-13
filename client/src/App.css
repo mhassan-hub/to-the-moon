@@ -2,15 +2,10 @@
   text-align: center;
   /* background-image: "https://i.pinimg.com/originals/f6/20/a1/f620a179ca1acfd15a0754701677fb58.jpg"; */
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
-
-
-
 .background{
   size: 1em;
   z-index: -1;

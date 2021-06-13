@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useState, useEffect } from "react";
-import Button from "./Button";
-import "../App.css";
+import Button from '@material-ui/core/Button';
+// import "../App.css";
+import "./Home.css"
 // import socketIOClient, { io } from "socket.io-client";
 // const ENDPOINT = "http://127.0.0.1:8080";
 
@@ -34,29 +35,28 @@ export default function Home() {
         className="App-logo"
         alt="rocketship"
       />
-      <h1>To The Moon!</h1>
-      <h3>Leaderboard</h3>
+      <h1 className="gameTitle">To The Moon!</h1>
        {sessionStorage.length > 0 &&
        `Welcome ${sessionStorage.userID}`}
       <div className="buttonContainer">
-        <span>
+        <span className= "button-bar">
           <Link to="/game">
-            <Button>Create Game</Button>
+            <Button variant="contained" color="primary">Create Game</Button>
           </Link>
           {sessionStorage.length === 0 &&
           <Link to="/login">
-            <Button>Log in</Button>
+            <Button variant="contained" color="primary">Log in</Button>
           </Link>}
           <Link to="/register">
-            <Button>Register</Button>            
+            <Button variant="contained" color="primary">Register</Button>            
           </Link>
            {sessionStorage.length > 0 &&         
             <Button onClick={killSession}>Log Out</Button>}
           <Link to="/about">
-            <Button>About Us</Button>
+            <Button variant="contained" color="primary">About Us</Button>
           </Link>
           <Link to="/leaderboard">
-            <Button>Leaderboard</Button>
+            <Button variant="contained" color="primary">Leaderboard</Button>
           </Link>
         </span>
       </div>

@@ -25,7 +25,7 @@ export default class Main extends Phaser.Scene {
     this.continiuosShot = false;
     this.disableShot = false
     this.disableMovement = false
-    this.finishLine = -10000;
+    this.finishLine = -5000;
     this.playerChoice = data.player;
   }
 
@@ -317,19 +317,20 @@ export default class Main extends Phaser.Scene {
 
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
+      this.scene.stop("Main");
       this.scene.start("Win", {
         lives: this.playerLives,
         score: this.playerScore,
       });
-      this.scene.stop("Main");
     }
 
     if (this.playerLives === 0) {
+      this.scene.stop("Main");
       this.scene.start("Lose", {
         lives: this.playerLives,
         score: this.playerScore,
+        player: this.playerChoice 
       });
-      this.scene.stop("Main");
     }
 
     /** @type {Phaser.Phyics.Arcade.StaticBody} */
