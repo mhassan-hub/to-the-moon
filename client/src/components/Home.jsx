@@ -53,7 +53,7 @@ export default function Home() {
            {sessionStorage.length > 0 &&         
             <Button onClick={killSession}>Log Out</Button>}
           <Link to="/about">
-            <Button variant="contained" color="primary">About Us</Button>
+            <Button variant="contained" color="primary">About</Button>
           </Link>
           <Link to="/leaderboard">
             <Button variant="contained" color="primary">Leaderboard</Button>
