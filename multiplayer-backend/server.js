@@ -60,9 +60,9 @@ const players = {
 
 };
 
-const ready = []
+let ready = []
 
-const shipReady = []
+let shipReady = []
 
 
 io.on('connection', function(socket){
@@ -92,6 +92,7 @@ io.on('connection', function(socket){
     console.log("ready back end")
     if (ready.length === 2) {
       socket.emit("start game", "game is ready to start")
+      ready = []
     }
   })
   socket.on("initiallaunch", function(data) {
@@ -111,6 +112,7 @@ io.on('connection', function(socket){
     shipReady.push(data)
     socket.broadcast.emit("shipchoicepicked", data)
     if (shipReady.length === 2) {
+    shipReady = []
     io.emit("readyButton", "Game is ready to being")
     }
     // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
@@ -131,6 +133,13 @@ io.on('connection', function(socket){
 
   socket.on("score", function(data) {
     socket.broadcast.emit("redirectScore", data)
+    // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
+  
+  })
+
+  socket.on("redirect", function(data) {
+    console.log(data)
+    socket.broadcast.emit("redirect", data)
     // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
   
   })
