@@ -62,6 +62,7 @@ const players = {
 
 const ready = []
 
+const shipReady = []
 
 
 io.on('connection', function(socket){
@@ -107,7 +108,11 @@ io.on('connection', function(socket){
   })
 
   socket.on("shipchoice", function(data) {
+    shipReady.push(data)
     socket.broadcast.emit("shipchoicepicked", data)
+    if (shipReady.length === 2) {
+    io.emit("readyButton", "Game is ready to being")
+    }
     // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
   
   })
@@ -118,9 +123,22 @@ io.on('connection', function(socket){
   
   })
 
-  socket.on("playerMovement", function(data) {
-    socket.broadcast.emit("enemyMovement", data)
+  socket.on("enemyFire", function(data) {
+    socket.broadcast.emit("enemyShoot", data)
     // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
+  
+  })
+
+  socket.on("score", function(data) {
+    socket.broadcast.emit("redirectScore", data)
+    // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
+  
+  })
+  socket.on("playerMovement", function(data) {
+    
+    socket.broadcast.emit("enemyMovement", data)
+    
+     
   
   })
 })
