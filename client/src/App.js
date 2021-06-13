@@ -5,13 +5,16 @@ import Login from "./components/Login"
 import Home from "./components/Home";
 import Register from "./components/Register"
 import About from "./components/About";
-import "./App.css";
+
 import Leaderboard from "./components/Leaderboard"
+import Button from '@material-ui/core/Button';
 
 function App() {
 
   return (
     <div className="App">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       <Router>
         <Switch>
           <Route path="/game">

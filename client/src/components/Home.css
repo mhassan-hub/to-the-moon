@@ -1,0 +1,15 @@
+.gameTitle{
+  font-family: BladeR;
+
+}
+.button-bar{
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

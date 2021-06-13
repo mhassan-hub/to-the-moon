@@ -10,13 +10,18 @@ export default class Win extends Phaser.Scene {
   init(data) {
     this.lives = data.lives;   
     this.score = data.score;
-  }
 
+  }
+  
   preload() {
     // this.load.audio("audioSound", "assets/Demon.mp3");
     this.load.image("ship", "assets/fighter.png");
-    this.load.image("background1", "assets/Moon.jpeg");
+    this.load.image("moon", "assets/finishMoon.png");
     this.load.image("restartButton", "assets/button.png");
+    this.load.image("background", "assets/starfield.png");
+    this.load.image("congrats", "assets/congrats8bit.png")
+    this.load.audio("victory", "assets/Victory!.wav")
+    
   }
 
   submitScore() {
@@ -26,7 +31,6 @@ export default class Win extends Phaser.Scene {
       
       if (response.data.status === 200 ) {
         
-        console.log("saved score")
       }
 
       else {
@@ -38,30 +42,43 @@ export default class Win extends Phaser.Scene {
   }
 
   create() {
+    this.music = this.sound.add("victory", {volume: 0.1, });
+    this.music.play();
     this.submitScore()
     let { width, height } = this.sys.game.canvas;
-    this.add.image(0, 0, "background1").setOrigin(0).setScale(3.5);
+    this.add.image(400, 300, "background");
+    this.background = this.add
+    .tileSprite(0, 0, 0, 0, "background")
+    .setOrigin(0);
+    this.add.image(250, 15, "moon").setOrigin(0, 0).setScale(0.7);
+    this.add.image(450, 280,"congrats").setOrigin(0.35, 0.55).setScale(0.8);
     // restart button
-    new Button(width * 0.75, height / 2, 2.5, "Restart Game", this, () => {
+    new Button(width * 0.75, height * 0.85, 2.5, "Restart Game", this, () => {
       this.scene.start("Main");
       this.scene.stop("Win");
     });
 
     // back to home button
-    new Button(width * 0.25, height / 2, 2.5, "Back to home", this, () => {
+    new Button(width * 0.25, height *0.85, 2.5, "Back to home", this, () => {
       this.scene.stop("Win");
-      window.location.replace("http://localhost:3000/");
+      window.location.replace("http://localhost:3002/");
     });
     this.add
       .text(
-        width * 0.5,
-        height * 0.1,
-        `Congratulations, you reached the MOON! with a score of ${this.score}, and ${this.lives} lives`,
+        width * 0.50,
+        height * 0.75,
+        `FINAL SCORE: ${this.score}`,
         {
-          fontSize: 36,
+          color: '#ffe100' ,
+          font: "bold 45px Courier",
+
         }
       )
       .setOrigin(0.5);
+
+    }
+    update() {
+    this.background.tilePositionY -= 3;
   }
 }
 
