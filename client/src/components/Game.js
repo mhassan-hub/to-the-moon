@@ -33,7 +33,7 @@ export default class Game extends React.Component {
       physics: {
         default: "arcade",
       },
-      scene: [new Lobby(this.props),new Main(this.props), Win, Lose, Pause],
+      scene: [new Lobby(this.props),new Main(this.props), new Win(this.props), new Lose(this.props), Pause],
     };
     this.game = new Phaser.Game(config);
   }

@@ -3,7 +3,7 @@ import { scoreIncreaseAsteroid } from "./score";
 // let { width, height } = this.sys.game.canvas;
 
 export function shoot() {
-  if (this.player.body.enable === true) {
+  if (this.player.body.enable === true) {    
     this.laser = this.physics.add
       .image(this.player.x - 2, this.player.y - 40, "laser")
       .setScale(0.25);

@@ -8,27 +8,35 @@ import {
 } from "./helpers/position";
 import { spawnCoins } from "./helpers/powerups";
 import { shoot, enemyShoot } from "./helpers/shoot";
-import { setEnemyCollision, setAsteroidCollision } from "./helpers/collision";
+import { setEnemyCollision, setAsteroidCollision, collisionDestroy } from "./helpers/collision";
+import { scoreIncreaseAsteroid } from "./helpers/score";
 // const rp = require('request-promise');
 import Button from "./helpers/button";
 import addPhysics from "./helpers/addPhysics";
 // import { createGroup } from "./helpers/groups";
+
+
+
 export default class Main extends Phaser.Scene {
   constructor(props) {
     super("Main");
     this.props = props
   }
 
+
+
   init(data) {
-    console.log(data)
-    
-    this.playerScore = 0;
+    const self = this;
+    console.log(data);
+    self.playerTwoScore = 0;
+    this.playerScore = 0;   
     this.playerLives = 3;
     this.invincibility = false;
     this.continiuosShot = false;
     this.finishLine = -5000;
     this.playerChoice = data.player;
     this.playerTwoChoice = data.playertwo
+    this.respawnTimer = 1000;
   }
 
   //Preload all assets to load files from asset folder
@@ -38,6 +46,8 @@ export default class Main extends Phaser.Scene {
 
   //After loading assets create() will generate asset instances in game
   create() {
+    
+    const self = this
     //width and height from canvas for easy manipulations
 
     console.log(this.props.socket)
@@ -72,7 +82,7 @@ export default class Main extends Phaser.Scene {
     this.player.setDrag(200, 200);
 
     const playerTwo = this.physics.add.sprite(
-      width,
+      (width/ 2) + 15 ,
       height,
       `${this.playerTwoChoice}`
     );
@@ -210,7 +220,13 @@ export default class Main extends Phaser.Scene {
 
     // add physics overlaps
     addPhysics(this);
+    //playertwo score
+    this.blueScoreText = this.add.text(5, 40, '', { fontSize: '24px', fill: '	#FF0000' });
 
+    this.props.socket.on("redirectScore", function(data) {
+      console.log(data)
+      self.blueScoreText.setText("Player Two score:" + data)
+    })
     //Overhead score and lives text
     const textStyle = {
       fontSize: 24,
@@ -219,15 +235,17 @@ export default class Main extends Phaser.Scene {
     this.playerScoreLabel = this.add.text(
       5,
       5,
-      `Score:${this.playerScore}`,
+      `Your Score:${this.playerScore}`,
       textStyle
     );
     this.playerLifeLabel = this.add.text(
       5,
-      40,
+      65,
       `Lives: ${this.playerLives}`,
       textStyle
     );
+
+
 
     const pause = new Button(width - 30, 10, 0.8, "Pause", this, () => {
       this.scene.launch("Pause");
@@ -242,6 +260,7 @@ export default class Main extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.key = this.input.keyboard.on("keydown-SPACE", shoot, this);
+
 
     setAsteroidCollision(this.asteroids);
     if (this.bitcoin) {
@@ -289,10 +308,13 @@ export default class Main extends Phaser.Scene {
       loop: true,
     });
 
+    
     this.props.socket.on("enemyMovement", function(data) {
       switch (data) {
         case "up":
+          
          playerTwo.y -= 10
+          
          break
         case "down":
          playerTwo.y += 10
@@ -304,11 +326,77 @@ export default class Main extends Phaser.Scene {
          playerTwo.x += 10
          break
       }
+    
     })
+  
+ 
+    function shoot() {
+      if (this.player.body.enable === true) {  
+       
+        this.props.socket.emit("enemyFire", "Player two is shooting")
+        
+     
+        this.laser = this.physics.add
+          .image(this.player.x - 2, this.player.y - 40, "laser")
+          .setScale(0.25);
+    
+        this.laser.setVelocityY(-900);
+        this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
+        this.laserSound.play();
+        this.physics.add.collider(
+          this.laser,
+          this.asteroids,
+          collisionDestroy,
+          scoreIncreaseAsteroid,
+          this
+        );
+        this.physics.add.collider(
+          this.laser,
+          this.enemies,
+          collisionDestroy,
+          scoreIncreaseAsteroid,
+          this
+        );
+        this.physics.add.collider(
+          this.laser,
+          this.enemy,
+          collisionDestroy,
+          scoreIncreaseAsteroid,
+          this
+        );
+        if (this.laser.y > 800) {
+          this.laser.destroy();
+        }
+      }
+    }
+   
+  
+
+    function secondPlayerShoot() {  
+        const laser = self.physics.add
+          .image(playerTwo.x - 2, playerTwo.y - 40, "laser")
+          .setScale(0.25);   
+        laser.setVelocityY(-900);
+        if (laser.y > 800) {
+          laser.destroy();
+        }     
+    }
+
+   
+
+    this.props.socket.on("enemyShoot", function(data) {
+      secondPlayerShoot()
+    })
+
+    
   }
 
   update() {
-
+    
+    const self = this
+    
+    this.props.socket.emit("score", this.playerScore)
+    // self.sprite.data.on('changedata-this.playerScore', console.log(this.playerScore))
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
     this.progress =
@@ -335,7 +423,8 @@ export default class Main extends Phaser.Scene {
 
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
-      this.scene.start("Win", {
+      this.props.socket.disconnect()
+      this.scene.start("Win", {       
         lives: this.playerLives,
         score: this.playerScore,
       });
@@ -343,6 +432,7 @@ export default class Main extends Phaser.Scene {
     }
 
     if (this.playerLives === 0) {
+      this.props.socket.disconnect()
       this.scene.start("Lose", {
         lives: this.playerLives,
         score: this.playerScore,
@@ -355,22 +445,38 @@ export default class Main extends Phaser.Scene {
     //keybinding listeners for player movement
     if (this.cursors.up.isDown) {
       this.player.y -= 10;
+      if( this.player.body.enable === true) {
       this.props.socket.emit("playerMovement", "up")
+      
+   
+      // collisionObject.setInvincibility(respawnTimer);
+      // respawn()
+      }
     }
     if (this.cursors.down.isDown) {
       this.player.y += 10;
+      if( this.player.body.enable === true) {
       this.props.socket.emit("playerMovement", "down")
+      }
     }
 
     if (this.cursors.left.isDown) {
       this.player.x -= 10;
+      if( this.player.body.enable === true) {
       this.props.socket.emit("playerMovement", "left")
+      }
     }
 
     if (this.cursors.right.isDown) {
       this.player.x += 10;
+      if( this.player.body.enable === true) {
       this.props.socket.emit("playerMovement", "right")
+      }
     }
+
+
+      
+    
 
     checkAsteroidPos(this.asteroids, this);
     if (this.bitcoin) {

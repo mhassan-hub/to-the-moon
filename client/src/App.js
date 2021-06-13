@@ -31,12 +31,12 @@ useEffect(()=> {
     console.log("im connected");
      
   });
-  socket.on("ready", (arg) => {
-    console.log(arg)
-  })
-  socket.on("start game", () => {
-    setReady(true)
-  })
+  // socket.on("ready", (arg) => {
+  //   console.log(arg)
+  // })
+  // socket.on("start game", () => {
+  //   setReady(true)
+  // })
   socket.on("launch", () => {
     
     
@@ -109,7 +109,7 @@ useEffect(()=> {
           </Route>
        
           <Route exact path="/">
-            <Home  readyCheck={readyCheck} ready={ready} startGame={startGame}/>
+            <Home  readyCheck={readyCheck} ready={ready} setReady={setReady} startGame={startGame} socket={socket}/>
           </Route>
        </Switch >
           

@@ -2,8 +2,9 @@ import Phaser from "phaser";
 import Button from "./helpers/button";
 
 export default class Win extends Phaser.Scene {
-  constructor() {
+  constructor(props) {
     super("Lose");
+    this.props = props
   }
 
   init(data) {
@@ -42,7 +43,9 @@ export default class Win extends Phaser.Scene {
       this,
       () => {
         this.scene.stop("Win");
+        this.props.socket.emit("redirect", "redirect")
         window.location.replace("/");
+        
       }
     );
 

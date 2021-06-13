@@ -1,10 +1,12 @@
 import Phaser from "phaser";
 import Button from "./helpers/button";
 import axios from "axios"
+import { useHistory } from "react-router-dom"
 
 export default class Win extends Phaser.Scene {
-  constructor() {
+  constructor(props) {
     super("Win");
+    this.props = props
   }
 
   init(data) {
@@ -50,7 +52,10 @@ export default class Win extends Phaser.Scene {
     // back to home button
     new Button(width * 0.25, height / 2, 2.5, "Back to home", this, () => {
       this.scene.stop("Win");
-      window.location.replace("http://localhost:3000/");
+      this.props.socket.emit("redirect", "redirect")
+      window.location.replace("/");
+      
+    
     });
     this.add
       .text(

@@ -7,10 +7,11 @@ import socketIOClient, { io } from "socket.io-client";
 import Game from "./Game"
 const ENDPOINT = "http://127.0.0.1:8080";
 
-function Home ({readyCheck, ready, startGame}) {
+function Home ({readyCheck, startGame, socket}) {
 
   const [response, setResponse] = useState("");
   const [url, setUrl] = useState("");
+  const [ready, setReady] = useState(false);
 
 
   const killSession = () => {
@@ -19,9 +20,17 @@ function Home ({readyCheck, ready, startGame}) {
   }
 
   
-  // function joinGame(gameID)  {
-  //    socket.emit("join", gameID)
-  // } 
+  useEffect(() => {
+  socket.on("ready", (arg) => {
+    console.log(arg)
+  })
+  socket.on("start game", () => {
+    setReady(true)
+  })
+  socket.on("redirect", () =>{
+    setReady(true)
+  })
+  }, [])
 
   
 

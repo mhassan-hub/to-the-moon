@@ -33,7 +33,7 @@ export default class Lobby extends Phaser.Scene {
 
   create() {
 
-    
+    const self = this
     
     // function sendShip(ship) {
     //   this.props.socket.emit("shipchoice", (ship))
@@ -49,6 +49,7 @@ export default class Lobby extends Phaser.Scene {
       .setOrigin(0);
 
     let { width, height } = this.sys.game.canvas;
+    
     // const heart = this.add.image(400,400, "heart").setScale(1)
     // Create the initial ships for player selection
 
@@ -59,12 +60,17 @@ export default class Lobby extends Phaser.Scene {
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
         // save the user selection to a ship variable and a key variable
+        if (bitcoinShip.alpha === 0.1) {
+          
+        } else {
+       
         this.ship = bitcoinShip;
         this.playerChoice = "bitcoinShip";
         this.props.socket.emit("shipchoice", ("bitcoinShip"))
-          // sendShip(this.ship)
-          // sendChoice(this.playerChoice)
-       
+        liteCoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+        dogeShip.setScale(1.2);
+        }
       });
 
     const liteCoinShip = this.add
@@ -73,29 +79,55 @@ export default class Lobby extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
+        if (liteCoinShip.alpha === 0.1) {
+          
+        } else {
+        
         this.ship = liteCoinShip;
         this.playerChoice = "liteCoinShip";
         this.props.socket.emit("shipchoice", ("liteCoinShip"))
+        bitcoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+        dogeShip.setScale(1.2);
+        }
       });
 
-    this.ethereumShip = this.add
+    const ethereumShip = this.add
       .image((width / 4) * 3 - 150, height / 2, "ethereumShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.ship = this.ethereumShip;
+        if (ethereumShip.alpha === 0.1) {
+          
+        } else {
+        
+        this.ship = ethereumShip;
         this.playerChoice = "ethereumShip";
+        this.props.socket.emit("shipchoice", ("ethereumShip"))
+        bitcoinShip.setScale(1.2);
+        liteCoinShip.setScale(1.2);
+        dogeShip.setScale(1.2);
+        }
       });
 
-    this.dogeShip = this.add
+    const dogeShip = this.add
       .image(width - 150, height / 2, "dogeShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.ship = this.dogeShip;
+        if (dogeShip.alpha === 0.1) {
+          
+        } else {
+        
+        this.ship = dogeShip;
         this.playerChoice = "dogeShip";
+        this.props.socket.emit("shipchoice", ("dogeShip"))
+        bitcoinShip.setScale(1.2);
+        liteCoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+        }
       });
       const setEnemy = enemy => {this.playertwo = enemy}
     this.add
@@ -108,22 +140,57 @@ export default class Lobby extends Phaser.Scene {
        
          switch (data) {
           case "bitcoinShip":
+           
             bitcoinShip.setScale(2.5)
+            bitcoinShip.alpha = 0.1  
+            liteCoinShip.setScale(1.2);
+            ethereumShip.setScale(1.2);
+            dogeShip.setScale(1.2);
+            ethereumShip.alpha = 1
+            liteCoinShip.alpha = 1 
+            dogeShip.alpha = 1
             break;
           case "liteCoinShip":
-            liteCoinShip.setScale(2.5) 
+            liteCoinShip.setScale(2.5)
+            liteCoinShip.alpha = 0.1  
+            bitcoinShip.setScale(1.2);
+            ethereumShip.setScale(1.2);
+            dogeShip.setScale(1.2);
+            ethereumShip.alpha = 1
+            bitcoinShip.alpha = 1 
+            dogeShip.alpha = 1
             break;
+          case "ethereumShip":
+            ethereumShip.setScale(2.5)
+            ethereumShip.alpha = 0.1  
+            bitcoinShip.setScale(1.2);
+            liteCoinShip.setScale(1.2);
+            dogeShip.setScale(1.2);
+            bitcoinShip.alpha = 1
+            liteCoinShip.alpha = 1 
+            dogeShip.alpha = 1
+            break;  
+          case "dogeShip":
+            dogeShip.setScale(2.5);
+            dogeShip.alpha = 0.1  
+            bitcoinShip.setScale(1.2);
+            liteCoinShip.setScale(1.2);
+            ethereumShip.setScale(1.2);
+            ethereumShip.alpha = 1
+            liteCoinShip.alpha = 1 
+            bitcoinShip.alpha = 1
+            break; 
          }
            
-         this.playertwo = data
+         self.playertwo = data
       
        
          
        
       })
-      this.props.socket.on("startrealgame", () => {
-
-        this.scene.start("Main", { player: this.playerChoice, playertwo: this.playertwo });
+      this.props.socket.on("readyButton", () => {
+        
+        this.scene.start("Main", { player: this.playerChoice, playertwo: self.playertwo });
         this.scene.stop("Lobby");
       })
   }
@@ -131,10 +198,10 @@ export default class Lobby extends Phaser.Scene {
   update() {
     this.background.tilePositionY -= 3;
     // reassign scale if another ship has been selected
-    // this.bitcoinShip.setScale(1.2);
-    // this.liteCoinShip.setScale(1.2);
-    // this.ethereumShip.setScale(1.2);
-    // this.dogeShip.setScale(1.2);
+    // bitcoinShip.setScale(1.2);
+    // liteCoinShip.setScale(1.2);
+    // ethereumShip.setScale(1.2);
+    // dogeShip.setScale(1.2);
 
     // if the player made a choice show the ready up button and scale the ship bigger
 

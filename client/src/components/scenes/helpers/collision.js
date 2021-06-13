@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { setInvincibility, increaseLives, maximumFlurry } from "./powerups";
+import playerTwo from "../Main"
 
 export function collisionDestroy(collisionObject, asteroid) {
   const respawnTimer = 1000;
@@ -57,12 +58,15 @@ export function collisionDestroy(collisionObject, asteroid) {
 
   if (!checkPlayerInvinc || collisionObject === this.laser) {
     collisionObject.disableBody(true, true);
+   
     // collisionObject.setInvincibility(respawnTimer);
     // respawn();
     this.time.delayedCall(
       respawnTimer,
       () => {
-        collisionObject.enableBody(true, 800 / 2, 1000, true, true);
+        if(collisionObject === this.player) {
+        collisionObject.enableBody(true, this.player.x, this.player.y, true, true);
+        }
       },
       this
     );
