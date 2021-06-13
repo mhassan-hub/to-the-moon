@@ -20,6 +20,7 @@ let ready = []
 let shipReady = []
 
 
+
 io.on('connection', function(socket){
   console.log("New client has connected with id:",socket.id);
   const gameID = socket.id
@@ -46,8 +47,13 @@ io.on('connection', function(socket){
     socket.broadcast.emit("ready", "player is ready")
     console.log("ready back end")
     if (ready.length === 2) {
-      socket.emit("start game", "game is ready to start")
-      ready = []
+      if(ready[0] === ready[1]) {
+        ready.pop()
+      } else {
+        ready = []
+        socket.emit("start game", "game is ready to start")
+        
+      }
     }
   })
   socket.on("initiallaunch", function(data) {
@@ -68,9 +74,11 @@ io.on('connection', function(socket){
     socket.broadcast.emit("shipchoicepicked", data)
     
     if (shipReady.length === 2) {
-      if (shipReady[0] !== socket.id[1]) {
-    shipReady = []
-    io.emit("readyButton", "Game is ready to being")
+      if (shipReady[0] === shipReady[1]) {
+         shipReady.pop()
+    } else {
+      shipReady = []
+      io.emit("readyButton", "Game is ready to being")
     }
   }
     // socket.broadcast.to(players[socket.id]).emit( 'send msg', {data : data} )
