@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import Button from "./helpers/button";
+import preloadAssets from "./helpers/preloadAssets";
 
 
 export default class Win extends Phaser.Scene {
@@ -10,11 +11,12 @@ export default class Win extends Phaser.Scene {
   init(data) {
     this.lives = data.lives;   
     this.score = data.score;
-    this.player = data.player;
+    this.playerChoice = data.player;
   }
   
   preload() {
     // this.load.audio("audioSound", "assets/Demon.mp3");
+    preloadAssets(this);
     this.load.image("ship", "assets/fighter.png");
     this.load.image("moon", "assets/finishMoon.png");
     this.load.image("restartButton", "assets/button.png");
@@ -25,12 +27,11 @@ export default class Win extends Phaser.Scene {
   }
 
   create() {
-    this.player = this.physics.add.sprite(
-      width/2,
-      height,
+    this.player = this.physics.add.image(
+      1024/2,
+      7886,
       `${this.playerChoice}`
     );
-    // this.player.setVelocityX
     this.music = this.sound.add("defeat", {volume: 0.1, });
     this.music.play()
     let { width, height } = this.sys.game.canvas;
@@ -49,19 +50,23 @@ export default class Win extends Phaser.Scene {
       this.scene.stop("Lose");
       window.location.replace("http://localhost:3002/");
     });
-    this.add
+    this.gameOverText = this.add
       .text(
-        width * 0.49,
-        height * 0.65,
+        width * 0.5,
+        height * 0.4,
         `GAME OVER`,
         {
           color: '#ffe100' ,
-          font: "bold 45px Courier",
+          font: "bold 85px Courier",
 
         }
       )
       .setOrigin(0.5);
+      this.gameOverText.visible = false
 
+      setTimeout(()=> {
+        this.gameOverText.visible = true
+      }, 900)
     }
     update() {
     this.background.tilePositionY -= 3;
