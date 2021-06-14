@@ -11,13 +11,14 @@ import Leaderboard from "./components/Leaderboard";
 import Button from "@material-ui/core/Button";
 
 const theme = createMuiTheme({
+
   palette: {
     background: {
-      default: "#8561c5",
+      default: "#FFBF00",
     },
     primary: {
       light: "#8561c5",
-      main: "#673ab7",
+      main: "#482880",
       dark: "#482880",
       contrastText: "#fff",
     },
@@ -38,7 +39,7 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider  theme={theme}>
       <CssBaseline />
       <div className="App">
         <link

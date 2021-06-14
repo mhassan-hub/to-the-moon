@@ -1,0 +1,16 @@
+.table {
+  margin-top: 100px;
+  width:75%;
+  align-self: center;
+  border: 1px;
+  border-style: solid;
+}
+
+.Leaderboard {
+
+  /* background-image: url("https://i.imgur.com/invYteL.png");
+  /* background-size: 500px 500px; */
+  background-position: center;
+  display: flex; 
+  flex-direction: column;
+}

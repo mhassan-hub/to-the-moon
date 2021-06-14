@@ -5,9 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { HomeIcon } from "@material-ui/icons/Home";
+import HomeIcon from "@material-ui/icons/Home";
 import "./NavBar.css";
 
 export default function NavBar() {
@@ -17,19 +15,20 @@ export default function NavBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar className="navbar" color="primary" position="sticky">
       <Toolbar>
         <div className="div-navbar-buttons">
           <div className="div-buttons-left">
-            <Typography href="/" variant="h6">
+            <h6 className='title'>
               To The Moon
-            </Typography>
+            </h6>
           </div>
           <div className="div-buttons-right">
             {sessionStorage.length === 0 && (
               <div>
-                <Button className="nav-button" href="/"></Button>
+                <Button className="nav-button" href="/">
                 <HomeIcon />
+                </Button>
                 <Button className="nav-button" href="/login" variant="inherit">
                   Log in
                 </Button>

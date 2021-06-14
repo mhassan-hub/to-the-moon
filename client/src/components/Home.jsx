@@ -2,11 +2,8 @@ import Link from "@material-ui/core/Link";
 import React from "react";
 import { useState, useEffect } from "react";
 import Button from '@material-ui/core/Button';
-// import "../App.css";
 import "./Home.css"
 import NavBar from "./NavBar";
-// import socketIOClient, { io } from "socket.io-client";
-// const ENDPOINT = "http://127.0.0.1:8080";
 
 export default function Home() {
 
@@ -16,16 +13,6 @@ export default function Home() {
     sessionStorage.clear()
     window.location.reload() 
   }
-
-  
-  // useEffect(() => {
-  //   const socket = socketIOClient(ENDPOINT);
-  //   let data = "Grigor"
-
-  //   socket.emit('hello', "hello is sent")
-  //   return () => socket.disconnect();
-  // }, []);
-
 
 
   return (
@@ -37,7 +24,7 @@ export default function Home() {
       <div class= "header-text">
     <h1 color="secondary">To The Moon</h1>
     <Link href="/game">
-    <Button variant="contained" color="primary">Create Game</Button>
+    <Button className="createGameButton" variant="outlined" color="secondary">Create Game</Button>
     </Link>
 
       </div>
