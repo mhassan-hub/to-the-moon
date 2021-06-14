@@ -51,7 +51,7 @@ io.on('connection', function(socket){
         ready.pop()
       } else {
         ready = []
-        socket.emit("start game", "game is ready to start")
+        io.emit("start game", "game is ready to start")
         
       }
     }

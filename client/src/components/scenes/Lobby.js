@@ -143,6 +143,9 @@ export default class Lobby extends Phaser.Scene {
           this.ship = ethereumShip;
           this.playerChoice = "ethereumShip";
           this.props.socket.emit("shipchoice", "ethereumShip");
+          bitcoinShip.setScale(1.2);
+          liteCoinShip.setScale(1.2);
+          dogeShip.setScale(1.2);
         }
       });
 
@@ -170,9 +173,9 @@ export default class Lobby extends Phaser.Scene {
           this.ship = dogeShip;
           this.playerChoice = "dogeShip";
           this.props.socket.emit("shipchoice", "dogeShip");
-          // bitcoinShip.setScale(1.2);
-          // liteCoinShip.setScale(1.2);
-          // ethereumShip.setScale(1.2);
+          bitcoinShip.setScale(1.2);
+          liteCoinShip.setScale(1.2);
+          ethereumShip.setScale(1.2);
         }
       });
     const setEnemy = (enemy) => {
