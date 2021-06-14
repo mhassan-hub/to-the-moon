@@ -35,7 +35,7 @@ export default function Home() {
     <img className="img-fluid" src="https://i.imgur.com/P6XZIMs.png"/>
     <div class='overlay'>
       <div class= "header-text">
-    <h1>To The Moon</h1>
+    <h1 color="secondary">To The Moon</h1>
     <Link href="/game">
     <Button variant="contained" color="primary">Create Game</Button>
     </Link>
