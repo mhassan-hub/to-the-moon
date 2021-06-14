@@ -1,5 +1,7 @@
-.nav-button {
-  color: white;
+.title{
+  font-family: BladeR;
+  font-size: medium;
+  color: #ffc400;
 }
 
 .div-navbar-buttons{
@@ -7,6 +9,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .div-buttons-right{
   display: flex;
   justify-content: center;
@@ -20,5 +23,11 @@
 }
 
 .MuiButton-label {
-  color: white;
+  color: #ffc400;
+  text-shadow: #000;
+}
+
+.navbar{
+  position: fixed;
+  height: 7vh;
 }

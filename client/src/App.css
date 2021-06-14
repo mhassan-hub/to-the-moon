@@ -1,23 +1,28 @@
 .App {
   text-align: center;
-  /* background-image: "https://i.pinimg.com/originals/f6/20/a1/f620a179ca1acfd15a0754701677fb58.jpg"; */
+  background-image: url("https://i.imgur.com/invYteL.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: repeat;
 }
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
 .background{
   size: 1em;
   z-index: -1;
 }
+
 .background-img{
   height: 500px;
   z-index: -1;
 
 }
-.display{
+/* .display{
   background-image: "https://www.vhv.rs/dpng/d/463-4635355_svg-black-and-white-arcade-clipart-arcade-game.png"
-}
+} */
 
 .text {
   color: blue

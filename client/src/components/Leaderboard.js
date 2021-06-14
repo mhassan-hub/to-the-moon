@@ -11,10 +11,26 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import purple from '@material-ui/core/colors/purple';
 import NavBar from "./NavBar";
+import "./Leaderboard.css"
 
+function Copyright() {
+
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://to-the-moon.com/">
+        To-The-Moon
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -52,10 +68,11 @@ export default function Leaderboard() {
   }, []);
   
   return (
-   <div>
+   <div className="Leaderboard">
      <NavBar/>
+     <div className="table">
     <TableContainer component={Paper} >
-      <Table className="Leaderboard">
+      <Table >
       <TableHead>
         <StyledTableRow >
           <StyledTableCell align= "center">Rank</StyledTableCell>
@@ -80,7 +97,10 @@ export default function Leaderboard() {
         </TableBody>
       </Table>  
       </TableContainer>
-
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
     </div>
   );
 }
