@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import "../App.css";
+import NavBar from "./NavBar";
 
 export default function About() {
   return (
     <div className="About">
+      <NavBar/>
       <h3>
         We are three smart indiviuals navigating our way throught the CS world
         hoping to reach the moon!

@@ -5,6 +5,7 @@ import Win from "./scenes/Win";
 import Lose from "./scenes/Lose";
 import Pause from "./scenes/Pause";
 import Lobby from "./scenes/Lobby";
+import NavBar from "./NavBar";
 
 export default class Game extends React.Component {
   componentDidMount() {
@@ -31,6 +32,7 @@ export default class Game extends React.Component {
   render() {
     return (
       <div className="display">
+        <NavBar/>
         <div id="game"> </div>
       </div>
     );
