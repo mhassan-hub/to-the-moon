@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import "../App.css";
 import axios from "axios";
@@ -13,21 +12,31 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import purple from '@material-ui/core/colors/purple';
+import NavBar from "./NavBar";
+
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.secondary.main,
   },
   body: {
     fontSize: 14,
+    color: theme.palette.common.white
   },
 }
 ))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
+    '&:nth-of-type(even)': {
+      backgroundColor: theme.palette.primary.light,
+      color: theme.palette.common.white
+    },
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: theme.palette.primary.light,
+      color: theme.palette.common.white
     },
   },
 }))(TableRow);
@@ -44,11 +53,11 @@ export default function Leaderboard() {
   
   return (
    <div>
-  <h1>Leaderboard</h1>
-    <TableContainer component={Paper}>
+     <NavBar/>
+    <TableContainer component={Paper} >
       <Table className="Leaderboard">
       <TableHead>
-        <StyledTableRow>
+        <StyledTableRow >
           <StyledTableCell align= "center">Rank</StyledTableCell>
           <StyledTableCell align="center">Name</StyledTableCell>
           <StyledTableCell align="center">HighScore</StyledTableCell>
@@ -58,8 +67,8 @@ export default function Leaderboard() {
         <TableBody>
 
         {highScores.map((highScore, index) => (
-           <StyledTableRow>
-          <StyledTableCell align="center" component="th" scope="row">
+           <StyledTableRow >
+          <StyledTableCell variant="contained" color="secondary" align="center" component="th" scope="row">
           {index+1}
           </StyledTableCell>
           
@@ -72,11 +81,6 @@ export default function Leaderboard() {
       </Table>  
       </TableContainer>
 
-
-
-      <Link to="/">
-        <Button variant="contained" color="primary">Home</Button>
-      </Link>
     </div>
   );
 }

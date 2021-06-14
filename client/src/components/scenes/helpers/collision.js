@@ -89,11 +89,13 @@ export function collisionDestroy(collisionObject, asteroid) {
 
   if (!checkPlayerInvinc || collisionObject === this.laser) {
     collisionObject.disableBody(true, true);
+    this.cursors.enabled = false
     // collisionObject.setInvincibility(respawnTimer);
     // respawn();
     this.time.delayedCall(
       respawnTimer,
       () => {
+        this.cursors.enabled = true
         collisionObject.enableBody(true, 800 / 2, 1000, true, true);
       },
       this
