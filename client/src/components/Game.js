@@ -11,7 +11,7 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentDidMount() {
     // const {id} = useParams();
     // const history = useHistory()
@@ -29,11 +29,17 @@ export default class Game extends React.Component {
       pixelArt: true,
       fps: {
         target: 30,
-        },
+      },
       physics: {
         default: "arcade",
       },
-      scene: [new Lobby(this.props),new Main(this.props), new Win(this.props), new Lose(this.props), Pause],
+      scene: [
+        new Lobby(this.props),
+        new Main(this.props),
+        new Win(this.props),
+        new Lose(this.props),
+        new Pause(this.props),
+      ],
     };
     this.game = new Phaser.Game(config);
   }
