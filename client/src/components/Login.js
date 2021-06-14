@@ -44,10 +44,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
+    color: "#ffc400",
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
+    
     margin: theme.spacing(3, 0, 2),
   },
 }));
@@ -91,13 +93,13 @@ export default function SignIn() {
     <NavBar/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div>
+      <div >
         <div className="icons">
         <Avatar className='lockedOutIcon'>
           <LockOutlinedIcon />
         </Avatar>
         </div>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5"color="secondary">
           Sign in
         </Typography>
         <form noValidate>
@@ -111,10 +113,12 @@ export default function SignIn() {
             name="username"
             value={state.username}
             onChange={handleChange}
+            color="secondary"
             autoFocus
           />
           <TextField
             variant="outlined"
+            color="secondary"
             margin="normal"
             required
             fullWidth
@@ -135,15 +139,15 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/register" variant="body2">
+              <Link color="secondary" href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
+      <Box  mt={8}>
+        <Copyright color="secondary"/>
       </Box>
     </Container>
     </div>

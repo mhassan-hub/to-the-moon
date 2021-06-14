@@ -20,13 +20,13 @@ const theme = createMuiTheme({
       light: "#8561c5",
       main: "#482880",
       dark: "#482880",
-      contrastText: "#fff",
+      contrastText: "#482880",
     },
     secondary: {
       light: "#ffcf33",
       main: "#ffc400",
       dark: "#b28900",
-      contrastText: "#fff",
+      contrastText: "#482880",
     },
   },
   props: {
