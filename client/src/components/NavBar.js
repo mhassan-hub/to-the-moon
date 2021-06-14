@@ -28,9 +28,8 @@ export default function NavBar() {
           <div className="div-buttons-right">
             {sessionStorage.length === 0 && (
               <div>
-                <Button className="nav-button" href="/">
-                  <HomeIcon />
-                </Button>
+                <Button className="nav-button" href="/"></Button>
+                <HomeIcon />
                 <Button className="nav-button" href="/login" variant="inherit">
                   Log in
                 </Button>
