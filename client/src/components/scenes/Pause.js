@@ -13,14 +13,14 @@ export default class Pause extends Phaser.Scene {
   create() {
     let { width, height } = this.sys.game.canvas;
     this.add.image(0, 0, "background").setOrigin(0.5);
-    this.burger = this.add.image(800, 200, "burger").setScale(0.2);
+    this.burger = this.add.image(width / 2, height / 2, "burger").setScale(1);
     // restart button
-    new Button(width * 0.5, height * 0.5, 2.5, "Resume Game", this, () => {
+    new Button(width * 0.5, height * 0.85, 2.5, "Resume Game", this, () => {
       this.scene.resume("Main");
       this.scene.stop("Pause");
     });
     this.add
-      .text(width * 0.5, height * 0.1, `Game is paused`, {
+      .text(width * 0.5, height * 0.1, `Game Paused`, {
         fontSize: 36,
       })
       .setOrigin(0.5);
