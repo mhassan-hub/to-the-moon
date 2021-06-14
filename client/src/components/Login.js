@@ -24,6 +24,7 @@ export default function Login() {
       if (response.data.logged_in) {
         
         sessionStorage.setItem('userID', response.data.user.id)
+        sessionStorage.setItem('username', response.data.user.username)
         history.push("/")
       } else {
         console.log(response.data.errors[0])

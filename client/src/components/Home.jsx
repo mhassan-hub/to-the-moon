@@ -45,7 +45,7 @@ function Home ({readyCheck, startGame, socket}) {
       <h1>To The Moon!</h1>
       <h3>Leaderboard</h3>
        {sessionStorage.length > 0 &&
-       `Welcome ${sessionStorage.userID}`}
+       `Welcome ${sessionStorage.username}`}
       <div className="buttonContainer">
         <span>
           <Link to={`/game`}>

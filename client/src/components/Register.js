@@ -24,8 +24,9 @@ export default function Register(props) {
       if(response.data.status === 500) {
         setState({ error: true, username: "", email: "", password: "", password_confirmation: ""})
       } else {
-      sessionStorage.setItem('userID', state.username)
-      history.push('/home')
+      sessionStorage.setItem('userID', response.data.user.id)
+      sessionStorage.setItem('username', response.data.user.username)
+      history.push('/')
       }    
     })
     .catch(error => console.log('api errors:', error))
