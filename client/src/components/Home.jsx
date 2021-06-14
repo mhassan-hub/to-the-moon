@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Button from '@material-ui/core/Button';
 // import "../App.css";
 import "./Home.css"
+import NavBar from "./NavBar";
 // import socketIOClient, { io } from "socket.io-client";
 // const ENDPOINT = "http://127.0.0.1:8080";
 
@@ -28,15 +29,17 @@ export default function Home() {
 
 
   return (
-     
+  <div>
+    <NavBar/>
     <header className="App-header">
-      <img
-        src="https://www.clipartmax.com/png/middle/6-63877_ship-anchor-free-a-cartoon-moon-rocket-cartoon-rocket-ship.png"
-        className="App-logo"
-        alt="rocketship"
-      />
-      <h1 className="gameTitle">To The Moon!</h1>
-       {sessionStorage.length > 0 &&
+    <img className="img-fluid" src="https://i.imgur.com/P6XZIMs.png"/>
+    <div class='overlay'>
+      <div class= "header-text">
+    <h1>To The Moon!</h1>
+
+      </div>
+    </div>
+       {/* {sessionStorage.length > 0 &&
        `Welcome ${sessionStorage.userID}`}
       <div className="buttonContainer">
         <span className= "button-bar">
@@ -59,7 +62,8 @@ export default function Home() {
             <Button variant="contained" color="primary">Leaderboard</Button>
           </Link>
         </span>
-      </div>
+      </div> */}
     </header>
+    </div>
   );
 }
