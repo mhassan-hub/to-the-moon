@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 import React from "react";
 import { useState, useEffect } from "react";
 import Button from '@material-ui/core/Button';
@@ -36,6 +36,9 @@ export default function Home() {
     <div class='overlay'>
       <div class= "header-text">
     <h1>To The Moon</h1>
+    <Link href="/game">
+    <Button variant="contained" color="primary">Create Game</Button>
+    </Link>
 
       </div>
     </div>
@@ -43,9 +46,7 @@ export default function Home() {
        `Welcome ${sessionStorage.userID}`}
       <div className="buttonContainer">
         <span className= "button-bar">
-          <Link to="/game">
-            <Button variant="contained" color="primary">Create Game</Button>
-          </Link>
+         
           {sessionStorage.length === 0 &&
           <Link to="/login">
             <Button variant="contained" color="primary">Log in</Button>
