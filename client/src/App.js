@@ -28,6 +28,11 @@ const theme = createMuiTheme({
       dark: "#b28900",
       contrastText: "#482880",
     },
+    text: {
+      primary: "#ffc400",
+      secondary: "#ffc400",
+      disabled:  "#ffc400",
+    }
   },
   props: {
     StyledTableCell: {

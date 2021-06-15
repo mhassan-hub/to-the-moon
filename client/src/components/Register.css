@@ -1,10 +1,3 @@
-.icons {
-  display: flex;
-  justify-content: center;
-  padding-top: 50px;
-  padding-bottom: 25px;
-}
-/* 
 #username-label {
   color: #ffc400;
 }
@@ -20,4 +13,16 @@
 
 #password {
   color: #ffc400;
-} */
+}
+
+#email-label {
+  color: #ffc400;
+}
+
+#passwordConfirmation-label{
+  color: #ffc400;
+}
+
+.MuiTypography-h5 {
+  color: #ffc400;
+}

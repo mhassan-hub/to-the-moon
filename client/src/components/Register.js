@@ -11,11 +11,11 @@ import axios from 'axios'
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import './Login.css'
+// import './Register.css'
 import NavBar from './NavBar'
 
 function Copyright() {
@@ -95,9 +95,7 @@ const handleChange = (event) => {
       <CssBaseline />
       <div>
         <div className="icons">
-        <Avatar className='lockedOutIcon'>
-          <LockOutlinedIcon />
-        </Avatar>
+          <AccountCircleOutlinedIcon color="secondary" fontSize="large" />
         </div>
         <Typography component="h1" variant="h5">
           Register
@@ -114,6 +112,7 @@ const handleChange = (event) => {
             value={state.username}
             onChange={handleChange}
             autoFocus
+            color="secondary"
           />
           <TextField
             variant="outlined"
@@ -126,6 +125,7 @@ const handleChange = (event) => {
             value={state.email}
             onChange={handleChange}
             autoFocus
+            color="secondary"
           />
           <TextField
             variant="outlined"
@@ -138,6 +138,7 @@ const handleChange = (event) => {
             id="password"
             value={state.password}
             onChange={handleChange}
+            color="secondary"
           />
           <TextField
             variant="outlined"
@@ -150,6 +151,7 @@ const handleChange = (event) => {
             id="passwordConfirmation"
             value={state.passwordConfirmation}
             onChange={handleChange}
+            color="secondary"
           />
           
           <Button
@@ -162,7 +164,7 @@ const handleChange = (event) => {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link color="secondary" href="/login" variant="body2">
                 {"Already have an account? Log in!"}
               </Link>
             </Grid>
