@@ -17,6 +17,7 @@ import { scoreIncreaseAsteroid } from "./helpers/score";
 // const rp = require('request-promise');
 import Button from "./helpers/button";
 import addPhysics from "./helpers/addPhysics";
+import { fighterGenerator } from "./helpers/fighters";
 // import { createGroup } from "./helpers/groups";
 
 export default class Main extends Phaser.Scene {
@@ -33,6 +34,8 @@ export default class Main extends Phaser.Scene {
     this.playerLives = 3;
     this.invincibility = false;
     this.continiuosShot = false;
+    this.disableShot = false
+    this.disableMovement = false
     this.finishLine = -5000;
     this.playerChoice = data.player;
     this.playerTwoChoice = data.playertwo;
@@ -73,7 +76,7 @@ export default class Main extends Phaser.Scene {
     //sets player and player physics
 
     this.player = this.physics.add.sprite(
-      width / 2,
+      width/2,
       height,
       `${this.playerChoice}`
     );
@@ -95,7 +98,7 @@ export default class Main extends Phaser.Scene {
     this.enemy.visible = false;
     this.halfwayPoint = (-(this.finishLine / (3 * 30)) / 4) * 1000;
     this.time.addEvent({
-      delay: this.halfwayPoint,
+      delay: 30000,
       callback: () => {
         this.enemy.body.enable = true;
         this.enemy.visible = true;
@@ -304,6 +307,17 @@ export default class Main extends Phaser.Scene {
       setCircle: 300,
     });
 
+    this.anims.create({
+      key: "itemSparks",
+      frames: this.anims.generateFrameNumbers("sparkle", {
+        start: 17,
+        end: 20,
+      }),
+      frameRate: 15,
+      hideOnComplete: true,
+      setCircle: 300,
+    });
+
     this.time.addEvent({
       delay: 1000,
       callback: enemyShoot,
@@ -331,6 +345,7 @@ export default class Main extends Phaser.Scene {
 
     function shoot() {
       if (this.player.body.enable === true) {
+        if(!this.disableShot){
         this.props.socket.emit("enemyFire", "Player two is shooting");
 
         this.laser = this.physics.add
@@ -365,6 +380,7 @@ export default class Main extends Phaser.Scene {
           this.laser.destroy();
         }
       }
+    }
     }
 
     function secondPlayerShoot() {
@@ -404,7 +420,9 @@ export default class Main extends Phaser.Scene {
       });
     }
 
-    if (this.background.tilePositionY < this.finishLine * 0.8) {
+    if (
+      this.background.tilePositionY < (this.finishLine*0.87)
+    ) {
       this.finishLineMoon.visible = true;
       this.finishLineMoon.y += 3;
     }
@@ -412,26 +430,27 @@ export default class Main extends Phaser.Scene {
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
       this.props.socket.disconnect();
+      this.scene.stop("Main");
       this.scene.start("Win", {
         lives: this.playerLives,
         score: this.playerScore,
       });
-      this.scene.stop("Main");
     }
 
     if (this.playerLives === 0) {
       this.props.socket.disconnect();
+      this.scene.stop("Main");
       this.scene.start("Lose", {
         lives: this.playerLives,
         score: this.playerScore,
+        // player: this.playerChoice 
       });
-      this.scene.stop("Main");
     }
 
     /** @type {Phaser.Phyics.Arcade.StaticBody} */
 
     //keybinding listeners for player movement
-    if (this.cursors.up.isDown) {
+    if (this.cursors.up.isDown && !this.disableMovement) {
       this.player.y -= 10;
       if (this.player.body.enable === true) {
         this.props.socket.emit("playerMovement", "up");
@@ -440,26 +459,27 @@ export default class Main extends Phaser.Scene {
         // respawn()
       }
     }
-    if (this.cursors.down.isDown) {
+    if (this.cursors.down.isDown && !this.disableMovement) {
       this.player.y += 10;
       if (this.player.body.enable === true) {
         this.props.socket.emit("playerMovement", "down");
       }
     }
 
-    if (this.cursors.left.isDown) {
+    if (this.cursors.left.isDown && !this.disableMovement) {
       this.player.x -= 10;
       if (this.player.body.enable === true) {
         this.props.socket.emit("playerMovement", "left");
       }
     }
 
-    if (this.cursors.right.isDown) {
+    if (this.cursors.right.isDown && !this.disableMovement) {
       this.player.x += 10;
       if (this.player.body.enable === true) {
         this.props.socket.emit("playerMovement", "right");
       }
     }
+  
 
     checkAsteroidPos(this.asteroids, this);
     if (this.bitcoin) {

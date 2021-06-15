@@ -1,0 +1,79 @@
+
+.button-bar{
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* span {
+  color: #ffc400;
+} */
+
+header {
+  background: black;
+  overflow: hidden;
+  width: 100%;
+  z-index: -1;
+}
+
+.img-fluid {
+  object-fit: cover;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.9;
+  filter: brightness(120%);
+}
+
+.header-text {
+  font-family: BladeR;
+  color: #ffc400;
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.header-text h2 {
+  margin-bottom: 30px;
+}
+
+.header-text h4 {
+  margin-bottom: 30px;
+}
+
+.header-text img {
+  width: 30em;
+}
+
+.overlay {
+  position: absolute;
+  top: 7vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #000000;
+}
+
+header:hover .overlay {
+  opacity: 0.8;
+}
+
+.createGameButton {
+  height: 45px;
+  width: 170px;
+  
+}

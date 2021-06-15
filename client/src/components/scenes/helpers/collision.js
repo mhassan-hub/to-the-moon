@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import { setInvincibility, increaseLives, maximumFlurry } from "./powerups";
 import playerTwo from "../Main"
+import { setInvincibility, increaseLives, maximumFlurry, disableShot, disableMovement } from "./powerups";
 
 export function collisionDestroy(collisionObject, asteroid) {
   const respawnTimer = 1000;
@@ -17,7 +17,7 @@ export function collisionDestroy(collisionObject, asteroid) {
     this.physics.add.overlap(
       this.player,
       this.healthIcon,
-      collisionObtain,
+      collisionObtainPowerUp,
       increaseLives,
       this
     );
@@ -30,7 +30,7 @@ export function collisionDestroy(collisionObject, asteroid) {
     this.physics.add.overlap(
       this.player,
       this.invincibilityIcon,
-      collisionObtain,
+      collisionObtainPowerUp,
       setInvincibility,
       this
     );
@@ -45,11 +45,43 @@ export function collisionDestroy(collisionObject, asteroid) {
     this.physics.add.overlap(
       this.player,
       this.maximumFlurryIcon,
-      collisionObtain,
+      collisionObtainPowerUp,
       maximumFlurry,
       this
     );
   }
+  if (Phaser.Math.Between(181, 200) === 181) {
+    this.disableShotIcon = this.physics.add.image(
+      asteroid.x,
+      asteroid.y,
+      "disableShotIcon"
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.disableShotIcon,
+      collisionObtainDebuff,
+      disableShot,
+      this
+    );
+    }
+    if (Phaser.Math.Between(201, 220) === 201) {
+      this.disableMovementIcon = this.physics.add.image(
+        asteroid.x,
+        asteroid.y,
+        "disableMovementIcon"
+      );
+  
+      this.physics.add.overlap(
+        this.player,
+        this.disableMovementIcon,
+        collisionObtainDebuff,
+        disableMovement,
+        this
+      );
+      }
+    
+  
   this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
   this.explosionSound.play();
 
@@ -58,9 +90,6 @@ export function collisionDestroy(collisionObject, asteroid) {
 
   if (!checkPlayerInvinc || collisionObject === this.laser) {
     collisionObject.disableBody(true, true);
-   
-    // collisionObject.setInvincibility(respawnTimer);
-    // respawn();
     this.time.delayedCall(
       respawnTimer,
       () => {
@@ -70,7 +99,7 @@ export function collisionDestroy(collisionObject, asteroid) {
       },
       this
     );
-  }
+    }
   this.time.delayedCall(
     respawnTimer,
     () => {
@@ -82,7 +111,7 @@ export function collisionDestroy(collisionObject, asteroid) {
     },
     this
   );
-}
+  }
 
 //Function which dictates asteroid velocity after creation/re-enablement
 export function setAsteroidCollision(asteroids) {
@@ -103,17 +132,30 @@ export function setEnemyCollision(enemies) {
 }
 
 //Function which handles game logic surrounding collision and destructions
-export function collisionObtain(player, powerUp) {
+export function collisionObtainCoin(player, coin) {
   const sparkle = this.add.sprite(player.x, player.y, "sparkle").setScale(1);
   sparkle.play("sparks");
   this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
   this.coinSound.play();
+  coin.disableBody(true, true);
+}
+
+export function collisionObtainPowerUp(player, powerUp) {
+  const sparkle = this.add.sprite(player.x, player.y, "sparkle").setScale(1);
+  sparkle.play("itemSparks");
+  this.powerUpSound = this.sound.add("powerUpSound", { volume: 0.1 });
+  this.powerUpSound.play();
+
   powerUp.disableBody(true, true);
-  // let x = Phaser.Math.Between(0, 580);
-  // powerUp.enableBody(true, x, 0, true, true);
-  // let xVel = Phaser.Math.Between(100, 300);
-  // let yVel = Phaser.Math.Between(150, 400);
-  // powerUp.setVelocity(xVel, yVel);
+}
+
+export function collisionObtainDebuff(player, powerUp) {
+  const sparkle = this.add.sprite(player.x, player.y, "sparkle").setScale(1);
+  sparkle.play("itemSparks");
+  this.debuff = this.sound.add("debuff", { volume: 0.1 });
+  this.debuff.play();
+
+  powerUp.disableBody(true, true);
 }
 
 export function playerCollisionAction() {

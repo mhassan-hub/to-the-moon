@@ -230,6 +230,7 @@ export default class Lobby extends Phaser.Scene {
           liteCoinShip.alpha = 1;
           bitcoinShip.alpha = 1;
           break;
+        default: ;
       }
 
       self.playertwo = data;

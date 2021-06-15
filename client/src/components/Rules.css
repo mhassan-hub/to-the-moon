@@ -1,0 +1,25 @@
+
+.crypto-images{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.paragraphs{
+  font-size: 20px;
+  width: 900px;
+};
+
+.titleO{
+  font-family: BladeR;
+  font-size: 50px;
+
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+

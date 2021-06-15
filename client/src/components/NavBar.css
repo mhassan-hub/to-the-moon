@@ -1,0 +1,36 @@
+.title{
+  font-family: BladeR;
+  font-size: 19px;
+  color: #482880;
+}
+
+.div-navbar-buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.div-buttons-right{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-buttons-left{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiButton-label {
+  color: #482880;
+  text-shadow: #000;
+}
+
+.navbar{
+  position: fixed;
+  height: 7vh;
+  box-shadow: 10px 10px 8px 10px #888888;
+  filter:brightness(95%)
+
+}

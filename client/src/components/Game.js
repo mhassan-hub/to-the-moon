@@ -7,6 +7,8 @@ import Pause from "./scenes/Pause";
 import Lobby from "./scenes/Lobby";
 import Intro from "./scenes/Intro"
 // import {useParams, useHistory} from "react-router-dom";
+import NavBar from "./NavBar";
+import "./Game.css"
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -48,7 +50,12 @@ export default class Game extends React.Component {
   render() {
     return (
       <div className="display">
-        <div id="game"> </div>
+        <NavBar/>
+        <div className="gameScreen">
+          <div className="gameCase">
+            <div id="game"/>
+            </div>
+          </div>
       </div>
     );
   }

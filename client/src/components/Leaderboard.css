@@ -1,0 +1,27 @@
+.table {
+  margin-top: 0px;
+  width:75%;
+  align-self: center;
+  border: 2px;
+  border-style: solid;
+}
+
+.page-title{
+  margin-top: 40px;
+  margin-bottom: 30px;
+  font-family: BladeR;
+  font-size: 50px;
+}
+
+.Leaderboard {
+
+  /* background-image: url("https://i.imgur.com/invYteL.png");
+  /* background-size: 500px 500px; */
+  background-position: center;
+  display: flex; 
+  flex-direction: column;
+}
+
+.number {
+  font-size: 18px;
+}
