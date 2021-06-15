@@ -21,7 +21,7 @@ export default function Home() {
       <div class= "header-text">
         <h1 color="secondary">To The Moon</h1>
           <Button 
-          to="/game"
+          href="/game"
           className="createGameButton" variant="outlined" color="secondary">Create Game</Button>
       </div>
     </div>
