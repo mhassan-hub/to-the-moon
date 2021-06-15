@@ -1,0 +1,81 @@
+h1 {
+  font-family: BladeR;
+  color: #ffc400;
+  font-size: 50px;
+
+}
+h4 {
+  text-align: start;
+  font-size: 18px;
+}
+
+.body {
+  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+.description {
+  align-self: center;
+}
+
+
+.resume {
+  width: 75%;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+}
+.resume-list {
+  font-size: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.frontend-react {
+  font-size: 16px;
+  width: 80%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.Backend-rails {
+  font-size: 16px;
+  width: 80%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.Backend-express {
+  font-size: 16px;
+  width: 80%;
+  padding-left: 30px;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.stack-list {
+
+}
+.react-icon{
+  height: 10%;
+  width: 10%;
+}
+.rails-icon{
+  height: 10%;
+  width: 10%;
+}
+.express-icon {
+  height: 10%;
+  width: 10%;
+}
+.stack {
+  margin-left: 20px;
+  width: 100%;
+  justify-content: start;
+}
