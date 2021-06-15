@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import './Login.css'
@@ -95,9 +95,7 @@ export default function SignIn() {
       <CssBaseline />
       <div >
         <div className="icons">
-        <Avatar className='lockedOutIcon'>
-          <LockOutlinedIcon />
-        </Avatar>
+          <AccountCircleOutlinedIcon color="secondary" fontSize="large" />
         </div>
         <Typography component="h1" variant="h5"color="secondary">
           Sign in

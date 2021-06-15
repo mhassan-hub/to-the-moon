@@ -15,7 +15,7 @@ export default function NavBar() {
   };
 
   return (
-    <AppBar className="navbar" color="primary" position="sticky">
+    <AppBar className="navbar" color="secondary" position="sticky">
       <Toolbar>
         <div className="div-navbar-buttons">
           <div className="div-buttons-left">

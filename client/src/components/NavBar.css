@@ -1,7 +1,7 @@
 .title{
   font-family: BladeR;
   font-size: medium;
-  color: #ffc400;
+  color: #482880;
 }
 
 .div-navbar-buttons{
@@ -23,11 +23,14 @@
 }
 
 .MuiButton-label {
-  color: #ffc400;
+  color: #482880;
   text-shadow: #000;
 }
 
 .navbar{
   position: fixed;
   height: 7vh;
+  box-shadow: 10px 10px 8px 10px #888888;
+  filter:brightness(95%)
+
 }

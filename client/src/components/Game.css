@@ -1,6 +1,10 @@
-.display{
+.gameCase{
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  margin: 100px;
+  width: 1024px;
+  height: 786px;
+  margin: 0 auto;
+  border: 30px solid #ffc400;
 }
