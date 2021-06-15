@@ -101,6 +101,7 @@ const handleChange = (event) => {
           Register
         </Typography>
         <form noValidate>
+          <div className="form">
           <TextField
             variant="outlined"
             margin="normal"
@@ -162,6 +163,7 @@ const handleChange = (event) => {
           >
             Register
           </Button>
+          </div>
           <Grid container>
             <Grid item>
               <Link color="secondary" href="/login" variant="body2">

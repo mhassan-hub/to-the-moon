@@ -24,7 +24,7 @@ export default function Home() {
       <div class= "header-text">
     <h1 color="secondary">To The Moon</h1>
     <Link href="/game">
-    <Button className="createGameButton" variant="outlined" color="secondary">Create Game</Button>
+    <Button className="createGameButton" variant="outlined" color="primary">Create Game</Button>
     </Link>
 
       </div>

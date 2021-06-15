@@ -1,9 +1,16 @@
 .table {
-  margin-top: 100px;
+  margin-top: 0px;
   width:75%;
   align-self: center;
-  border: 1px;
+  border: 2px;
   border-style: solid;
+}
+
+.page-title{
+  margin-top: 40px;
+  margin-bottom: 30px;
+  font-family: BladeR;
+  font-size: 50px;
 }
 
 .Leaderboard {
@@ -13,4 +20,8 @@
   background-position: center;
   display: flex; 
   flex-direction: column;
+}
+
+.number {
+  font-size: 18px;
 }

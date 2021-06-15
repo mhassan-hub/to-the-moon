@@ -97,7 +97,7 @@ export default function SignIn() {
         <div className="icons">
           <AccountCircleOutlinedIcon color="secondary" fontSize="large" />
         </div>
-        <Typography component="h1" variant="h5"color="secondary">
+        <Typography component="h1" variant="h5"color="secondary" className="signin">
           Sign in
         </Typography>
         <form noValidate>

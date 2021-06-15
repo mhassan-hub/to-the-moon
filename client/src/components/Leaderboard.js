@@ -36,24 +36,20 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.secondary.main,
+    fontSize: 20
   },
   body: {
-    fontSize: 14,
-    color: theme.palette.common.white
+    color: theme.palette.secondary.main,
+    fontSize: 18
   },
 }
 ))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    '&:nth-of-type(even)': {
-      backgroundColor: theme.palette.primary.light,
-      color: theme.palette.common.white
-    },
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.primary.light,
-      color: theme.palette.common.white
-    },
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
+      fontSize: 18
   },
 }))(TableRow);
 
@@ -70,6 +66,7 @@ export default function Leaderboard() {
   return (
    <div className="Leaderboard">
      <NavBar/>
+     <h5 className="page-title">Top 5 Scores</h5>
      <div className="table">
     <TableContainer component={Paper} >
       <Table >
@@ -85,7 +82,7 @@ export default function Leaderboard() {
 
         {highScores.map((highScore, index) => (
            <StyledTableRow >
-          <StyledTableCell variant="contained" color="secondary" align="center" component="th" scope="row">
+          <StyledTableCell className="number" variant="contained" color="secondary" align="center" component="th" scope="row">
           {index+1}
           </StyledTableCell>
           
@@ -98,7 +95,7 @@ export default function Leaderboard() {
       </Table>  
       </TableContainer>
       </div>
-      <Box mt={8}>
+      <Box mt={10}>
         <Copyright />
       </Box>
     </div>

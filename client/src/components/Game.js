@@ -34,9 +34,11 @@ export default class Game extends React.Component {
     return (
       <div className="display">
         <NavBar/>
-        <div className="gameCase">
-        <div id="game"/>
-        </div>
+        <div className="gameScreen">
+          <div className="gameCase">
+            <div id="game"/>
+            </div>
+          </div>
       </div>
     );
   }
