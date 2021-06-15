@@ -25,44 +25,120 @@ export default class Lobby extends Phaser.Scene {
 
     // Create the initial ships for player selection
 
-    this.bitcoinShip = this.add
+    const bitcoinShipOutline = this.add
+      .image(width / 4 - 150, height / 2, "bitcoinShip")
+      .setScale(2.7)
+      .setOrigin(0.5)
+      .setTintFill("0xffc400")
+      .setVisible(false);
+
+    const ethereumShipOutline = this.add
+      .image((width / 4) * 3 - 150, height / 2, "ethereumShip")
+      .setScale(2.7)
+      .setOrigin(0.5)
+      .setTintFill("0xffc400")
+      .setVisible(false);
+
+    const litecoinShipOutline = this.add
+      .image(width / 2 - 150, height / 2, "liteCoinShip")
+      .setScale(2.7)
+      .setOrigin(0.5)
+      .setTintFill("0xffc400")
+      .setVisible(false);
+
+    const dogeShipOutline = this.add
+      .image(width - 150, height / 2, "dogeShip")
+      .setScale(2.7)
+      .setOrigin(0.5)
+      .setTintFill("0xffc400")
+      .setVisible(false);
+
+    const bitcoinShip = this.add
       .image(width / 4 - 150, height / 2, "bitcoinShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
+      .on("pointerover", () => {
+        ethereumShip.setScale(1.2);
+        bitcoinShip.setScale(2.5);
+        liteCoinShip.setScale(1.2);
+        dogeShip.setScale(1.2);
+      })
       .on("pointerdown", () => {
         // save the user selection to a ship variable and a key variable
-        this.ship = this.bitcoinShip;
+
+        bitcoinShipOutline.setVisible(true);
+        litecoinShipOutline.setVisible(false);
+        ethereumShipOutline.setVisible(false);
+        dogeShipOutline.setVisible(false);
+
+        this.ship = bitcoinShip;
         this.playerChoice = "bitcoinShip";
+        liteCoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+        dogeShip.setScale(1.2);
       });
 
-    this.liteCoinShip = this.add
+    const liteCoinShip = this.add
       .image(width / 2 - 150, height / 2, "liteCoinShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
+      .on("pointerover", () => {
+        ethereumShip.setScale(1.2);
+        bitcoinShip.setScale(1.2);
+        liteCoinShip.setScale(2.5);
+        dogeShip.setScale(1.2);
+      })
       .on("pointerdown", () => {
-        this.ship = this.liteCoinShip;
+        bitcoinShipOutline.setVisible(false);
+        ethereumShipOutline.setVisible(false);
+        dogeShipOutline.setVisible(false);
+        litecoinShipOutline.setVisible(true);
+        this.ship = liteCoinShip;
         this.playerChoice = "liteCoinShip";
+        bitcoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+        dogeShip.setScale(1.2);
       });
 
-    this.ethereumShip = this.add
+    const ethereumShip = this.add
       .image((width / 4) * 3 - 150, height / 2, "ethereumShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
+      .on("pointerover", () => {
+        ethereumShip.setScale(2.5);
+        bitcoinShip.setScale(1.2);
+        liteCoinShip.setScale(1.2);
+        dogeShip.setScale(1.2);
+      })
       .on("pointerdown", () => {
-        this.ship = this.ethereumShip;
+        bitcoinShipOutline.setVisible(false);
+        dogeShipOutline.setVisible(false);
+        litecoinShipOutline.setVisible(false);
+        ethereumShipOutline.setVisible(true);
+        this.ship = ethereumShip;
         this.playerChoice = "ethereumShip";
       });
 
-    this.dogeShip = this.add
+    const dogeShip = this.add
       .image(width - 150, height / 2, "dogeShip")
       .setScale(1.2)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
+      .on("pointerover", () => {
+        dogeShip.setScale(2.5);
+        bitcoinShip.setScale(1.2);
+        liteCoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+      })
       .on("pointerdown", () => {
-        this.ship = this.dogeShip;
+        bitcoinShipOutline.setVisible(false);
+        ethereumShipOutline.setVisible(false);
+        litecoinShipOutline.setVisible(false);
+        dogeShipOutline.setVisible(true);
+        this.ship = dogeShip;
         this.playerChoice = "dogeShip";
       });
 
@@ -71,19 +147,43 @@ export default class Lobby extends Phaser.Scene {
         fontSize: 36,
       })
       .setOrigin(0.5);
+
+    switch (this.playerChoice) {
+      case "bitcoinShip":
+        bitcoinShip.setScale(2.5);
+        liteCoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+        dogeShip.setScale(1.2);
+        break;
+      case "liteCoinShip":
+        liteCoinShip.setScale(2.5);
+        bitcoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+        dogeShip.setScale(1.2);
+        break;
+      case "ethereumShip":
+        ethereumShip.setScale(2.5);
+        bitcoinShip.setScale(1.2);
+        liteCoinShip.setScale(1.2);
+        dogeShip.setScale(1.2);
+        break;
+      case "dogeShip":
+        dogeShip.setScale(2.5);
+        bitcoinShip.setScale(1.2);
+        liteCoinShip.setScale(1.2);
+        ethereumShip.setScale(1.2);
+        break;
+      default:
+    }
   }
+
   update() {
     this.background.tilePositionY -= 3;
-    // reassign scale if another ship has been selected
-    this.bitcoinShip.setScale(1.2);
-    this.liteCoinShip.setScale(1.2);
-    this.ethereumShip.setScale(1.2);
-    this.dogeShip.setScale(1.2);
 
     // if the player made a choice show the ready up button and scale the ship bigger
     if (this.playerChoice) {
       this.ship.setScale(2.5);
-      readyButton(this.playerChoice, this, this.ships);
+      readyButton(this.playerChoice, this);
     }
   }
 }

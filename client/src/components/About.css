@@ -1,0 +1,82 @@
+h1 {
+  font-family: BladeR;
+  color: #ffc400;
+  font-size: 50px;
+}
+
+span{
+  /* font-size: 20px; */
+  color: #ffc400;
+}
+
+h4 {
+  width:100%;
+  text-align: center;
+  background-color: #ffc400;
+  color: #482880;
+  font-size: 18px;
+}
+
+.body {
+  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+.description {
+  align-self: center;
+}
+
+
+.resume {
+  width: 75%;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+}
+.resume-list {
+  font-size: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.frontend-react, .frontend-phaser, .Backend-rails, .Backend-express {
+  font-size: 16px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 5em;
+}
+.frontend-phaser {
+  
+  margin-top: 1em;
+}
+.Backend-express {
+  padding-left: 30px;
+  padding-right:30px;
+  margin-top: 1em;
+  justify-content: flex-start;
+}
+
+.react-icon, .phaser-icon, .rails-icon, .express-icon{
+  height: 10%;
+  width: 10%;
+}
+
+.stack {
+  width: 100%;
+  margin-top: 50px;
+}
+.socket {
+  margin-left: 245px;
+}
+.key-learnings{
+  width:100%;
+  padding-right: 5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

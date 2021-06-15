@@ -19,17 +19,21 @@ export default function Rules() {
       <h3 className="paragraphs">
         Select from 1 of 4 cryptocurrencies; Bitcoin, Litecoin, Ethereum and Dogecoin!
       </h3>
+      <div className = "img-container">
       <img className="crypto-images" src="https://i.imgur.com/K3HF62h.png"></img>
       <img className="crypto-images" src="https://i.imgur.com/4htYPdn.png"></img>
       <img className="crypto-images" src="https://i.imgur.com/0eqxT2v.png"></img>
       <img className="crypto-images" src="https://i.imgur.com/dchp5MR.png"></img>
+        </div>
       <h3 className="paragraphs">
         Collect coins and shoot asteroids to earn points!. If you collect the coin that corresponds to your selected currency you will get double points! Some currencies are worth more than others so choose your currency carefully!
       </h3>
+      <div>
       <img className="crypto-images" src="https://i.imgur.com/CqB7ele.png"></img>
       <img className="crypto-images" src="https://i.imgur.com/q1Brec7.png"></img>
       <img className="crypto-images" src="https://i.imgur.com/ftBwrI3.png"></img>
       <img className="crypto-images" src="https://i.imgur.com/8cwXMcv.png"></img>
+      </div>
       <h3 className="paragraphs">
         Watch out for enemies! You will be pursued by the banks so avoid them or shoot them down! Beware of the dastardly Elon Musk, he shoots back! 
       </h3>

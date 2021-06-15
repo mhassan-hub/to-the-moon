@@ -1,3 +1,4 @@
+
 .crypto-images{
   margin-left: 20px;
   margin-right: 20px;
@@ -8,6 +9,12 @@
   width: 900px;
 };
 
+.titleO{
+  font-family: BladeR;
+  font-size: 50px;
+
+}
+
 .page-content {
   display: flex;
   flex-direction: column;
@@ -16,6 +23,3 @@
   text-align: left;
 }
 
-.subtitle{
-  font-size: 26;
-}
