@@ -108,6 +108,9 @@ io.on("connection", function (socket) {
   socket.on("playerMovement", function (data) {
     socket.broadcast.emit("enemyMovement", data);
   });
+  socket.on("skipScene", function (data) {
+    io.emit("skip", "skip scene");
+  });
 });
 
 httpServer.listen(8080);

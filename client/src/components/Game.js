@@ -5,6 +5,7 @@ import Win from "./scenes/Win";
 import Lose from "./scenes/Lose";
 import Pause from "./scenes/Pause";
 import Lobby from "./scenes/Lobby";
+import Intro from "./scenes/Intro"
 // import {useParams, useHistory} from "react-router-dom";
 
 export default class Game extends React.Component {
@@ -34,6 +35,7 @@ export default class Game extends React.Component {
         default: "arcade",
       },
       scene: [
+        new Intro(this.props),
         new Lobby(this.props),
         new Main(this.props),
         new Win(this.props),

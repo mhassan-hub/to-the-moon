@@ -20,6 +20,7 @@ export default class Lobby extends Phaser.Scene {
     this.load.image("liteCoinShip", "assets/lite_fighter.png");
     this.load.image("ethereumShip", "assets/ethereum_fighter.png");
     this.load.image("dogeShip", "assets/doge_fighter.png");
+    
   }
 
   create() {
