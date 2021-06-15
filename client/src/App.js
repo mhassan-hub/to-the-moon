@@ -8,10 +8,8 @@ import About from "./components/About";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Leaderboard from "./components/Leaderboard";
-import Button from "@material-ui/core/Button";
 
 const theme = createMuiTheme({
-
   palette: {
     background: {
       default: "#FFBF00",
@@ -31,8 +29,8 @@ const theme = createMuiTheme({
     text: {
       primary: "#ffc400",
       secondary: "#ffc400",
-      disabled:  "#ffc400",
-    }
+      disabled: "#ffc400",
+    },
   },
   props: {
     StyledTableCell: {
@@ -44,7 +42,7 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <ThemeProvider  theme={theme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App">
         <link

@@ -1,6 +1,7 @@
-import "./About.css";
 import Link from "@material-ui/core/Link";
+import Button from "@material-ui/core/Button";
 import NavBar from "./NavBar";
+import "./About.css";
 
 export default function About() {
   return (
@@ -13,38 +14,35 @@ export default function About() {
           hoping to reach the moon!
         </h2>
         <div className="resume">
-          <ul className="resume-list">
-            <li>
-              <Link
-                color="secondary"
-                target="_blank"
-                href="https://resume.creddle.io/resume/cvklylzfn3q"
-              >
-                Mohamed Hassan
-              </Link>
-            </li>
-            <li>
-              <Link
-                color="secondary"
-                target="_blank"
-                href="https://resume.creddle.io/resume/gue5aj4ng07"
-              >
-                Omar Irfan
-              </Link>
-            </li>
-            <li>
-              <Link
-                color="secondary"
-                target="_blank"
-                href="https://www.linkedin.com/in/grigor-baltadjian-884860212/"
-              >
-                Grigor Baltadjian
-              </Link>
-            </li>
-          </ul>
+          <div className="resume-list">
+            <Button
+              color="secondary"
+              variant="contained"
+              target="_blank"
+              href="https://resume.creddle.io/resume/cvklylzfn3q"
+            >
+              Mohamed Hassan
+            </Button>
+            <Button
+              color="secondary"
+              variant="contained"
+              target="_blank"
+              href="https://resume.creddle.io/resume/gue5aj4ng07"
+            >
+              Omar Irfan
+            </Button>
+            <Button
+              color="secondary"
+              variant="contained"
+              target="_blank"
+              href="https://www.linkedin.com/in/grigor-baltadjian-884860212/"
+            >
+              Grigor Baltadjian
+            </Button>
+          </div>
         </div>
         <div className="stack">
-          <h3>Stacks Used:</h3>
+          <h2>Stacks Used:</h2>
           <h4>Frontend:</h4>
           <ul className="frontend-react">
             <img
@@ -57,6 +55,17 @@ export default function About() {
             <li>history</li>
             <li>Material-UI</li>
           </ul>
+          <ul className="frontend-phaser">
+            <img
+              alt="phaser-icon"
+              className="phaser-icon"
+              src="https://i.imgur.com/3Qqo8om.png"
+            ></img>
+            <li>Scoring system</li>
+            <li>Physics</li>
+            <li>Animations</li>
+            <li>Multiplayer</li>
+          </ul>
           <h4>Backend:</h4>
           <ul className="Backend-rails">
             <img
@@ -66,7 +75,7 @@ export default function About() {
             ></img>
             <li>ERD</li>
             <li>Postgres DB</li>
-            <li>Axios calls</li>
+            <li>Axios Calls</li>
             <li>User Authentification</li>
           </ul>
           <ul className="Backend-express">
@@ -76,17 +85,16 @@ export default function About() {
               src="https://i.imgur.com/EHltlZL.png"
             ></img>
 
-            <li>Socket IO</li>
+            <li className="socket">Socket IO</li>
           </ul>
         </div>
-        <div>
-          <h3>Key Learnings:</h3>
-          <p></p>
-        </div>
-        <ul>
-          <li>Grigor Baltadjian </li>
-          <li>Omar Irfan</li>
-          <li>Mohamed Hassan</li>
+        <h4>Key Learnings:</h4>
+        <ul className="key-learnings">
+          <li>Version Control</li>
+          <li>Web Sockets</li>
+          <li>Version Control</li>
+          <li>Databases</li>
+          <li>Phaser Game Engine</li>
         </ul>
       </div>
     </div>

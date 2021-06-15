@@ -49,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    color: "#ffffff",
+  },
+  button: {
+    color: "#ffffff",
   },
 }));
 
@@ -62,6 +66,7 @@ export default function SignIn() {
     error: "",
   });
 
+  const classes = useStyles();
   const loginRequest = () => {
     axios
       .post("http://localhost:3000/login", {
@@ -124,8 +129,9 @@ export default function SignIn() {
             />
             <Button
               fullWidth
+              className={classes.button}
               variant="contained"
-              color="primary"
+              color="secondary"
               onClick={() => loginRequest()}
             >
               Sign In

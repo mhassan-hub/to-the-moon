@@ -164,7 +164,7 @@ export default function Register(props) {
             <Button
               fullWidth
               variant="contained"
-              color="primary"
+              color="secondary"
               onClick={() => register()}
             >
               Register

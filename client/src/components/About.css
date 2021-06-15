@@ -2,10 +2,18 @@ h1 {
   font-family: BladeR;
   color: #ffc400;
   font-size: 50px;
-
 }
+
+span{
+  font-size: 20px;
+  color: #ffc400;
+}
+
 h4 {
-  text-align: start;
+  width:100%;
+  text-align: center;
+  background-color: #ffc400;
+  color: #482880;
   font-size: 18px;
 }
 
@@ -31,51 +39,44 @@ h4 {
   display: flex;
   justify-content: space-around;
 }
-.frontend-react {
+.frontend-react, .frontend-phaser, .Backend-rails, .Backend-express {
   font-size: 16px;
-  width: 80%;
+  width: 100%;
   margin: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-right: 5em;
 }
-.Backend-rails {
-  font-size: 16px;
-  width: 80%;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+.frontend-phaser {
+  
+  margin-top: 1em;
 }
 .Backend-express {
-  font-size: 16px;
-  width: 80%;
   padding-left: 30px;
+  padding-right:30px;
   margin-top: 1em;
+  justify-content: flex-start;
+}
+
+.react-icon, .phaser-icon, .rails-icon, .express-icon{
+  height: 10%;
+  width: 10%;
+}
+
+.stack {
+  width: 100%;
+  margin-top: 50px;
+}
+.socket {
+  margin-left: 245px;
+}
+.key-learnings{
+  width:100%;
+  padding-right: 5em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-.stack-list {
-
-}
-.react-icon{
-  height: 10%;
-  width: 10%;
-}
-.rails-icon{
-  height: 10%;
-  width: 10%;
-}
-.express-icon {
-  height: 10%;
-  width: 10%;
-}
-.stack {
-  margin-left: 20px;
-  width: 100%;
-  justify-content: start;
 }

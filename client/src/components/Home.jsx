@@ -1,6 +1,4 @@
-import Link from "@material-ui/core/Link";
 import React from "react";
-import { useState } from "react";
 import Button from '@material-ui/core/Button';
 import "./Home.css"
 import NavBar from "./NavBar";
@@ -22,7 +20,7 @@ export default function Home() {
         <h1 color="secondary">To The Moon</h1>
           <Button 
           href="/game"
-          className="createGameButton" variant="outlined" color="secondary">Create Game</Button>
+          className="createGameButton" variant="contained" color="secondary">Create Game</Button>
       </div>
     </div>
        {/* {sessionStorage.length > 0 &&
