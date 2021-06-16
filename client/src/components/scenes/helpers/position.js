@@ -9,7 +9,7 @@ export function checkAsteroidPos(asteroids, scene) {
         delay: 2000,
         callback: resetPos(asteroid),
         callbackScope: scene,
-        loop: true,
+        loop: false,
       });
     }
   });
@@ -23,7 +23,6 @@ export function resetPos(asteroid) {
 }
 
 export function checkCoinPos(coins, scene) {
-
   coins.children.iterate(function (coin) {
     if (coin.y > 800) {
       scene.time.addEvent({
@@ -32,7 +31,7 @@ export function checkCoinPos(coins, scene) {
           coin.destroy();
         },
         callbackScope: scene,
-        loop: true,
+        loop: false,
       });
     }
   });
@@ -46,7 +45,7 @@ export function enemyPos(enemy, scene) {
       delay: 2000,
       callback: resetPos(enemy),
       callbackScope: scene,
-      loop: true,
+      loop: false,
     });
   }
 }
@@ -60,7 +59,7 @@ export function checkEnemyPos(enemies, scene) {
         delay: 2000,
         callback: resetPos(enemy),
         callbackScope: scene,
-        loop: true,
+        loop: false,
       });
     }
   });

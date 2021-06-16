@@ -182,16 +182,16 @@ export default class Main extends Phaser.Scene {
 
     if (this.bitcoin) {
       console.log("bitcoin spawn");
-      spawnCoins(this.bitcoin, "bitcoin", 20, this);
+      spawnCoins(this.bitcoin, "bitcoin", 80, this);
     }
     if (this.ethereum) {
-      spawnCoins(this.ethereum, "ethereum", 10, this);
+      spawnCoins(this.ethereum, "ethereum", 40, this);
     }
     if (this.litecoin) {
-      spawnCoins(this.litecoin, "litecoin", 4, this);
+      spawnCoins(this.litecoin, "litecoin", 20, this);
     }
     if (this.dogecoin) {
-      spawnCoins(this.dogecoin, "dogecoin", 2, this);
+      spawnCoins(this.dogecoin, "dogecoin", 10, this);
     }
 
     // add physics overlaps
