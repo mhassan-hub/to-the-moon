@@ -83,8 +83,9 @@ export default function Register(props) {
             password_confirmation: "",
           });
         } else {
-          sessionStorage.setItem("userID", state.username);
-          history.push("/home");
+          sessionStorage.setItem("userID", response.data.user.id);
+          sessionStorage.setItem("username", state.username);
+          history.push("/");
         }
       })
       .catch((error) => console.log("api errors:", error));
