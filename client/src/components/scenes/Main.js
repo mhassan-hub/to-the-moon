@@ -12,7 +12,6 @@ import { setEnemyCollision, setAsteroidCollision } from "./helpers/collision";
 import Button from "./helpers/button";
 import addPhysics from "./helpers/addPhysics";
 import { fighterGenerator } from "./helpers/fighters";
-// import { createGroup } from "./helpers/groups";
 export default class Main extends Phaser.Scene {
   constructor() {
     super("Main");
@@ -23,9 +22,9 @@ export default class Main extends Phaser.Scene {
     this.playerLives = 3;
     this.invincibility = false;
     this.continiuosShot = false;
-    this.disableShot = false
-    this.disableMovement = false
-    this.finishLine = -5000;
+    this.disableShot = false;
+    this.disableMovement = false;
+    this.finishLine = -25000;
     this.playerChoice = data.player;
   }
 
@@ -41,12 +40,13 @@ export default class Main extends Phaser.Scene {
     //sets background image
     this.add.image(400, 300, "background");
     this.background = this.add
-    .tileSprite(0, 0, 0, 0, "background")
-    .setOrigin(0);
-  
-    this.finishLineMoon = this.add.image(width/2, -750, "finishLineMoon")
-    .setOrigin(0.5)
-    .setScale(1.5);
+      .tileSprite(0, 0, 0, 0, "background")
+      .setOrigin(0);
+
+    this.finishLineMoon = this.add
+      .image(width / 2, -750, "finishLineMoon")
+      .setOrigin(0.5)
+      .setScale(1.5);
     this.finishLineMoon.visible = false;
 
     this.progressBar2 = this.add.graphics({ x: 700, y: 280 });
@@ -58,14 +58,14 @@ export default class Main extends Phaser.Scene {
     //sets player and player physics
 
     this.player = this.physics.add.sprite(
-      width/2,
+      width / 2,
       height,
       `${this.playerChoice}`
     );
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
 
-    fighterGenerator(this.AIBitcoin, this, 'bitcoinShip', width)
+    fighterGenerator(this.AIBitcoin, this, "bitcoinShip", width);
 
     this.enemy = this.physics.add.sprite(500, 0, "enemyshooter");
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
@@ -83,11 +83,9 @@ export default class Main extends Phaser.Scene {
       loop: false,
     });
 
-  
-
     this.enemies = this.physics.add.group({
       key: "enemy",
-      frameQuantity: 1,  
+      frameQuantity: 1,
       immovable: true,
       // repeat: Math.ceil(2 * (this.progress + 1)),
       setXY: {
@@ -290,7 +288,6 @@ export default class Main extends Phaser.Scene {
   }
 
   update() {
-    
     //scrolling background image for infinite loop
     this.background.tilePositionY -= 3;
     this.progress =
@@ -308,9 +305,7 @@ export default class Main extends Phaser.Scene {
       });
     }
 
-    if (
-      this.background.tilePositionY < (this.finishLine*0.87)
-    ) {
+    if (this.background.tilePositionY < this.finishLine * 0.87) {
       this.finishLineMoon.visible = true;
       this.finishLineMoon.y += 3;
     }
@@ -329,7 +324,7 @@ export default class Main extends Phaser.Scene {
       this.scene.start("Lose", {
         lives: this.playerLives,
         score: this.playerScore,
-        player: this.playerChoice 
+        player: this.playerChoice,
       });
     }
 
@@ -350,7 +345,6 @@ export default class Main extends Phaser.Scene {
     if (this.cursors.right.isDown && !this.disableMovement) {
       this.player.x += 10;
     }
-  
 
     checkAsteroidPos(this.asteroids, this);
     if (this.bitcoin) {
@@ -369,5 +363,5 @@ export default class Main extends Phaser.Scene {
     if (this.enemy.body.enable === true) {
       enemyPos(this.enemy, this);
     }
-  } 
+  }
 }
