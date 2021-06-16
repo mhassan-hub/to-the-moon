@@ -1,4 +1,4 @@
-import { Router, Redirect, Route, Switch, useHistory, withRouter} from "react-router-dom";
+import { Route, Switch, useHistory, withRouter} from "react-router-dom";
 import React from "react";
 import Game from "./components/Game";
 import Login from "./components/Login";

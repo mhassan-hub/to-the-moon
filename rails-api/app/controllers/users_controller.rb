@@ -47,7 +47,7 @@ def show
 
         if params[:high_score] > @user.high_score
         puts params[:high_score]
-        @user.update(high_score: params[:high_score], email: @user.email, password: @user.password_digest,  username: @user.username)
+        @user.update(high_score: params[:high_score], email: @user.email,  username: @user.username)
         render json: {
             status: 200
         }

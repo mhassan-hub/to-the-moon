@@ -37,7 +37,7 @@ export default class Main extends Phaser.Scene {
     this.continiuosShot = false;
     this.disableShot = false;
     this.disableMovement = false;
-    this.finishLine = -20000;
+    this.finishLine = -8000;
     this.playerChoice = data.player;
     this.playerTwoChoice = data.playertwo;
     this.respawnTimer = 1000;
@@ -328,7 +328,7 @@ export default class Main extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 1000,
+      delay: 2000,
       callback: enemyShoot,
       callbackScope: this,
       loop: true,
@@ -362,8 +362,8 @@ export default class Main extends Phaser.Scene {
           .setScale(0.25);
 
         this.laser.setVelocityY(-900);
-        this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
-        this.laserSound.play();
+        // this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
+        // this.laserSound.play();
         this.physics.add.collider(
           this.laser,
           this.asteroids,

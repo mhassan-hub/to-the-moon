@@ -16,6 +16,7 @@ function Home ({readyCheck, startGame, socket}) {
   const [response, setResponse] = useState("");
   const [url, setUrl] = useState("");
   const [ready, setReady] = useState(false);
+  
 
 
   const killSession = () => {
@@ -34,10 +35,10 @@ function Home ({readyCheck, startGame, socket}) {
   socket.on("redirect", () =>{
     setReady(true)
   })
+  // const loggedIn = sessionStorage.length > 0;
   }, [])
 
   
-
   return (
     
     <div>
@@ -45,11 +46,10 @@ function Home ({readyCheck, startGame, socket}) {
     <header className="App-header">
               
     <img className="img-fluid" src="https://i.imgur.com/P6XZIMs.png" alt="homescreen"/>
-    <div class='overlay'>
-      <div class= "header-text">
+    <div className='overlay'>
+      <div className= "header-text">
         <h1 color="secondary">To The Moon</h1>
-         
-         <Button onClick={() => readyCheck()}>Ready</Button>
+         {!ready && <Button variant="contained" color="secondary" onClick={() => readyCheck()}>Ready</Button>}
          {ready && <Button onClick={() => startGame()}
           href="/game"
           className="createGameButton" variant="contained" color="secondary">Create Game</Button>}

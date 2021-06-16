@@ -1,8 +1,8 @@
 import Phaser from "phaser";
 export function setInvincibility() {
   if (!this.invincibility) {
-    this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
-    this.invincibility = true;
+    // this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
+    // this.invincibility = true;
     this.invincibleSound.play();
 
     this.tweens.add({

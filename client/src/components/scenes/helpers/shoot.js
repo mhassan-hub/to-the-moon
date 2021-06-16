@@ -10,8 +10,8 @@ export function shoot() {
       .setScale(0.25);
 
     this.laser.setVelocityY(-900);
-    this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
-    this.laserSound.play();
+    // this.laserSound = this.sound.add("laserSound", { volume: 0.1 });
+    // this.laserSound.play();
     this.physics.add.collider(
       this.laser,
       this.asteroids,
@@ -48,8 +48,8 @@ export function enemyShoot() {
       .image(this.enemy.x, this.enemy.y, "enemylaser")
       .setScale(0.25);
     this.enemyLaser.setVelocityY(800);
-    this.enemyLaserSound = this.sound.add("laserSound", { volume: 0.1 });
-    this.enemyLaserSound.play();
+    // this.enemyLaserSound = this.sound.add("laserSound", { volume: 0.1 });
+    // this.enemyLaserSound.play();
     this.physics.add.collider(
       this.player,
       this.enemyLaser,
@@ -57,5 +57,8 @@ export function enemyShoot() {
       playerCollisionAction,
       this
     );
+    if (this.enemyLaser.y > 800) {
+      this.enemyLaser.destroy();
+    }
   }
 }

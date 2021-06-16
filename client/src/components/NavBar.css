@@ -30,6 +30,7 @@
 .navbar{
   position: fixed;
   height: 7vh;
+  width: 100%;
   box-shadow: 10px 10px 8px 10px #888888;
   filter:brightness(95%)
 

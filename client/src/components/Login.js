@@ -76,6 +76,7 @@ export default function SignIn() {
         
         sessionStorage.setItem('userID', response.data.user.id)
         sessionStorage.setItem('username', response.data.user.username)
+        console.log("logged in")
         history.push("/")
       } else {
         console.log(response.data.errors[0])

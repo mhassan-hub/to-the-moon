@@ -129,8 +129,8 @@ export function collisionDestroy(collisionObject, asteroid) {
       }
     
   
-  this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
-  this.explosionSound.play();
+  // this.explosionSound = this.sound.add("explosionSound", { volume: 0.1 });
+  // this.explosionSound.play();
 
   const checkPlayerInvinc =
     collisionObject === this.player && this.invincibility;
@@ -188,16 +188,16 @@ export function setEnemyCollision(enemies) {
 export function collisionObtainCoin(player, coin) {
   const sparkle = this.add.sprite(player.x, player.y, "sparkle").setScale(1);
   sparkle.play("sparks");
-  this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
-  this.coinSound.play();
+  // this.coinSound = this.sound.add("coinSound", { volume: 0.1 });
+  // this.coinSound.play();
   coin.disableBody(true, true);
 }
 
 export function collisionObtainPowerUp(player, powerUp) {
   const sparkle = this.add.sprite(player.x, player.y, "sparkle").setScale(1);
   sparkle.play("itemSparks");
-  this.powerUpSound = this.sound.add("powerUpSound", { volume: 0.1 });
-  this.powerUpSound.play();
+  // this.powerUpSound = this.sound.add("powerUpSound", { volume: 0.1 });
+  // this.powerUpSound.play();
 
   powerUp.disableBody(true, true);
 }
@@ -205,8 +205,8 @@ export function collisionObtainPowerUp(player, powerUp) {
 export function collisionObtainDebuff(player, powerUp) {
   const sparkle = this.add.sprite(player.x, player.y, "sparkle").setScale(1);
   sparkle.play("itemSparks");
-  this.debuff = this.sound.add("debuff", { volume: 0.1 });
-  this.debuff.play();
+  // this.debuff = this.sound.add("debuff", { volume: 0.1 });
+  // this.debuff.play();
 
   powerUp.disableBody(true, true);
 }
