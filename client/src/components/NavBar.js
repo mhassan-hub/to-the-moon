@@ -13,22 +13,24 @@ export default function NavBar() {
     sessionStorage.clear();
     window.location.reload();
   };
-
+  let userName = "";
+  if (sessionStorage.length > 0) {
+    userName = sessionStorage.getItem("username").toUpperCase();
+  }
   return (
     <AppBar className="navbar" color="secondary" position="sticky">
       <Toolbar>
         <div className="div-navbar-buttons">
           <div className="div-buttons-left">
-            <h6 className='title'>
-              To The Moon
-            </h6>
+            <h6 className="title">To The Moon</h6>
           </div>
           <div className="div-buttons-right">
-            {sessionStorage.length === 0 && (
+            {userName && `WELCOME ${userName}`}
+            <Button className="nav-button" href="/">
+              <HomeIcon />
+            </Button>
+            {!userName && (
               <div>
-                <Button className="nav-button" href="/">
-                <HomeIcon />
-                </Button>
                 <Button className="nav-button" href="/login" variant="inherit">
                   Log in
                 </Button>

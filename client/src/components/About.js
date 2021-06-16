@@ -50,10 +50,10 @@ export default function About() {
               className="react-icon"
               src="https://i.imgur.com/hdHHlfN.png"
             ></img>
-            <li>useState</li>
-            <li>useEffect</li>
-            <li>history</li>
-            <li>Material-UI</li>
+            <p>useState</p>
+            <p>useEffect</p>
+            <p>history</p>
+            <p>Material-UI</p>
           </ul>
           <ul className="frontend-phaser">
             <img

@@ -15,8 +15,8 @@ export default function Home() {
     <NavBar/>
     <header className="App-header">
     <img className="img-fluid" src="https://i.imgur.com/P6XZIMs.png" alt="homescreen"/>
-    <div class='overlay'>
-      <div class= "header-text">
+    <div className='overlay'>
+      <div className= "header-text">
         <h1 color="secondary">To The Moon</h1>
           <Button 
           href="/game"
