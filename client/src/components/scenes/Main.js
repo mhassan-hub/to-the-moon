@@ -25,7 +25,7 @@ export default class Main extends Phaser.Scene {
     this.continiuosShot = false;
     this.disableShot = false
     this.disableMovement = false
-    this.finishLine = -5000;
+    this.finishLine = -25000;
     this.playerChoice = data.player;
   }
 
