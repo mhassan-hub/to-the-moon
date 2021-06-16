@@ -48,6 +48,14 @@ export default function NavBar() {
             )}
             <Button
               className="nav-button"
+              href="/rules"
+              variant="inherit"
+              color="secondary"
+            >
+              Rules
+            </Button>
+            <Button
+              className="nav-button"
               href="/about"
               variant="inherit"
               color="secondary"

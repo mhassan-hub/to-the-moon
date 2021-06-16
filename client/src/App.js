@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import About from "./components/About";
+import Rules from "./components/Rules";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Leaderboard from "./components/Leaderboard";
@@ -69,6 +70,9 @@ function App() {
             </Route>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/rules">
+              <Rules />
             </Route>
             <Route path="/">
               <Home />

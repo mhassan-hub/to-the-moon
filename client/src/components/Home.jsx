@@ -23,28 +23,6 @@ export default function Home() {
           className="createGameButton" variant="contained" color="secondary">Create Game</Button>
       </div>
     </div>
-       {/* {sessionStorage.length > 0 &&
-       `Welcome ${sessionStorage.userID}`}
-      <div className="buttonContainer">
-        <span className= "button-bar">
-         
-          {sessionStorage.length === 0 &&
-          <Link to="/login">
-            <Button variant="contained" color="primary">Log in</Button>
-          </Link>}
-          <Link to="/register">
-            <Button variant="contained" color="primary">Register</Button>            
-          </Link>
-           {sessionStorage.length > 0 &&         
-            <Button onClick={killSession}>Log Out</Button>}
-          <Link to="/about">
-            <Button variant="contained" color="primary">About</Button>
-          </Link>
-          <Link to="/leaderboard">
-            <Button variant="contained" color="primary">Leaderboard</Button>
-          </Link>
-        </span>
-      </div> */}
     </header>
     </div>
   );
