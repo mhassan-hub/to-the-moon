@@ -9,6 +9,7 @@ export default class Pause extends Phaser.Scene {
 
   preload() {
     this.load.image("background", "assets/starfield.png");
+    this.load.image("burger", "assets/SpaceBurger.png");
   }
 
   create() {

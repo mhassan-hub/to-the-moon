@@ -25,11 +25,11 @@ export default class Intro extends Phaser.Scene {
   this.music.play();
 
   this.title = this.add.text(0, 0, "To The Moon!",{
-    fontSize: "50px",
+    fontSize: "20px",
     color: "#FFFF00",
-    fontFamily: ""
+    fontFamily: "BladeR"
     })
-    .setScale(70)
+    .setScale(30)
     .setOrigin(0.5,0.5);
     
   this.description = this.add.text(0,800,`The evil forces of Elon Musk have 
@@ -57,7 +57,7 @@ to the moon.`, {
   this.tweens = this.tweens.add({
       
     targets: this.title,
-    scale: 0.8,
+    scale: 0.5,
     ease: "Linear",
     duration: 8000,
     onUpdate: () => {

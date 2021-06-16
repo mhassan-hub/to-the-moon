@@ -43,7 +43,7 @@ export function disableShot() {
     setTimeout(() => {
       this.disableShot = false;
       this.player.clearTint()
-    }, 10000);
+    }, 5000);
   }
 }
 
@@ -55,7 +55,7 @@ export function disableMovement() {
     setTimeout(() => {
       this.disableMovement = false;
       this.player.clearTint()
-    }, 10000);
+    }, 5000);
   }
 }
 

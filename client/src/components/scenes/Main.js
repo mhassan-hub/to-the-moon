@@ -24,6 +24,7 @@ export default class Main extends Phaser.Scene {
   constructor(props) {
     super("Main");
     this.props = props;
+
   }
 
   init(data) {
@@ -31,12 +32,12 @@ export default class Main extends Phaser.Scene {
     console.log(data);
     self.playerTwoScore = 0;
     this.playerScore = 0;
-    this.playerLives = 3;
+    this.playerLives = 100;
     this.invincibility = false;
     this.continiuosShot = false;
-    this.disableShot = false
-    this.disableMovement = false
-    this.finishLine = -5000;
+    this.disableShot = false;
+    this.disableMovement = false;
+    this.finishLine = -20000;
     this.playerChoice = data.player;
     this.playerTwoChoice = data.playertwo;
     this.respawnTimer = 1000;
@@ -107,9 +108,13 @@ export default class Main extends Phaser.Scene {
       loop: false,
     });
 
+    this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
+    this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
+    
     this.enemies = this.physics.add.group({
-      key: "enemy",
+      key: "seceagle",      
       frameQuantity: 1,
+      scale: 0.1,
       immovable: true,
       // repeat: Math.ceil(2 * (this.progress + 1)),
       setXY: {
@@ -117,15 +122,18 @@ export default class Main extends Phaser.Scene {
         y: 50,
         stepX: Phaser.Math.Between(10, 750),
         stepY: Phaser.Math.Between(15, 300),
+        
       },
     });
+  
+    
 
     this.time.addEvent({
       delay: -this.finishLine / 2,
       callback: () => {
         this.enemies.createMultiple({
-          key: "enemy",
-          repeat: 3,
+          key: "seceagle",
+          repeat: 2,
           setXY: {
             x: Math.floor(Math.random() * 800),
             y: 0,
@@ -206,16 +214,16 @@ export default class Main extends Phaser.Scene {
 
     if (this.bitcoin) {
       console.log("bitcoin spawn");
-      spawnCoins(this.bitcoin, "bitcoin", 20, this);
+      spawnCoins(this.bitcoin, "bitcoin", 80, this);
     }
     if (this.ethereum) {
-      spawnCoins(this.ethereum, "ethereum", 10, this);
+      spawnCoins(this.ethereum, "ethereum", 40, this);
     }
     if (this.litecoin) {
-      spawnCoins(this.litecoin, "litecoin", 4, this);
+      spawnCoins(this.litecoin, "litecoin", 20, this);
     }
     if (this.dogecoin) {
-      spawnCoins(this.dogecoin, "dogecoin", 2, this);
+      spawnCoins(this.dogecoin, "dogecoin", 10, this);
     }
 
     // add physics overlaps
@@ -223,11 +231,12 @@ export default class Main extends Phaser.Scene {
     //playertwo score
     this.blueScoreText = this.add.text(5, 40, "", {
       fontSize: "24px",
-      fill: "	#FF0000",
+      fill: "#FFFF00",
     });
 
     this.props.socket.on("redirectScore", function (data) {
       console.log(data);
+      self.playerTwoScore = data
       self.blueScoreText.setText("Player Two score:" + data);
     });
     //Overhead score and lives text
@@ -429,13 +438,21 @@ export default class Main extends Phaser.Scene {
 
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
+      if(this.playerScore > self.playerTwoScore) {
       this.props.socket.disconnect();
       this.scene.stop("Main");
       this.scene.start("Win", {
         lives: this.playerLives,
         score: this.playerScore,
       });
-    }
+    } else {
+      this.props.socket.disconnect();
+      this.scene.stop("Main");
+      this.scene.start("Lose", {
+        lives: this.playerLives,
+        score: this.playerScore,
+    })
+  }}
 
     if (this.playerLives === 0) {
       this.props.socket.disconnect();

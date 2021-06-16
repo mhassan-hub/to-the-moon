@@ -8,12 +8,23 @@ export function collisionDestroy(collisionObject, asteroid) {
     .sprite(asteroid.x, asteroid.y, "explosion")
     .setScale(5);
   explosion.play("explode");
+
   asteroid.disableBody(true, true);
 
-  if (Phaser.Math.Between(1, 30) === 1) {
+  if (Phaser.Math.Between(1, 50) === 1) {
     this.healthIcon = this.physics.add
       .sprite(asteroid.x, asteroid.y, "healthIcon")
       .setScale(1);
+
+      this.time.addEvent({
+        delay: 7000,
+        callback: () => {
+          this.healthIcon.destroy()
+        },
+        callbackScope: this,
+        loop: false,
+      });
+
     this.physics.add.overlap(
       this.player,
       this.healthIcon,
@@ -22,10 +33,19 @@ export function collisionDestroy(collisionObject, asteroid) {
       this
     );
   }
-  if (Phaser.Math.Between(51, 80) === 51) {
+  if (Phaser.Math.Between(1, 50) === 2) {
     this.invincibilityIcon = this.physics.add
       .image(asteroid.x, asteroid.y, "invincibilityIcon")
       .setScale(0.5);
+
+      this.time.addEvent({
+        delay: 7000,
+        callback: () => {
+          this.invincibilityIcon.destroy()
+        },
+        callbackScope: this,
+        loop: false,
+      });
 
     this.physics.add.overlap(
       this.player,
@@ -35,12 +55,21 @@ export function collisionDestroy(collisionObject, asteroid) {
       this
     );
   }
-  if (Phaser.Math.Between(151, 180) === 151) {
+  if (Phaser.Math.Between(1, 50) === 3) {
     this.maximumFlurryIcon = this.physics.add.image(
       asteroid.x,
       asteroid.y,
       "maximumFlurryIcon"
     );
+
+    this.time.addEvent({
+      delay: 7000,
+      callback: () => {
+        this.maximumFlurryIcon.destroy()
+      },
+      callbackScope: this,
+      loop: false,
+    });
 
     this.physics.add.overlap(
       this.player,
@@ -50,12 +79,21 @@ export function collisionDestroy(collisionObject, asteroid) {
       this
     );
   }
-  if (Phaser.Math.Between(181, 200) === 181) {
+  if (Phaser.Math.Between(1, 50) === 4) {
     this.disableShotIcon = this.physics.add.image(
       asteroid.x,
       asteroid.y,
       "disableShotIcon"
     );
+
+    this.time.addEvent({
+      delay: 7000,
+      callback: () => {
+        this.disableShotIcon.destroy()
+      },
+      callbackScope: this,
+      loop: false,
+    });
 
     this.physics.add.overlap(
       this.player,
@@ -65,13 +103,22 @@ export function collisionDestroy(collisionObject, asteroid) {
       this
     );
     }
-    if (Phaser.Math.Between(201, 220) === 201) {
+    if (Phaser.Math.Between(1,50) === 5) {
       this.disableMovementIcon = this.physics.add.image(
         asteroid.x,
         asteroid.y,
         "disableMovementIcon"
       );
-  
+
+      this.time.addEvent({
+        delay: 7000,
+        callback: () => {
+          this.disableMovementIcon.destroy()
+        },
+        callbackScope: this,
+        loop: false,
+      });
+
       this.physics.add.overlap(
         this.player,
         this.disableMovementIcon,
@@ -94,23 +141,29 @@ export function collisionDestroy(collisionObject, asteroid) {
       respawnTimer,
       () => {
         if(collisionObject === this.player) {
-        collisionObject.enableBody(true, this.player.x, this.player.y, true, true);
+          respawn(this, respawnTimer);
         }
       },
       this
     );
     }
-  this.time.delayedCall(
-    respawnTimer,
-    () => {
-      let x = Phaser.Math.Between(0, 580);
-      asteroid.enableBody(true, x, 0, true, true);
-      let xVel = Phaser.Math.Between(-100, 100);
-      let yVel = Phaser.Math.Between(100, 150);
-      asteroid.setVelocity(xVel, yVel);
-    },
-    this
-  );
+
+  if (asteroid === this.enemyLaser) {
+    asteroid.destroy();
+  } else {
+    this.time.delayedCall(
+      respawnTimer,
+      () => {
+          let x = Phaser.Math.Between(0, 580);
+          asteroid.enableBody(true, x, 0, true, true);
+          let xVel = Phaser.Math.Between(-100, 100);
+          let yVel = Phaser.Math.Between(100, 150);
+          asteroid.setVelocity(xVel, yVel);
+
+        },
+        this
+        );
+      }
   }
 
 //Function which dictates asteroid velocity after creation/re-enablement
@@ -173,13 +226,13 @@ export function collectPower() {
   console.log("pick up")
 }
 
-export function respawn() {
-  // this.invincibleSound = this.sound.add("invincibleSound", { volume: 0.1 });
-  this.invincibility = true;
-  // this.invincibleSound.play();
+export function respawn(scene, timer) {
+  
+  scene.invincibility = true;
 
-  const flash = this.tweens.add({
-    targets: this.player,
+  scene.player.enableBody(true, scene.player.x, scene.player.y, true, true);
+  const flash = scene.tweens.add({
+    targets: scene.player,
     alpha: 0,
     ease: "Cubic.easeOut",
     duration: 20,
@@ -188,7 +241,6 @@ export function respawn() {
   });
 
   setTimeout(() => {
-    this.invincibility = false;
-    this.invincibleSound.stop();
-  }, 1000);
+    scene.invincibility = false;
+  }, (timer+500));
 }
