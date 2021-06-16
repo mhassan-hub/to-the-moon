@@ -6,14 +6,14 @@ export default function preloadAssets(scene) {
   scene.load.audio("coinSound", "assets/coin.wav");
   scene.load.audio("explosionSound", "assets/explosion.wav");
   scene.load.audio("powerUpSound", "assets/PowerUp.wav");
-  scene.load.audio("debuff", "assets/debuff.mp3")
-  scene.load.image("disableMovementIcon", "assets/wallstreetbetsicondark.png")
-  scene.load.image("enemy", "assets/alienspaceship.png");
+  scene.load.audio("debuff", "assets/debuff.mp3");
+  scene.load.image("disableMovementIcon", "assets/wallstreetbetsicondark.png");
+  // scene.load.image("enemy", "assets/alienspaceship.png");
   scene.load.image("enemyshooter", "assets/elon.png");
   scene.load.image("enemylaser", "assets/enemylaser.png");
   scene.load.image("asteroid", "assets/Asteroid.png");
   scene.load.image("maximumFlurryIcon", "assets/hodl.png");
-  scene.load.image("disableShotIcon", "assets/darkerhodlicon.png")
+  scene.load.image("disableShotIcon", "assets/darkerhodlicon.png");
   scene.load.image("background", "assets/starfield.png");
   scene.load.image("background", "assets/starfield.png");
   scene.load.image("bitcoinShip", "assets/bitcoin_fighter.png");
@@ -26,6 +26,7 @@ export default function preloadAssets(scene) {
   scene.load.image("litecoin", "assets/lite.png");
   scene.load.image("dogecoin", "assets/doge.png");
   scene.load.image("burger", "assets/SpaceBurger.png");
+  scene.load.image("enemy", "assets/seceagle.png");
   scene.load.image("finishLineMoon", "assets/finishMoon.png");
   scene.load.image("progressMoon", "assets/progressMoon.png");
   scene.load.spritesheet("explosion", "assets/explosion.png", {

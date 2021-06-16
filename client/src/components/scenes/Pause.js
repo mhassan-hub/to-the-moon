@@ -6,6 +6,10 @@ export default class Pause extends Phaser.Scene {
     super("Pause");
   }
 
+  init(data) {
+    this.music = data.music;
+  }
+
   preload() {
     this.load.image("background", "assets/starfield.png");
   }
@@ -17,6 +21,7 @@ export default class Pause extends Phaser.Scene {
     // restart button
     new Button(width * 0.5, height * 0.5, 2.5, "Resume Game", this, () => {
       this.scene.resume("Main");
+      this.music.resume();
       this.scene.stop("Pause");
     });
     this.add

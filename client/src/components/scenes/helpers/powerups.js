@@ -10,55 +10,52 @@ export function setInvincibility() {
       alpha: 0,
       ease: "Cubic.easeOut",
       duration: 40,
-      repeat: 100,
+      repeat: 63,
       yoyo: true,
     });
 
     setTimeout(() => {
       this.invincibility = false;
       this.invincibleSound.stop();
-    }, 8000);
+    }, 5000);
   }
 }
 
 export function maximumFlurry() {
   if (!this.continiuosShot) {
-
     this.continiuosShot = true;
-    this.player.setTint(0x20ba1e)
+    this.player.setTint(0x20ba1e);
 
     setTimeout(() => {
-      this.player.clearTint()
+      this.player.clearTint();
       this.continiuosShot = false;
-    }, 8000);
+    }, 5000);
   }
 }
 
 export function disableShot() {
   if (!this.disableShot) {
-
     this.disableShot = true;
-    this.player.setTint(0xff0000)
+    this.player.setTint(0xff0000);
 
     setTimeout(() => {
       this.disableShot = false;
-      this.player.clearTint()
-    }, 10000);
+      this.player.clearTint();
+    }, 5000);
   }
 }
 
 export function disableMovement() {
   if (!this.disableMovement) {
-    this.player.setTint(0xff0000)
+    this.player.setTint(0xff0000);
     this.disableMovement = true;
 
     setTimeout(() => {
       this.disableMovement = false;
-      this.player.clearTint()
-    }, 10000);
+      this.player.clearTint();
+    }, 5000);
   }
 }
-
 
 export function increaseLives() {
   this.playerLives++;

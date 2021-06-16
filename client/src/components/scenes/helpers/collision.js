@@ -19,6 +19,16 @@ export function collisionDestroy(collisionObject, asteroid) {
     this.healthIcon = this.physics.add
       .sprite(asteroid.x, asteroid.y, "healthIcon")
       .setScale(1);
+
+    this.time.addEvent({
+      delay: 7000,
+      callback: () => {
+        this.healthIcon.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
     this.physics.add.overlap(
       this.player,
       this.healthIcon,
@@ -31,6 +41,15 @@ export function collisionDestroy(collisionObject, asteroid) {
     this.invincibilityIcon = this.physics.add
       .image(asteroid.x, asteroid.y, "invincibilityIcon")
       .setScale(0.5);
+
+    this.time.addEvent({
+      delay: 7000,
+      callback: () => {
+        this.invincibilityIcon.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
 
     this.physics.add.overlap(
       this.player,
@@ -47,6 +66,15 @@ export function collisionDestroy(collisionObject, asteroid) {
       "maximumFlurryIcon"
     );
 
+    this.time.addEvent({
+      delay: 7000,
+      callback: () => {
+        this.maximumFlurryIcon.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
     this.physics.add.overlap(
       this.player,
       this.maximumFlurryIcon,
@@ -62,6 +90,15 @@ export function collisionDestroy(collisionObject, asteroid) {
       "disableShotIcon"
     );
 
+    this.time.addEvent({
+      delay: 7000,
+      callback: () => {
+        this.disableShotIcon.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
     this.physics.add.overlap(
       this.player,
       this.disableShotIcon,
@@ -76,6 +113,15 @@ export function collisionDestroy(collisionObject, asteroid) {
       asteroid.y,
       "disableMovementIcon"
     );
+
+    this.time.addEvent({
+      delay: 7000,
+      callback: () => {
+        this.disableMovementIcon.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
 
     this.physics.add.overlap(
       this.player,
@@ -190,8 +236,8 @@ export function respawn(scene, timer) {
     targets: scene.player,
     alpha: 0,
     ease: "Cubic.easeOut",
-    duration: 20,
-    repeat: 25,
+    duration: 40,
+    repeat: 13,
     yoyo: true,
   });
 

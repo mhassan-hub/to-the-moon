@@ -6,7 +6,8 @@ import Lose from "./scenes/Lose";
 import Pause from "./scenes/Pause";
 import Lobby from "./scenes/Lobby";
 import NavBar from "./NavBar";
-import "./Game.css"
+import Intro from "./scenes/Intro";
+import "./Game.css";
 
 export default class Game extends React.Component {
   componentDidMount() {
@@ -21,11 +22,11 @@ export default class Game extends React.Component {
       pixelArt: true,
       fps: {
         target: 30,
-        },
+      },
       physics: {
         default: "arcade",
       },
-      scene: [Lobby, Main, Win, Lose, Pause],
+      scene: [Intro, Lobby, Main, Win, Lose, Pause],
     };
     this.game = new Phaser.Game(config);
   }
@@ -33,12 +34,12 @@ export default class Game extends React.Component {
   render() {
     return (
       <div className="display">
-        <NavBar/>
+        <NavBar />
         <div className="gameScreen">
           <div className="gameCase">
-            <div id="game"/>
-            </div>
+            <div id="game" />
           </div>
+        </div>
       </div>
     );
   }

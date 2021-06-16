@@ -11,7 +11,6 @@ import { shoot, enemyShoot } from "./helpers/shoot";
 import { setEnemyCollision, setAsteroidCollision } from "./helpers/collision";
 import Button from "./helpers/button";
 import addPhysics from "./helpers/addPhysics";
-import { fighterGenerator } from "./helpers/fighters";
 export default class Main extends Phaser.Scene {
   constructor() {
     super("Main");
@@ -19,12 +18,12 @@ export default class Main extends Phaser.Scene {
 
   init(data) {
     this.playerScore = 0;
-    this.playerLives = 3;
+    this.playerLives = 6;
     this.invincibility = false;
     this.continiuosShot = false;
     this.disableShot = false;
     this.disableMovement = false;
-    this.finishLine = -25000;
+    this.finishLine = -20000;
     this.playerChoice = data.player;
   }
 
@@ -65,14 +64,11 @@ export default class Main extends Phaser.Scene {
     this.player.setCollideWorldBounds(true, 1, 1);
     this.player.setDrag(200, 200);
 
-    fighterGenerator(this.AIBitcoin, this, "bitcoinShip", width);
-
     this.enemy = this.physics.add.sprite(500, 0, "enemyshooter");
     this.enemy.setVelocityX(Phaser.Math.Between(-100, 100));
     this.enemy.setVelocityY(Phaser.Math.Between(100, 150));
     this.enemy.body.enable = false;
     this.enemy.visible = false;
-    // this.halfwayPoint = (-(this.finishLine/(3*30))/4)*1000
     this.time.addEvent({
       delay: 30000,
       callback: () => {
@@ -215,14 +211,15 @@ export default class Main extends Phaser.Scene {
       textStyle
     );
 
+    //Creates music file to play in background and plays it
+    this.music = this.sound.add("audioSound", { volume: 0.2, loop: true });
+    this.music.play();
+
     const pause = new Button(width - 30, 10, 0.8, "Pause", this, () => {
-      this.scene.launch("Pause");
+      this.music.pause();
+      this.scene.launch("Pause", { music: this.music });
       this.scene.pause();
     });
-
-    //Creates music file to play in background and plays it
-    // this.music = this.sound.add("audioSound", { volume: 0.9, loop: true });
-    // this.music.play();
 
     //keybindings
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -305,7 +302,7 @@ export default class Main extends Phaser.Scene {
       });
     }
 
-    if (this.background.tilePositionY < this.finishLine * 0.87) {
+    if (this.background.tilePositionY < this.finishLine * 0.95) {
       this.finishLineMoon.visible = true;
       this.finishLineMoon.y += 3;
     }
@@ -313,6 +310,7 @@ export default class Main extends Phaser.Scene {
     //After a certain distance go to the winning screen
     if (this.background.tilePositionY < this.finishLine) {
       this.scene.stop("Main");
+      this.music.stop();
       this.scene.start("Win", {
         lives: this.playerLives,
         score: this.playerScore,
@@ -321,6 +319,7 @@ export default class Main extends Phaser.Scene {
 
     if (this.playerLives === 0) {
       this.scene.stop("Main");
+      this.music.stop();
       this.scene.start("Lose", {
         lives: this.playerLives,
         score: this.playerScore,

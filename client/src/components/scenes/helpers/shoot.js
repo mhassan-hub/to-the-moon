@@ -1,6 +1,5 @@
 import { collisionDestroy, playerCollisionAction } from "./collision";
 import { scoreIncreaseAsteroid } from "./score";
-// let { width, height } = this.sys.game.canvas;
 
 export function shoot() {
   if (this.player.body.enable === true) {
@@ -33,9 +32,6 @@ export function shoot() {
         scoreIncreaseAsteroid,
         this
       );
-      if (this.laser.y > 800) {
-        this.laser.destroy();
-      }
     }
   }
 }
@@ -57,9 +53,8 @@ export function enemyShoot() {
       playerCollisionAction,
       this
     );
-  }
-
-  if (this.enemyLaser.y > 800) {
-    this.enemyLaser.destroy();
+    if (this.enemyLaser.y > 800) {
+      this.enemyLaser.destroy();
+    }
   }
 }
