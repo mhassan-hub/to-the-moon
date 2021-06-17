@@ -9,10 +9,13 @@ export default function About() {
       <NavBar />
       <h1>About Us</h1>
       <div className="body">
-        <h2 className="description">
-          We are three smart indiviuals navigating our way throught the CS world
-          hoping to reach the moon!
-        </h2>
+        <div className="picture">
+          <img
+            alt="team-pic"
+            className="team-pic"
+            src="https://i.imgur.com/vFff3fQ.png"
+          ></img>
+        </div>
         <div className="resume">
           <div className="resume-list">
             <Button
@@ -27,17 +30,17 @@ export default function About() {
               color="secondary"
               variant="contained"
               target="_blank"
-              href="https://resume.creddle.io/resume/gue5aj4ng07"
+              href="https://www.linkedin.com/in/grigor-baltadjian-884860212/"
             >
-              Omar Irfan
+              Grigor Baltadjian
             </Button>
             <Button
               color="secondary"
               variant="contained"
               target="_blank"
-              href="https://www.linkedin.com/in/grigor-baltadjian-884860212/"
+              href="https://resume.creddle.io/resume/gue5aj4ng07"
             >
-              Grigor Baltadjian
+              Omar Irfan
             </Button>
           </div>
         </div>
@@ -50,10 +53,12 @@ export default function About() {
               className="react-icon"
               src="https://i.imgur.com/hdHHlfN.png"
             ></img>
-            <li>useState</li>
-            <li>useEffect</li>
-            <li>history</li>
-            <li>Material-UI</li>
+            <div className="react-tech">
+              <p>UseState</p>
+              <p>UseEffect</p>
+              <p>History</p>
+              <p>Material-UI</p>
+            </div>
           </ul>
           <ul className="frontend-phaser">
             <img
@@ -61,10 +66,12 @@ export default function About() {
               className="phaser-icon"
               src="https://i.imgur.com/3Qqo8om.png"
             ></img>
-            <li>Scoring system</li>
-            <li>Physics</li>
-            <li>Animations</li>
-            <li>Multiplayer</li>
+            <div className="phaser-tech">
+              <p>Scoring System</p>
+              <p>Physics</p>
+              <p>Animations</p>
+              <p>Multiplayer</p>
+            </div>
           </ul>
           <h4>Backend:</h4>
           <ul className="Backend-rails">
@@ -73,10 +80,12 @@ export default function About() {
               className="rails-icon"
               src="https://i.imgur.com/ZVILSdf.png"
             ></img>
-            <li>ERD</li>
-            <li>Postgres DB</li>
-            <li>Axios Calls</li>
-            <li>User Authentification</li>
+            <div className="rails-tech">
+              <p>ERD</p>
+              <p>Postgres DB</p>
+              <p>Axios Calls</p>
+              <p>User Authentification</p>
+            </div>
           </ul>
           <ul className="Backend-express">
             <img
@@ -84,19 +93,24 @@ export default function About() {
               className="express-icon"
               src="https://i.imgur.com/EHltlZL.png"
             ></img>
-
-            <li className="socket">Socket IO</li>
+            <div className="express-tech">
+              <p className="socket">Socket IO</p>
+              <p>ExpressJS</p>
+              <p>End-to-End Connection</p>
+              <p>Payload Management</p>
+            </div>
           </ul>
         </div>
         <h4>Key Learnings:</h4>
         <ul className="key-learnings">
-          <li>Version Control</li>
-          <li>Web Sockets</li>
-          <li>Version Control</li>
-          <li>Databases</li>
-          <li>Phaser Game Engine</li>
+          <p>Version Control</p>
+          <p>Web Sockets</p>
+          <p>Version Control</p>
+          <p>Databases</p>
+          <p>Phaser Game Engine</p>
         </ul>
       </div>
     </div>
   );
 }
+
