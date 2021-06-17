@@ -14,7 +14,11 @@ h4 {
   text-align: center;
   background-color: #ffc400;
   color: #482880;
-  font-size: 18px;
+  font-size: 22px;
+}
+
+p {
+  font-size: 20px;
 }
 
 .body {
@@ -23,10 +27,14 @@ h4 {
     flex-direction: column;
 }
 .description {
+
   align-self: center;
 }
 
-
+.picture{
+  width: 100%;
+  justify-content: center;
+}
 .resume {
   width: 75%;
   align-self: center;
@@ -35,10 +43,20 @@ h4 {
 }
 .resume-list {
   font-size: 24px;
+  width: 620px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.express-tech, .rails-tech, .phaser-tech, .react-tech{
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 50px;
+  padding-right: 50px;
 }
+
 .frontend-react, .frontend-phaser, .Backend-rails, .Backend-express {
   font-size: 16px;
   width: 100%;
@@ -47,18 +65,14 @@ h4 {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-right: 5em;
 }
+
+
 .frontend-phaser {
   
   margin-top: 1em;
 }
-.Backend-express {
-  padding-left: 30px;
-  padding-right:30px;
-  margin-top: 1em;
-  justify-content: flex-start;
-}
+
 
 .react-icon, .phaser-icon, .rails-icon, .express-icon{
   height: 10%;
@@ -69,9 +83,7 @@ h4 {
   width: 100%;
   margin-top: 50px;
 }
-.socket {
-  margin-left: 245px;
-}
+
 .key-learnings{
   width:100%;
   padding-right: 5em;
