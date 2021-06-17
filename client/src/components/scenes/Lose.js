@@ -46,7 +46,7 @@ export default class Win extends Phaser.Scene {
     // back to home button
     new Button(width * 0.25, height * 0.8, 2.5, "Back to home", this, () => {
       this.scene.stop("Lose");
-      window.location.replace("http://localhost:3002/");
+      window.location.replace("/");
     });
     this.gameOverText = this.add
       .text(width * 0.5, height * 0.4, `GAME OVER`, {

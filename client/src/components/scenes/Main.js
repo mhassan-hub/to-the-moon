@@ -18,7 +18,7 @@ export default class Main extends Phaser.Scene {
 
   init(data) {
     this.playerScore = 0;
-    this.playerLives = 6;
+    this.playerLives = 4;
     this.invincibility = false;
     this.continiuosShot = false;
     this.disableShot = false;
