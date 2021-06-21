@@ -20,6 +20,8 @@ Following the design principles method of seperation of concerns, we have 2 diff
 
 ![Gameplay](https://github.com/mhassan-hub/to-the-moon/blob/main/screenshots/Screenshot%20from%202021-06-20%2020-26-47.png?raw=true "Gameplay")
 
+![Multiplayer Gameplay](https://github.com/mhassan-hub/to-the-moon/blob/main/screenshots/Screenshot%20from%202021-06-20%2021-28-54.png?raw=true "Multiplayer Gameplay")
+
 ![Game Over Screen](https://github.com/mhassan-hub/to-the-moon/blob/main/screenshots/Screenshot%20from%202021-06-20%2020-27-25.png?raw=true "Game Over Screen")
 
 ![Game Win Screen](https://github.com/mhassan-hub/to-the-moon/blob/main/screenshots/Screenshot%20from%202021-06-20%2020-35-25.png?raw=true "Game Win Screen")
